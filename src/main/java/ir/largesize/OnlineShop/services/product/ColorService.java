@@ -16,7 +16,10 @@ public class ColorService {
     @Autowired
     private ColorRepository repository;
 
+    public List<Color> findAll() {
+      return   repository.findAll();
 
+    }
     public Color getById(long id) {
         Optional<Color> data = repository.findById(id);
         if (data.isPresent()) return data.get();

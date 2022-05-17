@@ -8,16 +8,28 @@ import ir.largesize.OnlineShop.services.product.ColorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/color")
 public class ColorController {
     @Autowired
     private ColorService service;
 
-    @GetMapping("")
+    @GetMapping("/")
+    public ServiceResponse<Color> getAll() {
+        try {
+            List<Color> result = service.findAll();
+            return new ServiceResponse<Color>(ResponseStatus.SUCCESS, result);
+        } catch (Exception e) {
+            return new ServiceResponse<Color>(e);
+        }
+    }
+
+    @GetMapping("/{id}")
     public ServiceResponse<Color> search(@PathVariable long id) {
         try {
-            Color result =service.getById(id);
+            Color result = service.getById(id);
             return new ServiceResponse<Color>(ResponseStatus.SUCCESS, result);
         } catch (Exception e) {
             return new ServiceResponse<Color>(e);

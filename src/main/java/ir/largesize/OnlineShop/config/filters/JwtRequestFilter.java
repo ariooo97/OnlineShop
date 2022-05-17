@@ -1,7 +1,6 @@
 package ir.largesize.OnlineShop.config.filters;
 
 import ir.largesize.OnlineShop.config.JwtTokenUtil;
-import ir.largesize.OnlineShop.entities.people.User;
 import ir.largesize.OnlineShop.helper.Exceptions.JwtTokenException;
 import ir.largesize.OnlineShop.helper.uimodels.people.UserVm;
 import ir.largesize.OnlineShop.services.people.UserService;
@@ -36,7 +35,7 @@ public class JwtRequestFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         try {
-            String url= String.valueOf(((HttpServletRequest) servletRequest).getRequestURL());
+            String url= (((HttpServletRequest) servletRequest).getRequestURI());
             if(excludeUrl.stream().anyMatch(x->url.equals(x))) {
                 filterChain.doFilter(servletRequest, servletResponse);
                 return;
