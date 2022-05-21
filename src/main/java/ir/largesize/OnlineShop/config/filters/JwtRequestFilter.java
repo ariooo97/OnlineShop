@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Component
 public class JwtRequestFilter implements Filter {
@@ -28,14 +29,13 @@ public class JwtRequestFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         excludeUrl=new ArrayList<>();
         excludeUrl.add("/api/user/login");
-
-
+        excludeUrl.add("/api/color/");
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         try {
-            String url= (((HttpServletRequest) servletRequest).getRequestURI());
+            String url= (((HttpServletRequest) servletRequest).getRequestURI().toLowerCase());
             if(excludeUrl.stream().anyMatch(x->url.equals(x))) {
                 filterChain.doFilter(servletRequest, servletResponse);
                 return;

@@ -2,10 +2,12 @@ package ir.largesize.OnlineShop.services.people;
 
 import ir.largesize.OnlineShop.entities.people.User;
 import ir.largesize.OnlineShop.helper.Exceptions.DataNotFoundException;
+import ir.largesize.OnlineShop.helper.utils.SecurityUtils;
 import ir.largesize.OnlineShop.repositories.people.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 @Service
@@ -14,12 +16,24 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    private SecurityUtils securityUtils;
+
     public User auth(String userName, String password) {
-        //ToDo hash password
+        try {
+            password=securityUtils.encryptSHA1(password);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
         return repository.findAllByUserNameAndPassword(userName, password);
+
     }
     public User getByUserName(String userName) {
-        //ToDo hash username
+        try {
+            userName=securityUtils.encryptSHA1(userName);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
         return repository.findAllByUserName(userName);
     }
 
@@ -59,7 +73,12 @@ public class UserService {
     }
 
     public User changePassword(long id, String oldPassword, String newPassword) throws Exception {
-        //ToDo hash passwords
+        try {
+            oldPassword=securityUtils.encryptSHA1(oldPassword);
+            newPassword=securityUtils.encryptSHA1(newPassword);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
         User user = getById(id);
         if (user == null)
             throw new DataNotFoundException("User Not Found!");
