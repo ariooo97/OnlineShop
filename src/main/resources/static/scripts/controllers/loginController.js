@@ -1,12 +1,21 @@
-app.controller("loginCtrl", function ($scope, $http) {
+app.controller("loginCtrl", function ($scope, apiHandler, $cookies) {
     $scope.user = {};
     $scope.doLogin = () => {
-        debugger;
-        console.log($scope.user);
-        $http.post('/api/user/login', $scope.user).then((response) => {
-            debugger;
-        }, (error) => {
-            debugger;
-        });
+
+        apiHandler.callPost(
+            'user/login',
+            $scope.user,
+            (response) => {
+                var token=response.datalist[0].token;
+                $cookies.put("userToken",token);
+                if(token==null || token==""){
+                    alert("invalid token");
+                    return;
+                }
+                $cookies.put("uerToken",token);
+                location.herf="/panel";
+            }, (error) => {
+            });
     }
+
 });
