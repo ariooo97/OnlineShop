@@ -40,7 +40,18 @@ public class UserController {
             return new ServiceResponse<UserVm>(e);
         }
     }
-
+    @GetMapping("/getUserInfo")
+    public ServiceResponse<UserVm> search(@PathVariable String token) {
+        try {
+            if(token==null || token.equals(""))
+                throw new Exception("token is empty");
+            String username=jwtTokenUtil.getUsernameFromToken(token);
+            User result = service.getByUserName(username);
+            return new ServiceResponse<UserVm>(ResponseStatus.SUCCESS, new UserVm(result));
+        } catch (Exception e) {
+            return new ServiceResponse<UserVm>(e);
+        }
+    }
     @PostMapping("/add")
     public ServiceResponse<UserVm> add(@RequestBody User data) {
         try {

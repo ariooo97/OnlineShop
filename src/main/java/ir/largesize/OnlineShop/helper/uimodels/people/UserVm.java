@@ -14,6 +14,7 @@ public class UserVm {
     private boolean enable;
     private UserRoll roll;
     private  String token;
+    private String fullName;
 
     public UserVm(){
 
@@ -26,6 +27,7 @@ public class UserVm {
         setLastName(user.getLastName());
         setRoll(user.getRoll());
         setUserName(user.getUserName());
+        setFullName(getFirstName()+" "+getLastName());
 
 
     }
@@ -108,5 +110,13 @@ public class UserVm {
 
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }
