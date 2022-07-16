@@ -2,6 +2,8 @@ package ir.largesize.OnlineShop.helper.uimodels.people;
 
 import ir.largesize.OnlineShop.entities.people.User;
 import ir.largesize.OnlineShop.enums.UserRoll;
+
+
 //user view model class
 public class UserVm {
     private long id;
@@ -16,10 +18,10 @@ public class UserVm {
     private  String token;
     private String fullName;
 
-    public UserVm(){
+   public UserVm(){
+   }
 
-    }
-    public UserVm(User user){
+    public UserVm( User user){
         setId(user.getId());
         setEmail(user.getEmail());
         setEnable(user.isEnable());

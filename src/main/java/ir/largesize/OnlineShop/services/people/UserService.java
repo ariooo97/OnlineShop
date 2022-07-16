@@ -29,11 +29,11 @@ public class UserService {
 
     }
     public User getByUserName(String userName) {
-        try {
+       /* try {
             userName=securityUtils.encryptSHA1(userName);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-        }
+        }*/
         return repository.findAllByUserName(userName);
     }
 

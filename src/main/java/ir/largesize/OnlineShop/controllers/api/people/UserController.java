@@ -2,12 +2,15 @@ package ir.largesize.OnlineShop.controllers.api.people;
 
 import ir.largesize.OnlineShop.config.JwtTokenUtil;
 import ir.largesize.OnlineShop.entities.people.User;
+import ir.largesize.OnlineShop.helper.Exceptions.JwtTokenException;
 import ir.largesize.OnlineShop.helper.ui.ResponseStatus;
 import ir.largesize.OnlineShop.helper.ui.ServiceResponse;
 import ir.largesize.OnlineShop.helper.uimodels.people.UserVm;
 import ir.largesize.OnlineShop.services.people.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/user")
@@ -41,12 +44,19 @@ public class UserController {
         }
     }
     @GetMapping("/getUserInfo")
-    public ServiceResponse<UserVm> search(@PathVariable String token) {
+    public ServiceResponse<UserVm> getUserInfo(HttpServletRequest request) {
         try {
-            if(token==null || token.equals(""))
-                throw new Exception("token is empty");
-            String username=jwtTokenUtil.getUsernameFromToken(token);
-            User result = service.getByUserName(username);
+            String requestTokenHeader =request.getHeader("Authorization");
+            if(requestTokenHeader==null || !requestTokenHeader.startsWith("Bearer "))
+                throw new JwtTokenException("request token header dose not set");
+
+            String token=requestTokenHeader.substring(7);
+            String userName=jwtTokenUtil.getUserNameFromToken(token);
+
+            if(userName==null)
+                throw new JwtTokenException("username can not resolve");
+
+            User result = service.getByUserName(userName);
             return new ServiceResponse<UserVm>(ResponseStatus.SUCCESS, new UserVm(result));
         } catch (Exception e) {
             return new ServiceResponse<UserVm>(e);
