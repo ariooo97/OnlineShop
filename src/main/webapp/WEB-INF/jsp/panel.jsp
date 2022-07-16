@@ -35,8 +35,14 @@
                     <span>{{user.fullName}}</span>
                 </div>
                 <ul>
-                    <li>
-                        <a href="#">
+                    <li ng-class="{'slide-nav-active':templateGroup=='dashboard'}">
+                        <a href="#" ng-click="changeMenu('dashboard')" >
+                            <i class="fa fa-dashboard"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li ng-class="{'slide-nav-active':templateGroup=='nav'}">
+                        <a href="#" ng-click="changeMenu('nav-list')" >
                             <i class="fa fa-link"></i>
                             <span>Navigations</span>
                         </a>
@@ -81,7 +87,7 @@
             </div>
         </div>
         <div class="col p-0">
-            <div class="main-container "></div>
+            <div class="main-container" ng-include="template"></div>
         </div>
     </div>
 </div>
