@@ -4,6 +4,9 @@ import ir.largesize.OnlineShop.entities.site.Nav;
 import ir.largesize.OnlineShop.helper.Exceptions.DataNotFoundException;
 import ir.largesize.OnlineShop.repositories.site.NavRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,12 @@ public class NavService {
 
     public List<Nav> findAllOrderByItemOrder() {
         return repository.findAllByEnableIsTrue(Sort.by("itemOrder"));
+    }
+
+    public List<Nav> getAll(Integer pageSize, Integer pageNumber) {
+        Pageable page= PageRequest.of(pageNumber,pageSize,Sort.by("itemOrder"));
+        Page<Nav> all = repository.findAll(page);
+        return all.toList();
     }
 
     public Nav getById(long id) {

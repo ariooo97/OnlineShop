@@ -26,6 +26,18 @@ public class NavController {
         }
     }
 
+    @GetMapping("/getAll")
+    public ServiceResponse<Nav> getAll(
+            @RequestParam Integer pageSize,
+            @RequestParam Integer pageNumber) {
+        try {
+            List<Nav> result = service.getAll(pageSize,pageNumber);
+            return new ServiceResponse<Nav>(ResponseStatus.SUCCESS, result);
+        } catch (Exception e) {
+            return new ServiceResponse<Nav>(e);
+        }
+    }
+
     @GetMapping("/{id}")
     public ServiceResponse<Nav> search(@PathVariable long id) {
         try {

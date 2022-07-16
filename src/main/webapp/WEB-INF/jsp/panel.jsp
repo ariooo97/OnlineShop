@@ -10,6 +10,7 @@
     <link href="libs/fontawesome-web/css/all.min.css" rel="stylesheet"/>
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/panelController.js"></script>
+    <script src="scripts/controllers/site/navListController.js"></script>
     <script src="scripts/services/ApiHandler.js"></script>
     <link href="libs/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="styles/panel.css" rel="stylesheet"/>
@@ -47,7 +48,7 @@
                             <span>Navigations</span>
                         </a>
                     </li>
-                    <li>
+                    <li ng-class="{'slide-nav-active':templateGroup=='content'}">
                         <a href="#">
                             <i class="fa fa-file"></i>
                             <span>Content</span>
@@ -59,25 +60,25 @@
                             <span>Sliders</span>
                         </a>
                     </li>
-                    <li>
+                    <li ng-class="{'slide-nav-active':templateGroup=='blog'}">
                         <a href="#">
                             <i class="fa fa-newspaper"></i>
                             <span>Blog</span>
                         </a>
                     </li>
-                    <li>
+                    <li ng-class="{'slide-nav-active':templateGroup=='product'}">
                         <a href="#">
                             <i class="fa fa-cubes-stacked"></i>
                             <span>Products</span>
                         </a>
                     </li>
-                    <li>
+                    <li ng-class="{'slide-nav-active':templateGroup=='user'}">
                         <a href="#">
                             <i class="fa fa-users"></i>
                             <span>Users</span>
                         </a>
                     </li>
-                    <li>
+                    <li ng-class="{'slide-nav-active':templateGroup=='customer'}">
                         <a href="#">
                             <i class="fa fa-shopping-bag"></i>
                             <span>Customers</span>
