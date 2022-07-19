@@ -35,3 +35,7 @@
     min-height: 780px;
     background-color: #ffffff;
 }
+
+.pagination .page-link{
+    cursor: pointer;
+}

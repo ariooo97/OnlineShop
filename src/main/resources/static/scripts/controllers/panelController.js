@@ -31,6 +31,10 @@ app.controller("panelCtrl", function ($scope, apiHandler, $cookies, $rootScope) 
                 return 'views/'+templateName+'.html';
             case 'nav-list':
                 return 'views/site/nav/'+templateName+'.html';
+            case 'nav-add':
+                return 'views/site/nav/'+templateName+'.html';
+            case 'nav-edit':
+                return 'views/site/nav/'+templateName+'.html';
             default:
                 return 'views/dashboard.html';
         }
@@ -38,7 +42,7 @@ app.controller("panelCtrl", function ($scope, apiHandler, $cookies, $rootScope) 
     $scope.getMenuGroup=(templateName)=>{
         if (templateName==='dashboard') {
             return 'dashboard';
-        }else if (templateName==='nav-list' || templateName==='nav-edit' || templateName==='nav-insert'){
+        }else if (templateName==='nav-list' || templateName==='nav-edit' || templateName==='nav-add' || templateName==='nav-edit'){
             return 'nav';
         }else{
             return 'dashboard';

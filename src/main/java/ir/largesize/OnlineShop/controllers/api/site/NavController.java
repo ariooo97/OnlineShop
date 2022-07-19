@@ -32,14 +32,15 @@ public class NavController {
             @RequestParam Integer pageNumber) {
         try {
             List<Nav> result = service.getAll(pageSize,pageNumber);
-            return new ServiceResponse<Nav>(ResponseStatus.SUCCESS, result);
+            long totalCount=service.getAllCount();
+            return new ServiceResponse<Nav>(ResponseStatus.SUCCESS, result,totalCount);
         } catch (Exception e) {
             return new ServiceResponse<Nav>(e);
         }
     }
 
     @GetMapping("/{id}")
-    public ServiceResponse<Nav> search(@PathVariable long id) {
+    public ServiceResponse<Nav> getById(@PathVariable long id) {
         try {
             Nav result = service.getById(id);
             return new ServiceResponse<Nav>(ResponseStatus.SUCCESS, result);

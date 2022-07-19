@@ -3,6 +3,7 @@ package ir.largesize.OnlineShop.services.site;
 import ir.largesize.OnlineShop.entities.site.Nav;
 import ir.largesize.OnlineShop.helper.Exceptions.DataNotFoundException;
 import ir.largesize.OnlineShop.repositories.site.NavRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,9 +24,14 @@ public class NavService {
     }
 
     public List<Nav> getAll(Integer pageSize, Integer pageNumber) {
-        Pageable page= PageRequest.of(pageNumber,pageSize,Sort.by("itemOrder"));
+        Pageable page = PageRequest.of(pageNumber, pageSize, Sort.by("itemOrder"));
         Page<Nav> all = repository.findAll(page);
         return all.toList();
+    }
+
+    public long getAllCount() {
+
+        return repository.count();
     }
 
     public Nav getById(long id) {
@@ -34,7 +40,14 @@ public class NavService {
         return null;
     }
 
-    public Nav add(Nav data) {
+    public Nav add(@NotNull Nav data) throws Exception {
+        if (data.getTitle() == null || data.getTitle().equals(""))
+            throw new Exception("Pleas Enter Title");
+        if (data.getLink() == null || data.getLink().equals(""))
+            throw new Exception("Pleas Enter Link");
+       Nav lastItem=repository.findTopByOrderByItemOrderDesc();
+       if(lastItem!=null || lastItem.getItemOrder()>0)
+           data.setItemOrder(lastItem.getItemOrder()+1);
         return repository.save(data);
     }
 

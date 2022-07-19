@@ -2,6 +2,7 @@ package ir.largesize.OnlineShop.helper.uimodels.people;
 
 import ir.largesize.OnlineShop.entities.people.User;
 import ir.largesize.OnlineShop.enums.UserRoll;
+import org.jetbrains.annotations.NotNull;
 
 
 //user view model class
@@ -21,7 +22,7 @@ public class UserVm {
    public UserVm(){
    }
 
-    public UserVm( User user){
+    public UserVm(@NotNull User user){
         setId(user.getId());
         setEmail(user.getEmail());
         setEnable(user.isEnable());

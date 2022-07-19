@@ -7,10 +7,14 @@
     <script src="libs/angular.min.js"></script>
     <script src="libs/jquery.min.js"></script>
     <script src="libs/angular-cookies.js"></script>
+    <script src="libs/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="libs/sweetalert2/dist/sweetalert2.min.css">
     <link href="libs/fontawesome-web/css/all.min.css" rel="stylesheet"/>
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/panelController.js"></script>
     <script src="scripts/controllers/site/navListController.js"></script>
+    <script src="scripts/controllers/site/navAddController.js"></script>
+    <script src="scripts/controllers/site/navEditController.js"></script>
     <script src="scripts/services/ApiHandler.js"></script>
     <link href="libs/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="styles/panel.css" rel="stylesheet"/>
