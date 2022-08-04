@@ -1,3 +1,18 @@
+.color-red{
+    color:#EB4435;
+    }
+.color-blue{
+    color: #0b5ed7;
+}
+.color-yellow{
+    color: #f6bb20;
+}
+.color-green{
+    color: #07c007;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
 .panel-header{
     background-color: white;
     border-bottom: 1px solid #aaa;

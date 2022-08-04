@@ -25,7 +25,7 @@ public class UserController {
     public ServiceResponse<UserVm> login(@RequestBody User user) {
         User userData = service.auth(user.getUserName(), user.getPassword());
         if (userData == null)
-            return new ServiceResponse<UserVm>(ResponseStatus.FAILED, "username And password Incorrect");
+            return new ServiceResponse<UserVm>(ResponseStatus.FAILED, "Username And Password Incorrect");
 
         UserVm userVm = new UserVm(userData);
         String token=jwtTokenUtil.generateToken(userVm);

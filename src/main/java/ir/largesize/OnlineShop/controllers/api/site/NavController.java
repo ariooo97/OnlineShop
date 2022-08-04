@@ -48,7 +48,15 @@ public class NavController {
             return new ServiceResponse<Nav>(e);
         }
     }
-
+    @PostMapping("/changeOrder/{id}/{direction}")
+    public ServiceResponse<Nav> changeOrder(@PathVariable long id, @PathVariable int direction) {
+        try {
+            Nav result = service.changeOrder(id,direction);
+            return new ServiceResponse<Nav>(ResponseStatus.SUCCESS, result);
+        } catch (Exception e) {
+            return new ServiceResponse<Nav>(e);
+        }
+    }
     @PostMapping("/add")
     public ServiceResponse<Nav> add(@RequestBody Nav data) {
         try {

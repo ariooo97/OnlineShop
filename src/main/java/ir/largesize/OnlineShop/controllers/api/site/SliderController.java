@@ -1,6 +1,7 @@
 package ir.largesize.OnlineShop.controllers.api.site;
 
 
+import ir.largesize.OnlineShop.entities.site.Nav;
 import ir.largesize.OnlineShop.entities.site.Slider;
 import ir.largesize.OnlineShop.helper.ui.ResponseStatus;
 import ir.largesize.OnlineShop.helper.ui.ServiceResponse;
@@ -25,7 +26,17 @@ public class SliderController {
             return new ServiceResponse<Slider>(e);
         }
     }
-
+    @GetMapping("/getAll")
+    public ServiceResponse<Slider> getAll(
+            @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {
+        try {
+            List<Slider> result = service.getAll(pageSize,pageNumber);
+            long totalCount=service.getAllCount();
+            return new ServiceResponse<Slider>(ResponseStatus.SUCCESS, result,totalCount);
+        } catch (Exception e) {
+            return new ServiceResponse<Slider>(e);
+        }
+    }
     @GetMapping("/{id}")
     public ServiceResponse<Slider> search(@PathVariable long id) {
         try {
@@ -35,7 +46,15 @@ public class SliderController {
             return new ServiceResponse<Slider>(e);
         }
     }
-
+    @PostMapping("/changeOrder/{id}/{direction}")
+    public ServiceResponse<Slider> changeOrder(@PathVariable long id, @PathVariable int direction) {
+        try {
+            Slider result = service.changeOrder(id,direction);
+            return new ServiceResponse<Slider>(ResponseStatus.SUCCESS, result);
+        } catch (Exception e) {
+            return new ServiceResponse<Slider>(e);
+        }
+    }
     @PostMapping("/add")
     public ServiceResponse<Slider> add(@RequestBody Slider data) {
         try {

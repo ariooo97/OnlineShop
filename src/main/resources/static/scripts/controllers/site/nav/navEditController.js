@@ -3,15 +3,27 @@ app.controller('navEditCrtl', function ($scope, apiHandler, $rootScope) {
     $scope.id = $rootScope.dataId;
     $scope.editData = () => {
         if ($scope.data.title == undefined || $scope.data.title == null || $scope.data.title == "") {
-            alert('Please enter title!');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Please enter title!'
+            })
             return;
         }
         if ($scope.data.link == undefined || $scope.data.link == null || $scope.data.link == "") {
-            alert('Please enter link!');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text:'Please enter link!'
+            })
             return;
         }
         if ($scope.data.enable == undefined || $scope.data.enable == null) {
-            alert('Please set enable!');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Please set enable!'
+            })
             return;
         }
         apiHandler.callPut('nav/', $scope.data, (response) => {

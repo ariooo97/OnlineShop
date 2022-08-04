@@ -40,14 +40,52 @@ public class NavService {
         return null;
     }
 
+    public Nav changeOrder(long id, int direction) throws Exception {
+        Nav item = getById(id);
+        if (item == null)
+            throw new Exception("item not found!");
+        switch (direction) {
+            case 1:
+                //up
+                if (item.getItemOrder() <= 1)
+                    return item;
+                Nav siblingItem = repository.findTopByItemOrder(item.getItemOrder() - 1);
+                if (siblingItem == null)
+                    item.setItemOrder(item.getItemOrder() - 1);
+                else {
+                    item.setItemOrder(siblingItem.getItemOrder());
+                    siblingItem.setItemOrder(item.getItemOrder() + 1);
+                    repository.save(siblingItem);
+                }
+                break;
+            case 0:
+                //down
+                Nav siblingItem2 = repository.findTopByItemOrder(item.getItemOrder() + 1);
+                if (siblingItem2 == null) {
+                    Nav lastOrderItem = repository.findTopByOrderByItemOrderDesc();
+                    if (item.getItemOrder() < lastOrderItem.getItemOrder())
+                        item.setItemOrder(item.getItemOrder() + 1);
+                } else {
+                    item.setItemOrder(siblingItem2.getItemOrder());
+                    siblingItem2.setItemOrder(item.getItemOrder() - 1);
+                    repository.save(siblingItem2);
+                }
+                break;
+        }
+        repository.save(item);
+        return item;
+    }
+
     public Nav add(@NotNull Nav data) throws Exception {
         if (data.getTitle() == null || data.getTitle().equals(""))
             throw new Exception("Pleas Enter Title");
         if (data.getLink() == null || data.getLink().equals(""))
             throw new Exception("Pleas Enter Link");
-       Nav lastItem=repository.findTopByOrderByItemOrderDesc();
-       if(lastItem!=null || lastItem.getItemOrder()>0)
-           data.setItemOrder(lastItem.getItemOrder()+1);
+        Nav lastItem = repository.findTopByOrderByItemOrderDesc();
+        if (lastItem != null && lastItem.getItemOrder() > 0)
+            data.setItemOrder(lastItem.getItemOrder() + 1);
+        else
+            data.setItemOrder(1);
         return repository.save(data);
     }
 

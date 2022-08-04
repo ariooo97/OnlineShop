@@ -11,4 +11,5 @@ import java.util.List;
 public interface NavRepository extends PagingAndSortingRepository<Nav,Long> {
     List<Nav> findAllByEnableIsTrue(Sort sort);
     Nav findTopByOrderByItemOrderDesc();
+    Nav findTopByItemOrder(int itemOrder);
 }

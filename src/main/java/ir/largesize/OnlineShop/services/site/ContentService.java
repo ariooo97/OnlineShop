@@ -1,11 +1,17 @@
 package ir.largesize.OnlineShop.services.site;
 
 import ir.largesize.OnlineShop.entities.site.Content;
+import ir.largesize.OnlineShop.entities.site.Content;
 import ir.largesize.OnlineShop.helper.Exceptions.DataNotFoundException;
 import ir.largesize.OnlineShop.repositories.site.ContentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,7 +28,16 @@ public class ContentService {
         if (data.isPresent()) return data.get();
         return null;
     }
+    public List<Content> getAll(Integer pageSize, Integer pageNumber) {
+        Pageable page = PageRequest.of(pageNumber, pageSize, Sort.by("id"));
+        Page<Content> all = repository.findAll(page);
+        return all.toList();
+    }
 
+    public long getAllCount() {
+
+        return repository.count();
+    }
     public Content add(Content data) {
         return repository.save(data);
     }

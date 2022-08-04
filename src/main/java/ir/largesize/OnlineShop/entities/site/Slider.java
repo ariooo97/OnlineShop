@@ -14,9 +14,9 @@ public class Slider {
     private String link;
     private String image;
     private String description;
-    @Column(nullable = true,name = "item_order")
-    private Integer orderItem;
+    private int itemOrder;
     private boolean enable;
+
     public long getId() {
         return id;
     }
@@ -57,12 +57,12 @@ public class Slider {
         this.description = description;
     }
 
-    public Integer getOrderItem() {
-        return orderItem;
+    public int getItemOrder() {
+        return itemOrder;
     }
 
-    public void setOrderItem(Integer order) {
-        this.orderItem = order;
+    public void setItemOrder(int itemOrder) {
+        this.itemOrder = itemOrder;
     }
 
     public boolean isEnable() {

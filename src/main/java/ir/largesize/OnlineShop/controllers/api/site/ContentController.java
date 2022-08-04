@@ -2,6 +2,7 @@ package ir.largesize.OnlineShop.controllers.api.site;
 
 
 import ir.largesize.OnlineShop.entities.site.Content;
+import ir.largesize.OnlineShop.entities.site.Content;
 import ir.largesize.OnlineShop.helper.ui.ResponseStatus;
 import ir.largesize.OnlineShop.helper.ui.ServiceResponse;
 import ir.largesize.OnlineShop.services.site.ContentService;
@@ -21,6 +22,18 @@ public class ContentController {
         try {
             Content result = service.findByKey(key);
             return new ServiceResponse<Content>(ResponseStatus.SUCCESS, result);
+        } catch (Exception e) {
+            return new ServiceResponse<Content>(e);
+        }
+    }
+    @GetMapping("/getAll")
+    public ServiceResponse<Content> getAll(
+            @RequestParam Integer pageSize,
+            @RequestParam Integer pageNumber) {
+        try {
+            List<Content> result = service.getAll(pageSize,pageNumber);
+            long totalCount=service.getAllCount();
+            return new ServiceResponse<Content>(ResponseStatus.SUCCESS, result,totalCount);
         } catch (Exception e) {
             return new ServiceResponse<Content>(e);
         }

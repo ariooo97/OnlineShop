@@ -1,0 +1,46 @@
+<div ng-controller="contentListCrtl">
+    <div class="container  p-3">
+        <div class="row">
+            <div class="col">
+                <h1>content List</h1>
+                <a class="btn btn-sm btn-primary float-end" ng-click="changeMenu('content-add')">Add New +</a>
+                <br/>
+                <br/>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">key</th>
+                        <!--<th scope="col">value</th>-->
+                        <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="data in dataList">
+                        <th scope="row">{{$index + 1}}</th>
+                        <td>{{data.key}}</td>
+                        <!--<td>{{smallSubStr(data.value)}}</td> -->
+                        <td>
+                            <a ng-click="editItem(data.id)"><i class="fa fa-edit color-green cursor-pointer"></i></a>
+                            <a ng-click="deleteItem(data.id)"><i class="fa fa-times color-red cursor-pointer"></i></a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <br/>
+                <div>
+                    <nav>
+                        <ul class="pagination pagination-sm">
+                            <li ng-repeat="i in range(pageCount) track by $index" class="page-item"
+                                aria-current="page">
+                                <span class="page-link" ng-click="changePage($index)">{{($index + 1)}}</span>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -10,17 +10,27 @@
     <script src="libs/sweetalert2/dist/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="libs/sweetalert2/dist/sweetalert2.min.css">
     <link href="libs/fontawesome-web/css/all.min.css" rel="stylesheet"/>
+    <link href="libs/textAngular-1.5.16/dist/textAngular.css" rel="stylesheet"/>
+    <script src="libs/textAngular-1.5.16/dist/textAngular-rangy.min.js"></script>
+    <script src="libs/textAngular-1.5.16/dist/textAngular-sanitize.min.js"></script>
+    <script src="libs/textAngular-1.5.16/dist/textAngular.min.js"></script>
     <script src="scripts/app.js"></script>
+    <script src="scripts/directives/fileModel.js"></script>
+    <script src="scripts/controllers/util/uploadFileController.js"></script>
+    <script src="scripts/controllers/util/getFileController.js"></script>
     <script src="scripts/controllers/panelController.js"></script>
-    <script src="scripts/controllers/site/navListController.js"></script>
-    <script src="scripts/controllers/site/navAddController.js"></script>
-    <script src="scripts/controllers/site/navEditController.js"></script>
+    <script src="scripts/controllers/site/nav/navListController.js"></script>
+    <script src="scripts/controllers/site/nav/navAddController.js"></script>
+    <script src="scripts/controllers/site/nav/navEditController.js"></script>
+    <script src="scripts/controllers/site/content/contentListController.js"></script>
+    <script src="scripts/controllers/site/content/contentAddController.js"></script>
+    <script src="scripts/controllers/site/content/contentEditController.js"></script>
+    <script src="scripts/controllers/site/slider/sliderListController.js"></script>
+    <script src="scripts/controllers/site/slider/sliderAddController.js"></script>
     <script src="scripts/services/ApiHandler.js"></script>
     <link href="libs/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="styles/panel.css" rel="stylesheet"/>
     <script src="libs/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
-
-
 </head>
 <body ng-app="onlineShopApp">
 <div class="container-fluid" ng-controller="panelCtrl">
@@ -41,25 +51,25 @@
                 </div>
                 <ul>
                     <li ng-class="{'slide-nav-active':templateGroup=='dashboard'}">
-                        <a href="#" ng-click="changeMenu('dashboard')" >
+                        <a href="#" ng-click="changeMenu('dashboard')">
                             <i class="fa fa-dashboard"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
                     <li ng-class="{'slide-nav-active':templateGroup=='nav'}">
-                        <a href="#" ng-click="changeMenu('nav-list')" >
+                        <a href="#" ng-click="changeMenu('nav-list')">
                             <i class="fa fa-link"></i>
                             <span>Navigations</span>
                         </a>
                     </li>
                     <li ng-class="{'slide-nav-active':templateGroup=='content'}">
-                        <a href="#">
+                        <a href="#" ng-click="changeMenu('content-list')">
                             <i class="fa fa-file"></i>
                             <span>Content</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
+                    <li ng-class="{'slide-nav-active':templateGroup=='slider'}">
+                        <a href="#" ng-click="changeMenu('slider-list')">
                             <i class="fa fa-photo-video"></i>
                             <span>Sliders</span>
                         </a>
@@ -86,6 +96,12 @@
                         <a href="#">
                             <i class="fa fa-shopping-bag"></i>
                             <span>Customers</span>
+                        </a>
+                    </li>
+                    <li ng-class="{'slide-nav-active':templateGroup=='uploader'}">
+                        <a href="#" ng-click="changeMenu('uploader')">
+                            <i class="fa fa-file"></i>
+                            <span>File Manager</span>
                         </a>
                     </li>
                 </ul>

@@ -31,14 +31,14 @@ public class JwtRequestFilter implements Filter {
         excludeUrl = new ArrayList<>();
         excludeUrl.add("/api/user/login");
         excludeUrl.add("/api/color/");
-
+        excludeUrl.add("/api/utils/upload/files/");
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         try {
             String url = (((HttpServletRequest) servletRequest).getRequestURI().toLowerCase());
-            if (excludeUrl.stream().anyMatch(x -> url.equals(x))) {
+            if (excludeUrl.stream().anyMatch(x -> url.startsWith(x))) {
                 filterChain.doFilter(servletRequest, servletResponse);
                 return;
             }

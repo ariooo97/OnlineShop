@@ -16,14 +16,28 @@ app.service("apiHandler", function ($http, $cookies) {
                 if (result.status == "SUCCESS") {
                     onSuccess(result);
                 } else if (result.status == "hasError") {
-                    alert(result.message);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: result.message
+                    })
+
                 } else {
-                    alert("unknown error !!!");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'unknown error (checkAndSetToken) !!!'
+                    })
                 }
             }
             debugger;
         }, (err) => {
-            alert("Exception");
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Exception on server'
+            })
+
             onError(err);
         });
     }
@@ -42,13 +56,28 @@ app.service("apiHandler", function ($http, $cookies) {
                     onSuccess(result);
 
                 } else if (result.hasError) {
-                    alert(result.message);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: result.message
+                    })
+
                 } else {
-                    alert("unknown error !!!");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'unknown error (call post)!!!'
+                    })
+
                 }
             }
         }, (err) => {
-            alert("Exception");
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Exception on server!!!'
+            })
+
             onError(err);
         });
     }
@@ -68,13 +97,28 @@ app.service("apiHandler", function ($http, $cookies) {
                     onSuccess(result);
 
                 } else if (result.status == "hasError") {
-                    alert(result.message);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: result.message
+                    })
+
                 } else {
-                    alert("unknown error !!!");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'unknown error!!!'
+                    })
+
                 }
             }
         }, (err) => {
-            alert("Exception");
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Exception'
+            })
+
             onError(err);
         });
     }
@@ -93,13 +137,27 @@ app.service("apiHandler", function ($http, $cookies) {
                     onSuccess(result);
 
                 } else if (result.status == "hasError") {
-                    alert(result.message);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: result.message
+                    })
+
                 } else {
-                    alert("unknown error !!!");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'unknown error!!!'
+                    })
                 }
             }
         }, (err) => {
-            alert("Exception");
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Exception'
+            })
+
             onError(err);
         });
     }
@@ -111,4 +169,7 @@ app.service("apiHandler", function ($http, $cookies) {
             };
         }
     }
-})
+});
+
+
+

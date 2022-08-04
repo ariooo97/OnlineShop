@@ -28,8 +28,10 @@
                         </td>
                         <td>{{data.itemOrder}}</td>
                         <td>
-                            <a ng-click="editItem(data.id)"><i class="fa fa-edit"></i> </a>
-                            <a ng-click="deleteItem(data.id)"><i class="fa fa-times"></i> </a>
+                            <a ng-click="editItem(data.id)"><i class="fa fa-edit color-green cursor-pointer" ></i></a>
+                            <a ng-click="deleteItem(data.id)"><i class="fa fa-times color-red cursor-pointer" ></i></a>
+                            <a ng-click="changeOrder(data.id,1)"><i class="fa fa-arrow-up color-yellow cursor-pointer"></i></a>
+                            <a ng-click="changeOrder(data.id,0)"><i class="fa fa-arrow-down color-blue cursor-pointer"></i></a>
                         </td>
                     </tr>
 

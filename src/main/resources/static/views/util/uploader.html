@@ -1,0 +1,59 @@
+<div class="container  p-3">
+    <div class="row">
+        <div class="col">
+            <h1>File Manager</h1>
+           <!-- <div ng-include="'views/util/fileUploader.html'"/>-->
+            <hr>
+            <div ng-controller="UploadFileController">
+                <form class="row"  style="border:1px solid #ccc;padding: 25px; margin:20px">
+                    <div class="col-5" ng-hide="true">
+                        <span>Description : </span><input type="text" name="description" ng-model="myForm.description" style="width:300px;"/>
+                    </div>
+                    <div class="col">
+                        <span> File to upload :</span> <input type="file" file-model="myForm.file"/>
+                        <button type="button" class="btn btn-success" ng-click="doUploadFile()">Upload</button>
+                    </div>
+                </form>
+                <h2>Upload Results:</h2>
+                <div style="border:1px solid #ccc;padding: 5px;">
+                    <span ng-bind="uploadResult"></span>
+                </div>
+            </div>
+            <!-- Get Files -->
+            <hr>
+            <div ng-controller="GetFilesController">
+                <button type="button" class="btn btn-primary" ng-click="getAllFiles()">Get All Files</button>
+                <br/>
+                <br/>
+                <table class="table table-striped" ng-show="showTable">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="file in allFiles">
+                        <th scope="row">{{$index + 1}}</th>
+                        <td>
+                            <img src="/api/utils/upload/files/{{file}}" width="60"/>
+                        </td>
+                        <td>
+                            <a href='/api/utils/upload/files/{{file}}'>{{file}}</a>
+                        </td>
+
+                        <td>{{data.itemOrder}}</td>
+                        <td>
+
+                            <a ng-click="deleteItem(file)"><i class="fa fa-times color-red cursor-pointer"></i></a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
