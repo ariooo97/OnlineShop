@@ -1,5 +1,4 @@
 package ir.largesize.OnlineShop.controllers.api.utils;
-
 import ir.largesize.OnlineShop.helper.ui.ResponseStatus;
 import ir.largesize.OnlineShop.helper.ui.ServiceResponse;
 import ir.largesize.OnlineShop.helper.uimodels.people.UploadForm;
@@ -10,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -19,7 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
+
 
 @RestController()
 @RequestMapping("/api/utils/upload")
@@ -80,9 +78,9 @@ public class UploadController {
     // @filename: abc.zip,..
     @GetMapping("/files/{filename:.+}")
     public ResponseEntity<Resource> getFile(@PathVariable String filename) throws MalformedURLException {
-        File file = null;
+        File file =null;
         if (filename.toLowerCase().startsWith(UPLOAD_DIR.toLowerCase())) {
-            file = new File(filename);
+               file = new File(filename);
         }else {
             file = new File(UPLOAD_DIR+"/"+filename);
         }

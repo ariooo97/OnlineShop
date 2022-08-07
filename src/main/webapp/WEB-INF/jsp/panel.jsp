@@ -14,6 +14,8 @@
     <script src="libs/textAngular-1.5.16/dist/textAngular-rangy.min.js"></script>
     <script src="libs/textAngular-1.5.16/dist/textAngular-sanitize.min.js"></script>
     <script src="libs/textAngular-1.5.16/dist/textAngular.min.js"></script>
+    <script src="libs/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
+    <link href="libs/bootstrap-5.1.3-dist/css/bootstrap.css" rel="stylesheet"/>
     <script src="scripts/app.js"></script>
     <script src="scripts/directives/fileModel.js"></script>
     <script src="scripts/controllers/util/uploadFileController.js"></script>
@@ -27,10 +29,18 @@
     <script src="scripts/controllers/site/content/contentEditController.js"></script>
     <script src="scripts/controllers/site/slider/sliderListController.js"></script>
     <script src="scripts/controllers/site/slider/sliderAddController.js"></script>
+    <script src="scripts/controllers/site/slider/sliderEditController.js"></script>
+    <script src="scripts/controllers/site/blog/blogListController.js"></script>
+    <script src="scripts/controllers/site/blog/blogAddController.js"></script>
+    <script src="scripts/controllers/site/blog/blogEditController.js"></script>
+    <script src="scripts/controllers/people/users/userListController.js"></script>
+    <script src="scripts/controllers/people/users/userAddController.js"></script>
+    <script src="scripts/controllers/people/users/userEditController.js"></script>
+    <script src="scripts/controllers/products/category/categoryListController.js"></script>
+    <script src="scripts/controllers/products/category/categoryAddController.js"></script>
+    <script src="scripts/controllers/products/category/categoryEditController.js"></script>
     <script src="scripts/services/ApiHandler.js"></script>
-    <link href="libs/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="styles/panel.css" rel="stylesheet"/>
-    <script src="libs/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
 </head>
 <body ng-app="onlineShopApp">
 <div class="container-fluid" ng-controller="panelCtrl">
@@ -75,19 +85,19 @@
                         </a>
                     </li>
                     <li ng-class="{'slide-nav-active':templateGroup=='blog'}">
-                        <a href="#">
+                        <a href="#" ng-click="changeMenu('blog-list')">
                             <i class="fa fa-newspaper"></i>
                             <span>Blog</span>
                         </a>
                     </li>
                     <li ng-class="{'slide-nav-active':templateGroup=='product'}">
-                        <a href="#">
+                        <a href="#" ng-click="changeMenu('category-list')">
                             <i class="fa fa-cubes-stacked"></i>
                             <span>Products</span>
                         </a>
                     </li>
                     <li ng-class="{'slide-nav-active':templateGroup=='user'}">
-                        <a href="#">
+                        <a href="#"  ng-click="changeMenu('user-list')">
                             <i class="fa fa-users"></i>
                             <span>Users</span>
                         </a>

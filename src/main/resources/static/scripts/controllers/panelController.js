@@ -26,18 +26,6 @@ app.controller("panelCtrl", function ($scope, apiHandler, $cookies, $rootScope) 
         $scope.templateGroup = $scope.getMenuGroup(templateName);
     }
     $scope.getMenuPrefix = (templateName) => {
-        /*  switch (templateName){
-              case 'dashboard':
-                  return 'views/'+templateName+'.html';
-              case 'nav-list':
-                  return 'views/site/nav/'+templateName+'.html';
-              case 'nav-add':
-                  return 'views/site/nav/'+templateName+'.html';
-              case 'nav-edit':
-                  return 'views/site/nav/'+templateName+'.html';
-              default:
-                  return 'views/dashboard.html';
-          }*/
         if (templateName === 'dashboard') {
             return 'views' + templateName + '.html';
         } else if (templateName === 'nav-list' || templateName === 'nav-edit' || templateName === 'nav-add') {
@@ -46,23 +34,45 @@ app.controller("panelCtrl", function ($scope, apiHandler, $cookies, $rootScope) 
             return 'views/site/content/' + templateName + '.html';
         } else if (templateName === 'slider-list' || templateName === 'slider-edit' || templateName === 'slider-add') {
             return 'views/site/slider/' + templateName + '.html';
-        } else if (templateName === 'uploader') {
+        } else if (templateName === 'blog-list' || templateName === 'blog-edit' || templateName === 'blog-add') {
+            return 'views/site/blog/' + templateName + '.html';
+        } else if (templateName === 'user-list' || templateName === 'user-edit' || templateName === 'user-add') {
+            return 'views/people/users/' + templateName + '.html';
+        } else if (templateName === 'category-list' || templateName === 'category-edit' || templateName === 'category-add') {
+            return 'views/products/category/' + templateName + '.html';
+        }  else if (templateName === 'color-list' || templateName === 'color-edit' || templateName === 'color-add') {
+            return 'views/products/color/' + templateName + '.html';
+        }else if (templateName === 'size-list' || templateName === 'size-edit' || templateName === 'size-add') {
+            return 'views/products/size/' + templateName + '.html';
+        } else if (templateName === 'product-list' || templateName === 'product-edit' || templateName === 'product-add') {
+            return 'views/products/product/' + templateName + '.html';
+        }else if (templateName === 'uploader') {
             return 'views/util/' + templateName + '.html';
         }
     }
     $scope.getMenuGroup = (templateName) => {
         if (templateName === 'dashboard') {
             return 'dashboard';
-        } else if (templateName === 'nav-list' || templateName === 'nav-edit' || templateName === 'nav-add' || templateName === 'nav-edit') {
+        } else if (templateName === 'nav-list' || templateName === 'nav-edit' || templateName === 'nav-add') {
             return 'nav';
-        } else if (templateName === 'content-list' || templateName === 'content-edit' || templateName === 'content-add' || templateName === 'content-edit') {
+        } else if (templateName === 'content-list' || templateName === 'content-edit' || templateName === 'content-add') {
             return 'content';
-        }    else if (templateName === 'slider-list' || templateName === 'slider-edit' || templateName === 'slider-add' || templateName === 'slider-edit') {
-        return 'slider';
-    }   else if (templateName === 'uploader') {
-        return 'uploader';
-    }
-        else {
+        } else if (templateName === 'slider-list' || templateName === 'slider-edit' || templateName === 'slider-add') {
+            return 'slider';
+        } else if (templateName === 'blog-list' || templateName === 'blog-edit' || templateName === 'blog-add') {
+            return 'blog';
+        } else if (templateName === 'user-list' || templateName === 'user-edit' || templateName === 'user-add') {
+            return 'user';
+        } else if (templateName === 'product-list' || templateName === 'product-edit'
+            || templateName === 'product-add' || templateName === 'size-list'
+            || templateName === 'size-edit' || templateName === 'size-add'
+            || templateName === 'color-list' || templateName === 'color-edit'
+            || templateName === 'color-add' || templateName === 'category-list'
+            || templateName === 'category-edit' || templateName === 'category-add') {
+            return 'product';
+        } else if (templateName === 'uploader') {
+            return 'uploader';
+        } else {
             return 'dashboard';
 
         }

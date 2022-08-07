@@ -1,6 +1,6 @@
 package ir.largesize.OnlineShop.enums;
 
-public enum UserRoll {
+public enum UserRole {
     ADMIN,
     USER
 }

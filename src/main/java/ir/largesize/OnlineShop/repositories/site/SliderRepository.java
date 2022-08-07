@@ -1,7 +1,6 @@
 package ir.largesize.OnlineShop.repositories.site;
 
 import ir.largesize.OnlineShop.entities.site.Slider;
-import ir.largesize.OnlineShop.entities.site.Slider;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;

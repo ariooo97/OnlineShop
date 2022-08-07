@@ -4877,7 +4877,15 @@ textarea.form-control-lg {
 .badge:empty {
   display: none;
 }
-
+.badge.badge-success {
+  background-color: #07C007;
+}
+.badge.badge-danger {
+  background-color: #EB4435;
+}
+.badge.badge-list {
+  background-color: #3553eb;
+}
 .btn .badge {
   position: relative;
   top: -1px;

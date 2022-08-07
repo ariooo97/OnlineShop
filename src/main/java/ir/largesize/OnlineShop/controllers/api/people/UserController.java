@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -32,6 +34,20 @@ public class UserController {
         userVm.setToken(token);
         return new ServiceResponse<UserVm>(ResponseStatus.SUCCESS, userVm);
 
+    }
+    @GetMapping("/getAll")
+    public ServiceResponse<UserVm> getAll(
+            @RequestParam Integer pageSize,
+            @RequestParam Integer pageNumber) {
+        try {
+            List<User> result = service.getAll(pageSize,pageNumber);
+            List<UserVm> resultVm=new ArrayList<>();
+            result.stream().forEach(x->resultVm.add(new UserVm(x)));
+            long totalCount=service.getAllCount();
+            return new ServiceResponse<UserVm>(ResponseStatus.SUCCESS, resultVm,totalCount);
+        } catch (Exception e) {
+            return new ServiceResponse<UserVm>(e);
+        }
     }
 
      @GetMapping("/{id}")
@@ -65,7 +81,9 @@ public class UserController {
     @PostMapping("/add")
     public ServiceResponse<UserVm> add(@RequestBody User data) {
         try {
+
             User result = service.add(data);
+
             return new ServiceResponse<UserVm>(ResponseStatus.SUCCESS, new UserVm(result));
         } catch (Exception e) {
             return new ServiceResponse<UserVm>(e);

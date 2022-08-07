@@ -1,7 +1,6 @@
 package ir.largesize.OnlineShop.entities.people;
 
-import ir.largesize.OnlineShop.enums.UserRoll;
-
+import ir.largesize.OnlineShop.enums.UserRole;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,7 +18,7 @@ public class User {
     private String password;
     private String email;
     private boolean enable;
-    private UserRoll roll;
+    private UserRole role;
 
     public long getId() {
         return id;
@@ -70,12 +69,12 @@ public class User {
     }
 
 
-    public UserRoll getRoll() {
-        return roll;
+    public UserRole getRole() {
+        return role;
     }
 
-    public void setRoll(UserRoll roll) {
-        this.roll = roll;
+    public void setRole(UserRole roll) {
+        this.role = roll;
     }
 
     public boolean isEnable() {

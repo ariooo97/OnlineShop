@@ -1,37 +1,39 @@
-<div ng-controller="navListCrtl">
+<div ng-controller="blogListCrtl">
     <div class="container  p-3">
         <div class="row">
             <div class="col">
-                <h1><span class="badge  badge-list">Navigation List</span></h1>
-                              <a class="btn btn-sm btn-primary float-end" ng-click="changeMenu('nav-add')">Add New +</a>
+                <h1><span class="badge  badge-list">Blog List</span></h1>
+                <a class="btn btn-sm btn-primary float-end" ng-click="changeMenu('blog-add')">Add New +</a>
                 <br/>
                 <br/>
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Image</th>
                         <th scope="col">Title</th>
-                        <th scope="col">Link</th>
-                        <th scope="col">Enable</th>
-                        <th scope="col">Order</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">VisitCount</th>
+                        <th scope="col">Published</th>
                         <th scope="col">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="data in dataList">
                         <th scope="row">{{$index + 1}}</th>
-                        <td>{{data.title}}</td>
-                        <td>{{data.link}}</td>
                         <td>
-                            <i class="fa fa-check" ng-show="data.enable"></i>
-                            <i class="fa fa-times" ng-show="!data.enable"></i>
+                            <img width="60" src="/api/utils/upload/files/{{data.image}}"/>
                         </td>
-                        <td>{{data.itemOrder}}</td>
+                        <td>{{data.title}} ({{data.subtitle}})</td>
                         <td>
-                            <a ng-click="editItem(data.id)"><i class="fa fa-edit color-green cursor-pointer" ></i></a>
-                            <a ng-click="deleteItem(data.id)"><i class="fa fa-times color-red cursor-pointer" ></i></a>
-                            <a ng-click="changeOrder(data.id,1)"><i class="fa fa-arrow-up color-yellow cursor-pointer"></i></a>
-                            <a ng-click="changeOrder(data.id,0)"><i class="fa fa-arrow-down color-blue cursor-pointer"></i></a>
+                            <span class="badge  badge-success" ng-show="data.status == 'PUBLISHED'">{{data.status}}</span>
+                            <span class="badge   badge-danger" ng-show="data.status == 'DRAFT'">{{data.status}}</span>
+                        </td>
+                        <td>{{data.visitCount}}</td>
+                        <td>{{data.publishDate}}</td>
+                        <td>
+                            <a ng-click="editItem(data.id)"><i class="fa fa-edit color-green cursor-pointer"></i></a>
+                            <a ng-click="deleteItem(data.id)"><i class="fa fa-times color-red cursor-pointer"></i></a>
                         </td>
                     </tr>
 
@@ -47,7 +49,6 @@
                             </li>
                         </ul>
                     </nav>
-
                 </div>
             </div>
         </div>

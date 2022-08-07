@@ -1,7 +1,7 @@
 package ir.largesize.OnlineShop.helper.uimodels.people;
 
 import ir.largesize.OnlineShop.entities.people.User;
-import ir.largesize.OnlineShop.enums.UserRoll;
+import ir.largesize.OnlineShop.enums.UserRole;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -15,7 +15,7 @@ public class UserVm {
     private String newPassword;
     private String email;
     private boolean enable;
-    private UserRoll roll;
+    private UserRole role;
     private  String token;
     private String fullName;
 
@@ -28,11 +28,9 @@ public class UserVm {
         setEnable(user.isEnable());
         setFirstName(user.getFirstName());
         setLastName(user.getLastName());
-        setRoll(user.getRoll());
+        setRole(user.getRole());
         setUserName(user.getUserName());
         setFullName(getFirstName()+" "+getLastName());
-
-
     }
 
     public long getId() {
@@ -91,12 +89,12 @@ public class UserVm {
         this.enable = enable;
     }
 
-    public UserRoll getRoll() {
-        return roll;
+    public UserRole getRole() {
+        return role;
     }
 
-    public void setRoll(UserRoll roll) {
-        this.roll = roll;
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     public String getToken() {

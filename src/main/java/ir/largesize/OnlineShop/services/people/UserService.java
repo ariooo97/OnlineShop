@@ -5,9 +5,14 @@ import ir.largesize.OnlineShop.helper.Exceptions.DataNotFoundException;
 import ir.largesize.OnlineShop.helper.utils.SecurityUtils;
 import ir.largesize.OnlineShop.repositories.people.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,13 +26,25 @@ public class UserService {
 
     public User auth(String userName, String password) {
         try {
-            password=securityUtils.encryptSHA1(password);
+            password = securityUtils.encryptSHA1(password);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return repository.findAllByUserNameAndPassword(userName, password);
 
     }
+
+    public List<User> getAll(Integer pageSize, Integer pageNumber) {
+        Pageable page = PageRequest.of(pageNumber, pageSize, Sort.by("id"));
+        Page<User> all = repository.findAll(page);
+        return all.toList();
+    }
+
+    public long getAllCount() {
+
+        return repository.count();
+    }
+
     public User getByUserName(String userName) {
        /* try {
             userName=securityUtils.encryptSHA1(userName);
@@ -43,23 +60,25 @@ public class UserService {
         return null;
     }
 
-    public User add(User data) {
+    public User add(User data) throws NoSuchAlgorithmException {
+        data.setPassword(securityUtils.encryptSHA1(data.getPassword()));
         return repository.save(data);
     }
 
-    public User update(User data) throws DataNotFoundException {
+    public User update(User data) throws DataNotFoundException, NoSuchAlgorithmException {
         User oldData = getById(data.getId());
         if (oldData == null) {
             throw new DataNotFoundException("Data Whit Id: " + data.getId() + " Not Found");
         }
 
-
         oldData.setEmail(data.getEmail());
         oldData.setEnable(data.isEnable());
         oldData.setFirstName(data.getFirstName());
         oldData.setLastName(data.getLastName());
-        oldData.setPassword(data.getPassword());
-
+        oldData.setRole(data.getRole());
+        if (data.getPassword() != null && !data.getPassword().equals("")) {
+            oldData.setPassword(securityUtils.encryptSHA1(data.getPassword()));
+        }
         return repository.save(oldData);
     }
 
@@ -74,8 +93,8 @@ public class UserService {
 
     public User changePassword(long id, String oldPassword, String newPassword) throws Exception {
         try {
-            oldPassword=securityUtils.encryptSHA1(oldPassword);
-            newPassword=securityUtils.encryptSHA1(newPassword);
+            oldPassword = securityUtils.encryptSHA1(oldPassword);
+            newPassword = securityUtils.encryptSHA1(newPassword);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
