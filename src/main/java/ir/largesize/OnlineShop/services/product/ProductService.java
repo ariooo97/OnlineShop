@@ -1,11 +1,15 @@
 package ir.largesize.OnlineShop.services.product;
-
 import ir.largesize.OnlineShop.entities.product.Product;
 import ir.largesize.OnlineShop.helper.Exceptions.DataNotFoundException;
+import ir.largesize.OnlineShop.helper.uimodels.ProductVm;
 import ir.largesize.OnlineShop.repositories.product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +17,18 @@ import java.util.Optional;
 public class ProductService {
     @Autowired
     private ProductRepository repository;
+
+    @Autowired
+    private FeatureService featureService;
+
+    @Autowired
+    private SizeService sizeService;
+
+    @Autowired
+    private ColorService colorService;
+
+    @Autowired
+    private ProductCategoryService productCategoryService;
 
     public List<Product> findAllByCategory(long categoryId) {
         return repository.findAllByCategory(categoryId);
@@ -22,18 +38,50 @@ public class ProductService {
         return repository.findAllByEnableIsTrueAndTitleContainsOrDescriptionContains(keyword);
     }
 
+    public List<Product> getAll(Integer pageSize, Integer pageNumber) {
+        Pageable page = PageRequest.of(pageNumber, pageSize, Sort.by("id"));
+        Page<Product> all = repository.findAll(page);
+        return all.toList();
+    }
+
+    public long getAllCount() {
+
+        return repository.count();
+    }
+
+    public List<Product> getAllByCategoryId(long categoryId, Integer pageSize, Integer pageNumber) {
+        Pageable page = PageRequest.of(pageNumber, pageSize, Sort.by("id"));
+        Page<Product> all = repository.findAllByCategory(categoryId, page);
+        return all.toList();
+    }
+
+    public long getAllCountByCategoryId(long categoryId) {
+
+        return repository.countByCategoryId(categoryId);
+    }
+
     public Product getById(long id) {
-        Optional<ir.largesize.OnlineShop.entities.product.Product> data = repository.findById(id);
+        Optional<Product> data = repository.findById(id);
         if (data.isPresent()) return data.get();
         return null;
     }
 
-    public Product add(ir.largesize.OnlineShop.entities.product.Product data) {
+    public Product add(ProductVm vm) {
+        Product data = vm.convert();
+        if (vm.getFeatures() != null)
+            vm.getFeatures().forEach(x -> data.addFeature(featureService.getById(x)));
+        if (vm.getColors() != null)
+            vm.getColors().forEach(x -> data.addColor(colorService.getById(x)));
+        if (vm.getSizes() != null)
+            vm.getSizes().forEach(x -> data.addSize(sizeService.getById(x)));
+        data.setCategory(productCategoryService.getById(vm.getCategoryId()));
+        data.setAddDate(new Date());
         return repository.save(data);
     }
 
-    public Product update(ir.largesize.OnlineShop.entities.product.Product data) throws DataNotFoundException {
-        ir.largesize.OnlineShop.entities.product.Product oldData = getById(data.getId());
+
+    public Product update(Product data) throws DataNotFoundException {
+        Product oldData = getById(data.getId());
         if (oldData == null) {
             throw new DataNotFoundException("Data Whit Id: " + data.getId() + " Not Found");
         }
@@ -44,7 +92,7 @@ public class ProductService {
         oldData.setImage(data.getImage());
         oldData.setDescription(data.getDescription());
         oldData.setPrice(data.getPrice());
-        oldData.setExist(data.isExist());
+        oldData.setExists(data.isExists());
         oldData.setColors(data.getColors());
         oldData.setSizes(data.getSizes());
         oldData.setFeatures(data.getFeatures());

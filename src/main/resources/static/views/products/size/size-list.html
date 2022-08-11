@@ -1,43 +1,31 @@
-<div ng-controller="categoryListCtrl">
+<div ng-controller="sizeListCtrl">
     <div class="container  p-3">
         <div class="row">
             <div class="col">
-                <h1><span class="badge  badge-list">Product Category List</span></h1>
-
-                <a class="btn btn-sm btn-primary float-end m-1" ng-click="changeMenu('category-add')">Add New +</a>
-                <a class="btn btn-sm btn-oranges float-end m-1"  ng-click="changeMenu('size-list')">Sizes</a>
-                <a class="btn btn-sm btn-success float-end m-1" ng-click="changeMenu('color-list')">Colors</a>
-
+                <h1><span class="badge  badge-list">Size List</span></h1>
+                <a class="btn btn-sm btn-success float-end m-1" ng-click="changeMenu('category-list')">Return</a>
+                <a class="btn btn-sm btn-primary float-end m-1" ng-click="changeMenu('size-add')">Add New +</a>
                 <br/>
                 <br/>
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Image</th>
                         <th scope="col">Title</th>
-                        <th scope="col">Enable</th>
+                        <th scope="col">Description</th>
                         <th scope="col">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="data in dataList">
                         <th scope="row">{{$index + 1}}</th>
-                        <td>
-                            <img width="60" src="/api/utils/upload/files/{{data.image}}"/>
-                        </td>
                         <td>{{data.title}}</td>
+                        <td>{{data.description}}</td>
                         <td>
-                            <i class="fa fa-check" ng-show="data.enable"></i>
-                            <i class="fa fa-times" ng-show="!data.enable"></i>
-                        </td>
-                        <td>
-                            <a title="Show Products" ng-click="showProducts(data)"><i class="fa fa-cubes color-blue"></i></a>
-                            <a title="Edit" ng-click="editItem(data.id)"><i class="fa fa-edit color-green cursor-pointer"></i></a>
-                            <a title="Delete" ng-click="deleteItem(data.id)"><i class="fa fa-times color-red cursor-pointer"></i></a>
+                            <a title="Edit" ng-click="editItem(data.id)"><i
+                                    class="fa fa-edit color-green cursor-pointer"></i></a>
                         </td>
                     </tr>
-
                     </tbody>
                 </table>
                 <br/>

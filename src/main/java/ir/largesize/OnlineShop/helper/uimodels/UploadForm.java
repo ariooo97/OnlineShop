@@ -1,4 +1,4 @@
-package ir.largesize.OnlineShop.helper.uimodels.people;
+package ir.largesize.OnlineShop.helper.uimodels;
 
 import org.springframework.web.multipart.MultipartFile;
 

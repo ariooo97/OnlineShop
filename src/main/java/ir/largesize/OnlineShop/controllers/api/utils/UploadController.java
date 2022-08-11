@@ -1,7 +1,7 @@
 package ir.largesize.OnlineShop.controllers.api.utils;
 import ir.largesize.OnlineShop.helper.ui.ResponseStatus;
 import ir.largesize.OnlineShop.helper.ui.ServiceResponse;
-import ir.largesize.OnlineShop.helper.uimodels.people.UploadForm;
+import ir.largesize.OnlineShop.helper.uimodels.UploadForm;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;

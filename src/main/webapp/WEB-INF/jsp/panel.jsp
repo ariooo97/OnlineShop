@@ -39,6 +39,14 @@
     <script src="scripts/controllers/products/category/categoryListController.js"></script>
     <script src="scripts/controllers/products/category/categoryAddController.js"></script>
     <script src="scripts/controllers/products/category/categoryEditController.js"></script>
+    <script src="scripts/controllers/products/color/colorListController.js"></script>
+    <script src="scripts/controllers/products/color/colorAddController.js"></script>
+    <script src="scripts/controllers/products/color/colorEditController.js"></script>
+    <script src="scripts/controllers/products/size/sizeListController.js"></script>
+    <script src="scripts/controllers/products/size/sizeAddController.js"></script>
+    <script src="scripts/controllers/products/size/sizeEditController.js"></script>
+    <script src="scripts/controllers/products/product/productListController.js"></script>
+    <script src="scripts/controllers/products/product/productAddController.js"></script>
     <script src="scripts/services/ApiHandler.js"></script>
     <link href="styles/panel.css" rel="stylesheet"/>
 </head>

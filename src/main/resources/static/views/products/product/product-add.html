@@ -1,0 +1,68 @@
+<div ng-controller="productAddCtrl">
+    <div class="container  p-3">
+        <br/>
+        <br/>
+        <div class="card">
+            <h5 class="card-header">Add New Product
+                <a ng-click="changeMenu('product-list')" class="btn btn-sm btn-primary float-end">Return</a></h5>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col login-box-holder">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="title" class="form-label">Title</label>
+                                        <input type="text" class="form-control" id="title" ng-model="data.title">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price" class="form-label">Price</label>
+                                        <input type="number" class="form-control" id="price" ng-model="data.price">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="enable" class="form-label">Enable</label>
+                                        <select class="form-control" id="enable" ng-model="data.enable">
+                                            <option value="true">Yes</option>
+                                            <option value="false">No</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exists" class="form-label">Exists</label>
+                                        <select class="form-control" id="exists" ng-model="data.exists">
+                                            <option value="true">Yes</option>
+                                            <option value="false">No</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="colors" class="form-label">Colors</label>
+                                        <select multiple="multiple" class="form-control" id="colors" ng-model="data.colors">
+                                            <option ng-repeat="item in colors" value="{{item.id}}">{{item.name}} ({{item.value}})</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sizes" class="form-label">Sizes</label>
+                                        <select multiple="multiple" class="form-control" id="sizes" ng-model="data.sizes">
+                                            <option ng-repeat="item in sizes" value="{{item.id}}">{{item.title}}</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description" class="form-label">Description</label>
+                                        <div text-angular="text-angular" id="description" name="description"
+                                             ng-model="data.description"></div>
+                                    </div>
+                                    <br/>
+                                    <div ng-include="'views/util/fileUploader.html'"></div>
+                                    <br/>
+                                    <button type="submit" class="btn btn-primary" ng-click="addData()">Insert</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

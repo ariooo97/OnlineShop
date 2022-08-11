@@ -4,6 +4,9 @@ import ir.largesize.OnlineShop.entities.product.Color;
 import ir.largesize.OnlineShop.helper.Exceptions.DataNotFoundException;
 import ir.largesize.OnlineShop.repositories.product.ColorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +23,22 @@ public class ColorService {
       return   repository.findAll();
 
     }
+    public List<Color> getAll(Integer pageSize, Integer pageNumber) {
+        Pageable page = PageRequest.of(pageNumber, pageSize, Sort.by("id"));
+        Page<Color> all = repository.findAll(page);
+        return all.toList();
+    }
+
+    public long getAllCount() {
+
+        return repository.count();
+    }
+
     public Color getById(long id) {
         Optional<Color> data = repository.findById(id);
-        if (data.isPresent()) return data.get();
-        return null;
+        if (data.isPresent())
+            return data.get();
+       return null;
     }
 
     public Color add(Color data) {

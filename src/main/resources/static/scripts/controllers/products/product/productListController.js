@@ -1,4 +1,4 @@
-app.controller('categoryListCtrl', function ($scope, apiHandler, $rootScope) {
+app.controller('productListCtrl', function ($scope, apiHandler, $rootScope) {
     $scope.query = {
         pageSize: 10,
         pageNumber: 0
@@ -6,8 +6,12 @@ app.controller('categoryListCtrl', function ($scope, apiHandler, $rootScope) {
     $scope.totalCount = 0;
     $scope.pageCount = 0;
     $scope.dataList = [];
+    $scope.category=$rootScope.category;
+
+
+
     $scope.getDataList = () => {
-        let url = 'productCategory/getAll?pageSize=' + $scope.query.pageSize + '&pageNumber='
+        let url = 'product/getAll/'+$scope.category.id+'?pageSize=' + $scope.query.pageSize + '&pageNumber='
             + $scope.query.pageNumber;
         apiHandler.callGet(url, (response) => {
             $scope.dataList = response.dataList;
@@ -32,7 +36,7 @@ app.controller('categoryListCtrl', function ($scope, apiHandler, $rootScope) {
     }
     $scope.editItem = (id) => {
         $rootScope.dataId = id;
-        $scope.changeMenu('category-edit');
+        $scope.changeMenu('product-edit');
     }
     $scope.deleteItem = (id) => {
         Swal.fire({
@@ -45,7 +49,7 @@ app.controller('categoryListCtrl', function ($scope, apiHandler, $rootScope) {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                apiHandler.callDelete('productCategory/' + id, (response) => {
+                apiHandler.callDelete('product/' + id, (response) => {
                     Swal.fire(
                         'Deleted!',
                         'Your data has been deleted.',
@@ -60,9 +64,11 @@ app.controller('categoryListCtrl', function ($scope, apiHandler, $rootScope) {
 
         })
     }
-    $scope.showProducts = (data) => {
-        $rootScope.category = data;
-        $scope.changeMenu('product-list');
-    }
+   $scope.changeMenuWhitCategory=(template)=>{
+       $rootScope.categoryId=$rootScope.category.id;
+        $scope.changeMenu(template);
+
+   }
+
     $scope.getDataList();
 })

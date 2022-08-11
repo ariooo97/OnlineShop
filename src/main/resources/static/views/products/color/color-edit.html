@@ -1,0 +1,34 @@
+<div ng-controller="colorEditCrtl">
+    <div class="container  p-3">
+        <br/>
+        <br/>
+        <div class="card">
+            <h5 class="card-header">Edit Color
+                <a ng-click="changeMenu('color-list')" class="btn btn-sm btn-primary float-end">Return</a></h5>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col login-box-holder">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="name" ng-model="data.name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="value" class="form-label">Value</label>
+                                        <input type="color" class="form-control" id="value" ng-model="data.value">
+                                    </div>
+                                    <br/>
+                                    <button type="submit" class="btn btn-primary" ng-click="editData()">Update</button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
