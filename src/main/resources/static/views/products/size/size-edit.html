@@ -1,0 +1,34 @@
+<div ng-controller="sizeEditCtrl">
+    <div class="container  p-3">
+        <br/>
+        <br/>
+        <div class="card">
+            <h5 class="card-header">Edit Size
+                <a ng-click="changeMenu('size-list')" class="btn btn-sm btn-primary float-end">Return</a></h5>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col login-box-holder">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="title" class="form-label">Title</label>
+                                        <input type="text" class="form-control" id="title" ng-model="data.title">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description" class="form-label">Description</label>
+                                        <input type="text" class="form-control" id="description" ng-model="data.description">
+                                    </div>
+
+                                    <br/>
+                                    <button type="submit" class="btn btn-primary" ng-click="editData()">Update</button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

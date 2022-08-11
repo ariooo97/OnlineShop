@@ -5,7 +5,7 @@ package ir.largesize.OnlineShop.config;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import ir.largesize.OnlineShop.helper.uimodels.people.UserVm;
+import ir.largesize.OnlineShop.helper.uimodels.UserVm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import java.io.Serializable;

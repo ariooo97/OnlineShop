@@ -4,6 +4,7 @@ package ir.largesize.OnlineShop.controllers.api.product;
 import ir.largesize.OnlineShop.entities.product.Product;
 import ir.largesize.OnlineShop.helper.ui.ResponseStatus;
 import ir.largesize.OnlineShop.helper.ui.ServiceResponse;
+import ir.largesize.OnlineShop.helper.uimodels.ProductVm;
 import ir.largesize.OnlineShop.services.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,14 +15,50 @@ import java.util.List;
 @RequestMapping("/api/product")
 public class ProductController {
     @Autowired
-    private ProductService service;
+    private ProductService productService;
 
 
     @GetMapping("")
     public ServiceResponse<Product> search(@RequestParam String keyword) {
         try {
-            List<Product> result = service.search(keyword);
+            List<Product> result = productService.search(keyword);
             return new ServiceResponse<Product>(ResponseStatus.SUCCESS, result);
+        } catch (Exception e) {
+            return new ServiceResponse<Product>(e);
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ServiceResponse<Product> findId(@PathVariable long id) {
+        try {
+            Product result = productService.getById(id);
+            return new ServiceResponse<Product>(ResponseStatus.SUCCESS, result);
+        } catch (Exception e) {
+            return new ServiceResponse<Product>(e);
+        }
+    }
+
+    @GetMapping("/getAll")
+    public ServiceResponse<Product> getAll(
+            @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {
+        try {
+            List<Product> result = productService.getAll(pageSize, pageNumber);
+            long totalCount = productService.getAllCount();
+            return new ServiceResponse<Product>(ResponseStatus.SUCCESS, result, totalCount);
+        } catch (Exception e) {
+            return new ServiceResponse<Product>(e);
+        }
+    }
+
+    @GetMapping("/getAll/{cid}")
+    public ServiceResponse<Product> getAll(
+            @RequestParam Integer pageSize,
+            @RequestParam Integer pageNumber,
+            @PathVariable long cid) {
+        try {
+            List<Product> result = productService.getAllByCategoryId(cid, pageSize, pageNumber);
+            long totalCount = productService.getAllCountByCategoryId(cid);
+            return new ServiceResponse<Product>(ResponseStatus.SUCCESS, result, totalCount);
         } catch (Exception e) {
             return new ServiceResponse<Product>(e);
         }
@@ -30,7 +67,7 @@ public class ProductController {
     @GetMapping("/find")
     public ServiceResponse<Product> find(@PathVariable long id) {
         try {
-            List<Product> result = service.findAllByCategory(id);
+            List<Product> result = productService.findAllByCategory(id);
             return new ServiceResponse<Product>(ResponseStatus.SUCCESS, result);
         } catch (Exception e) {
             return new ServiceResponse<Product>(e);
@@ -38,9 +75,9 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public ServiceResponse<Product> add(@RequestBody Product data) {
+    public ServiceResponse<Product> add(@RequestBody ProductVm data) {
         try {
-            Product result = service.add(data);
+            Product result = productService.add(data);
             return new ServiceResponse<Product>(ResponseStatus.SUCCESS, result);
         } catch (Exception e) {
             return new ServiceResponse<Product>(e);
@@ -50,7 +87,7 @@ public class ProductController {
     @PutMapping("/")
     public ServiceResponse<Product> update(@RequestBody Product data) {
         try {
-            Product result = service.update(data);
+            Product result = productService.update(data);
             return new ServiceResponse<Product>(ResponseStatus.SUCCESS, result);
         } catch (Exception e) {
             return new ServiceResponse<Product>(e);
@@ -60,7 +97,7 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public ServiceResponse<Boolean> delete(@PathVariable long id) {
         try {
-            boolean result = service.deleteById(id);
+            boolean result = productService.deleteById(id);
             return new ServiceResponse<Boolean>(ResponseStatus.SUCCESS, result);
         } catch (Exception e) {
             return new ServiceResponse<Boolean>(e);

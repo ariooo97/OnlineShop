@@ -25,6 +25,18 @@ public class ColorController {
             return new ServiceResponse<Color>(e);
         }
     }
+    @GetMapping("/getAll")
+    public ServiceResponse<Color> getAll(
+            @RequestParam Integer pageSize,
+            @RequestParam Integer pageNumber) {
+        try {
+            List<Color> result = service.getAll(pageSize,pageNumber);
+            long totalCount=service.getAllCount();
+            return new ServiceResponse<Color>(ResponseStatus.SUCCESS, result,totalCount);
+        } catch (Exception e) {
+            return new ServiceResponse<Color>(e);
+        }
+    }
 
     @GetMapping("/{id}")
     public ServiceResponse<Color> search(@PathVariable long id) {

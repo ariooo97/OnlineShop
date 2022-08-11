@@ -45,7 +45,10 @@
     text-decoration: none;
     padding: 7px;
 }
-
+.color-entity-box{
+    width: 25px;
+    height: 25px;
+}
 .main-container{
     min-height: 780px;
     background-color: #ffffff;

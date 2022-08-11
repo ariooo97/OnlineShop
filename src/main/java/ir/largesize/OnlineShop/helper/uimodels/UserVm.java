@@ -1,4 +1,4 @@
-package ir.largesize.OnlineShop.helper.uimodels.people;
+package ir.largesize.OnlineShop.helper.uimodels;
 
 import ir.largesize.OnlineShop.entities.people.User;
 import ir.largesize.OnlineShop.enums.UserRole;

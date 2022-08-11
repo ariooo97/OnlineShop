@@ -1,8 +1,7 @@
 package ir.largesize.OnlineShop.entities.product;
 
-import ir.largesize.OnlineShop.entities.site.Blog;
-
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,16 +16,20 @@ public class Product {
     private long visitCount;
     private long price;
     private boolean enable;
-    private boolean exist;
+    private boolean exists;
     private Date addDate;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private ProductCategory category;
     @ManyToMany
+//    @JoinTable(name="product_colors")
     private List<Color> colors;
     @ManyToMany
+//    @JoinTable(name="product_features")
     private List<Feature> features;
     @ManyToMany
+//    @JoinTable(name="product_sizes")
     private List<Size> sizes;
 
     public long getId() {
@@ -86,14 +89,19 @@ public class Product {
     }
 
     public List<Color> getColors() {
+        if(colors==null)
+            colors=new ArrayList<>();
         return colors;
     }
 
     public void setColors(List<Color> colors) {
+
         this.colors = colors;
     }
 
     public List<Feature> getFeatures() {
+        if(features==null)
+            features=new ArrayList<>();
         return features;
     }
 
@@ -102,6 +110,8 @@ public class Product {
     }
 
     public List<Size> getSizes() {
+        if(sizes==null)
+            sizes=new ArrayList<>();
         return sizes;
     }
 
@@ -117,12 +127,12 @@ public class Product {
         this.enable = enable;
     }
 
-    public boolean isExist() {
-        return exist;
+    public boolean isExists() {
+        return exists;
     }
 
-    public void setExist(boolean exist) {
-        this.exist = exist;
+    public void setExists(boolean exists) {
+        this.exists = exists;
     }
 
     public Date getAddDate() {
@@ -133,29 +143,34 @@ public class Product {
         this.addDate = addDate;
     }
 
-    public void removeColor(long id){
-        Color color=getColors().stream().filter(x->x.getId() == id).findFirst().get();
+    public void removeColor(long id) {
+        Color color = getColors().stream().filter(x -> x.getId() == id).findFirst().get();
         getColors().remove(color);
     }
-    public void  addColor(Color color){
+
+    public void addColor(Color color) {
+        if (color != null)
         getColors().add(color);
     }
 
-    public void removeSize(long id){
-        Size size=getSizes().stream().filter(x->x.getId()== id).findFirst().get();
+    public void removeSize(long id) {
+        Size size = getSizes().stream().filter(x -> x.getId() == id).findFirst().get();
         getSizes().remove(size);
     }
-    public void  addSize(Size size){
+
+    public void addSize(Size size) {
+        if (size != null)
         getSizes().add(size);
     }
 
-    public void removeFeature(long id){
-        Feature feature= getFeatures().stream().filter(x->x.getId()==id).findFirst().get();
+    public void removeFeature(long id) {
+        Feature feature = getFeatures().stream().filter(x -> x.getId() == id).findFirst().get();
         getFeatures().remove(feature);
     }
 
-    public void  addFeature(Feature feature){
-        getFeatures().add(feature);
+    public void addFeature(Feature feature) {
+        if (feature != null)
+            getFeatures().add(feature);
 
     }
 }

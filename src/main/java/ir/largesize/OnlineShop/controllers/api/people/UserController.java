@@ -5,7 +5,7 @@ import ir.largesize.OnlineShop.entities.people.User;
 import ir.largesize.OnlineShop.helper.Exceptions.JwtTokenException;
 import ir.largesize.OnlineShop.helper.ui.ResponseStatus;
 import ir.largesize.OnlineShop.helper.ui.ServiceResponse;
-import ir.largesize.OnlineShop.helper.uimodels.people.UserVm;
+import ir.largesize.OnlineShop.helper.uimodels.UserVm;
 import ir.largesize.OnlineShop.services.people.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
