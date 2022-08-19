@@ -53,9 +53,12 @@ app.controller('categoryListCtrl', function ($scope, apiHandler, $rootScope) {
                     );
                     $scope.getDataList();
                 }, (error) => {
-
-                }, true)
-
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Category have product'
+                    })
+                }, true);
             }
 
         })

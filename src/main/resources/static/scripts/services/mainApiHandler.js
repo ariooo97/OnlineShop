@@ -1,6 +1,6 @@
-app.service("apiHandler", function ($http, $cookies) {
+app.service("mainApiHandler", function ($http) {
 
-    this.callGet = (url, onSuccess, onError, setToken) => {
+    this.callGet = (url, onSuccess, onError) => {
         url = "/api/" + url;
         let request = {
             url: url,
@@ -8,7 +8,6 @@ app.service("apiHandler", function ($http, $cookies) {
 
 
         };
-        this.checkAndSetToken(request, setToken);
         $http(request).then((response) => {
 
             if (response != null && response.data != null) {
@@ -46,14 +45,13 @@ app.service("apiHandler", function ($http, $cookies) {
             onError(err);
         });
     }
-    this.callPost = (url, data, onSuccess, onError, setToken) => {
+    this.callPost = (url, data, onSuccess, onError) => {
         url = "/api/" + url;
         let request = {
             url: url,
             method: 'POST',
             data: data
         };
-        this.checkAndSetToken(request, setToken);
         $http(request).then((response) => {
             if (response != null && response.data != null) {
                 let result = response.data;
@@ -87,25 +85,19 @@ app.service("apiHandler", function ($http, $cookies) {
         });
     }
 
-    this.callPut = (url, data, onSuccess, onError, setToken) => {
-        debugger;
+    this.callPut = (url, data, onSuccess, onError) => {
         url = "/api/" + url;
         let request = {
             url: url,
             method: 'PUT',
             data: data
         };
-        this.checkAndSetToken(request, setToken);
-        debugger;
-        $http(request).then((response) => {
-            debugger;
+                $http(request).then((response) => {
             if (response != null && response.data != null) {
-                debugger;
                 let result = response.data;
-                debugger;
                 if (result.status == "SUCCESS") {
                     onSuccess(result);
-                    debugger;
+
                 } else if (result.status == "hasError") {
                     Swal.fire({
                         icon: 'error',
@@ -133,13 +125,12 @@ app.service("apiHandler", function ($http, $cookies) {
         });
     }
 
-    this.callDelete = (url, onSuccess, onError, setToken) => {
+    this.callDelete = (url, onSuccess, onError) => {
         url = "/api/" + url;
         let request = {
             url: url,
             method: 'DELETE'
         };
-        this.checkAndSetToken(request, setToken);
         $http(request).then((response) => {
             if (response != null && response.data != null) {
                 let result = response.data;
@@ -171,15 +162,7 @@ app.service("apiHandler", function ($http, $cookies) {
             onError(err);
         });
     }
-    this.checkAndSetToken = (request, setToken) => {
-        if (setToken) {
-            let token = $cookies.get("userToken");
-            request.headers = {
-                'Authorization': 'Bearer ' + token
-            };
-        }
-    }
-});
+   });
 
 
 

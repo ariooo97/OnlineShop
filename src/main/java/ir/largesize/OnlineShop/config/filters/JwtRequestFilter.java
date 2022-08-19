@@ -1,5 +1,6 @@
 package ir.largesize.OnlineShop.config.filters;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import ir.largesize.OnlineShop.config.JwtTokenUtil;
 import ir.largesize.OnlineShop.helper.Exceptions.JwtTokenException;
 import ir.largesize.OnlineShop.helper.uimodels.UserVm;
@@ -31,13 +32,16 @@ public class JwtRequestFilter implements Filter {
         excludeUrl.add("/api/user/login");
         excludeUrl.add("/api/color/");
         excludeUrl.add("/api/utils/upload/files/");
+        excludeUrl.add("/api/nav/");
+        excludeUrl.add("/api/slider/");
+        excludeUrl.add("/api/product/newProducts");
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         try {
             String url = (((HttpServletRequest) servletRequest).getRequestURI().toLowerCase());
-            if (excludeUrl.stream().anyMatch(x -> url.startsWith(x))) {
+            if (excludeUrl.stream().anyMatch(x -> url.startsWith(x.toLowerCase()))) {
                 filterChain.doFilter(servletRequest, servletResponse);
                 return;
             }
@@ -58,7 +62,11 @@ public class JwtRequestFilter implements Filter {
         } catch (JwtTokenException ex) {
             ((HttpServletResponse) servletResponse).sendError(HttpServletResponse.SC_UNAUTHORIZED, "unauthorized");
 
-        } catch (Exception ex) {
+        } catch (ExpiredJwtException ex){
+            ((HttpServletResponse) servletResponse).sendError(HttpServletResponse.SC_EXPECTATION_FAILED, ex.getMessage());
+
+        }
+        catch (Exception ex) {
             ((HttpServletResponse) servletResponse).sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
 
         }

@@ -29,12 +29,12 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ServiceResponse<Product> findId(@PathVariable long id) {
+    public ServiceResponse<ProductVm> findId(@PathVariable long id) {
         try {
             Product result = productService.getById(id);
-            return new ServiceResponse<Product>(ResponseStatus.SUCCESS, result);
+            return new ServiceResponse<ProductVm>(ResponseStatus.SUCCESS,new ProductVm(result));
         } catch (Exception e) {
-            return new ServiceResponse<Product>(e);
+            return new ServiceResponse<ProductVm>(e);
         }
     }
 
@@ -73,7 +73,15 @@ public class ProductController {
             return new ServiceResponse<Product>(e);
         }
     }
-
+    @GetMapping("/newProducts")
+    public ServiceResponse<ProductVm> newProducts() {
+        try {
+            List<ProductVm> result = productService.findTop3ByOrderByAddDateDesc();
+            return new ServiceResponse<ProductVm>(ResponseStatus.SUCCESS, result);
+        } catch (Exception e) {
+            return new ServiceResponse<ProductVm>(e);
+        }
+    }
     @PostMapping("/add")
     public ServiceResponse<Product> add(@RequestBody ProductVm data) {
         try {
@@ -84,7 +92,7 @@ public class ProductController {
         }
     }
 
-    @PutMapping("/")
+    @PutMapping("/edit")
     public ServiceResponse<Product> update(@RequestBody Product data) {
         try {
             Product result = productService.update(data);

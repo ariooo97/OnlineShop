@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -66,6 +68,13 @@ public class ProductService {
         return null;
     }
 
+    public List<ProductVm> findTop3ByOrderByAddDateDesc(){
+    List<ProductVm> vmList=new ArrayList<>();
+        List<Product> top6 = repository.findTop3ByOrderByAddDateDesc();
+        top6.forEach(x-> vmList.add(new ProductVm(x)));
+    return vmList;
+    }
+
     public Product add(ProductVm vm) {
         Product data = vm.convert();
         if (vm.getFeatures() != null)
@@ -104,7 +113,24 @@ public class ProductService {
         if (oldData == null) {
             throw new DataNotFoundException("Data Whit Id: " + id + " Not Found");
         }
+        oldData.getFeatures().forEach(x -> {
+            try {
+                featureService.deleteById(x.getId());
+            } catch (DataNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+        List<Long> deletingFeatures=new ArrayList<>();
         repository.deleteById(id);
+
+        oldData.getFeatures().forEach(x ->deletingFeatures.add(x.getId()));
+        deletingFeatures.forEach(x -> {
+            try {
+                featureService.deleteById(x);
+            } catch (DataNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
         return true;
     }
 

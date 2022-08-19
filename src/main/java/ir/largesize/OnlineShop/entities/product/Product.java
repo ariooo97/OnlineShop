@@ -23,14 +23,12 @@ public class Product {
     @JoinColumn(name = "category_id")
     private ProductCategory category;
     @ManyToMany
-//    @JoinTable(name="product_colors")
     private List<Color> colors;
     @ManyToMany
-//    @JoinTable(name="product_features")
     private List<Feature> features;
     @ManyToMany
-//    @JoinTable(name="product_sizes")
     private List<Size> sizes;
+
 
     public long getId() {
         return id;

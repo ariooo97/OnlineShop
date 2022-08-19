@@ -18,4 +18,21 @@ public class HomeController{
     public String index(){
         return "home";
     }
+
+    @GetMapping("/products")
+    public String products(){
+        return "products";
+    }
+
+
+    @GetMapping("/blog")
+    public String blog(){
+        return "blog";
+    }
+
+    @GetMapping("/about")
+    public String about(){
+        return "about";
+    }
 }
+

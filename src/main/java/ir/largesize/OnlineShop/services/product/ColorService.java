@@ -53,7 +53,7 @@ public class ColorService {
 
 
         oldData.setValue(data.getValue());
-        oldData.setName(oldData.getName());
+        oldData.setName(data.getName());
 
         return repository.save(oldData);
     }

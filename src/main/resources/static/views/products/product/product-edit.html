@@ -1,9 +1,9 @@
-<div ng-controller="productAddCtrl">
+<div ng-controller="productEditCtrl">
     <div class="container  p-3">
         <br/>
         <br/>
         <div class="card">
-            <h5 class="card-header">Add New Product
+            <h5 class="card-header">Edit Product
                 <a ng-click="changeMenu('product-list')" class="btn btn-sm btn-primary float-end">Return</a></h5>
             <div class="card-body">
                 <div class="row">
@@ -22,34 +22,32 @@
                                     <div class="form-group">
                                         <label for="enable" class="form-label">Enable</label>
                                         <select class="form-control" id="enable" ng-model="data.enable">
-                                            <option value="true">Yes</option>
-                                            <option value="false">No</option>
+                                            <option value="true" ng-selected="data.enable">Yes</option>
+                                            <option value="false" ng-selected="!data.enable">No</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="exists" class="form-label">Exists</label>
                                         <select class="form-control" id="exists" ng-model="data.exists">
-                                            <option value="true">Yes</option>
-                                            <option value="false">No</option>
+                                            <option value="true" ng-selected="data.exists">Yes</option>
+                                            <option value="false" ng-selected="!data.exists">No</option>
                                         </select>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group  border-form p-3 m-1 ">
                                         <label for="colors" class="form-label">Colors</label>
-                                        <select multiple="multiple" class="form-control" id="colors"
-                                                ng-model="data.colors">
-                                            <option ng-repeat="item in colors" value="{{item.id}}">{{item.name}}
-                                                ({{item.value}})
-                                            </option>
-
-                                        </select>
+                                        <div id="colors" ng-repeat="item in colors">
+                                            <select  id="colors_{{item.id}}"  ng-checked="isSelected(data.colors,item)" type="checkbox" value="{{item.id}}" ng-model="data.colors[item.id]"/>
+                                            <label for="colors_{{item.id}}">{{item.name}}</label>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group border-form p-3 m-1">
                                         <label for="sizes" class="form-label">Sizes</label>
-                                        <select multiple="multiple" class="form-control" id="sizes"
-                                                ng-model="data.sizes">
-                                            <option ng-repeat="item in sizes" value="{{item.id}}">{{item.title}}
-                                            </option>
-                                        </select>
+                                        <div id="sizes" ng-repeat="item in sizes">
+                                            <input  id="sizes_{{item.id}}"
+                                                   ng-checked="isSelected(data.sizes,item)" type="checkbox" value="{{item.id}}"
+                                                   ng-model="data.sizes[item.id]"/>
+                                            <label for="sizes_{{item.id}}">{{item.title}}</label>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="features">Features</label>
@@ -90,9 +88,22 @@
                                              ng-model="data.description"></div>
                                     </div>
                                     <br/>
+                                    <div class="form-group">
+                                        <label for="image">Image</label>
+                                        <div class="row">
+                                            <div class="col-1">
+                                                <img width="50" src="/api/utils/upload/files/{{data.image}}"/>
+                                            </div>
+
+                                            <div class="col">
+                                                <input type="text" readOnly="readonly" disabled="disabled"
+                                                       class="form-control" id="image" ng-model="data.image">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div ng-include="'views/util/fileUploader.html'"></div>
                                     <br/>
-                                    <button type="submit" class="btn btn-primary" ng-click="addData()">Insert
+                                    <button type="submit" class="btn btn-primary" ng-click="editData()">Update
                                     </button>
                                 </form>
                             </div>

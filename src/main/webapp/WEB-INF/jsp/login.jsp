@@ -2,7 +2,7 @@
 <html lang="en-US">
 
 <head>
-    <title>Online Shop App | login</title>
+    <title>Online Shop App | Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <script src="libs/angular.min.js"></script>
     <script src="libs/jquery.min.js"></script>

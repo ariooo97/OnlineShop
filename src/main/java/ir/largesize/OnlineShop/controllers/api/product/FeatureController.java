@@ -25,7 +25,7 @@ public class FeatureController {
     }
 
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public ServiceResponse<Feature> add(@RequestBody Feature data) {
         try {
             Feature result = service.add(data);

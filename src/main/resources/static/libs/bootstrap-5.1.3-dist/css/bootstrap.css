@@ -11274,6 +11274,9 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+ }
+.border-form {
+  border: 1px solid #CED4DA;
+  border-radius: 5px;
 }
-
 /*# sourceMappingURL=bootstrap.css.map */

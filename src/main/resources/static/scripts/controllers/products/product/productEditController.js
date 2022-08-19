@@ -1,16 +1,20 @@
-app.controller('productAddCtrl', function ($scope, apiHandler, $rootScope) {
+app.controller('productEditCtrl', function ($scope, apiHandler, $rootScope) {
     $scope.data = {};
+    $scope.id = $rootScope.dataId;
     $scope.category = $rootScope.category;
     $scope.colors = [];
     $scope.sizes = [];
     $scope.newFeature = {};
     $scope.data.features = [];
-    $scope.featureList=[];
+    $scope.featureList = [];
+    $scope.selectedColors = [];
+    $scope.selectedSizes = [];
 
-    $scope.addData = () => {
+    $scope.editData = () => {
+       debugger;
         $scope.data.categoryId = $scope.category.id;
-        $scope.data.image = $rootScope.uploadedFile;
-
+        if ($rootScope.uploadedFile != undefined && $rootScope.uploadedFile != null && $rootScope.uploadedFile != "")
+            $scope.data.image = $rootScope.uploadedFile;
         if ($scope.data.title == undefined || $scope.data.title == null || $scope.data.title == "") {
             Swal.fire({
                 icon: 'error',
@@ -57,14 +61,15 @@ app.controller('productAddCtrl', function ($scope, apiHandler, $rootScope) {
 
             return;
         }
-        apiHandler.callPost('product/add', $scope.data, (response) => {
+        debugger;
+        apiHandler.callPut('product/edit', $scope.data, (response) => {
             $scope.changeMenu('product-list');
         }, (error) => {
 
         }, true);
     }
     $scope.changeMenuWhitCategory = (template) => {
-        $rootScope.category = $Scope.category;
+        $rootScope.category = $scope.category;
         $scope.changeMenu(template);
 
     }
@@ -121,13 +126,57 @@ app.controller('productAddCtrl', function ($scope, apiHandler, $rootScope) {
 
                 }, (error) => {
 
-                },true);
+                }, true);
 
             }
 
         })
 
     }
+    $scope.fillFeature = () => {
+        for (let i = 0; i < $scope.data.featuresDataList.length; i++) {
+            $scope.featureList.push($scope.data.featuresDataList[i]);
+        }
+    }
+
+
+    $scope.getData = () => {
+        apiHandler.callGet("product/" + $scope.id, (response) => {
+            $scope.data = response.dataList[0];
+            for (let i = 0; i < $scope.data.colors.length; i++) {
+                $scope.selectedColors.push($scope.colors[i]);
+            }
+            for (let i = 0; i < $scope.data.sizes.length; i++) {
+                $scope.selectedSizes.push($scope.sizes[i]);
+            }
+            $scope.fillFeature();
+        }, (onerror) => {
+
+        }, true);
+    }
+
+    $scope.isSelected = (list, item) => {
+        if (list == undefined) return false;
+        return list.some(x => x == item.id);
+    }
+
+    $scope.onColorChange = (color) => {
+        debugger;
+        if ($scope.data.colors[color.id] && !$scope.selectedColors.some(x => x == color.id)) {
+            $scope.selectedColors.push(color.id);
+        } else if ($scope.data.colors[color.id] && !$scope.selectedColors.some(x => x == color.id)) {
+            for (let i = 0; i < $scope.selectedColors.length; i++) {
+                if ($scope.selectedColors[i] == color.id) {
+                    $scope.data.colors.splice(i, 1);
+                    return;
+                    ;
+                }
+            }
+        }
+
+    }
+
     $scope.getColors();
     $scope.getSizes();
+    $scope.getData();
 })

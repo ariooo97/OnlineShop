@@ -2,7 +2,7 @@
 <html lang="en-US">
 
 <head>
-    <title>Online Shop App | panel</title>
+    <title>Online Shop App | Panel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <script src="libs/angular.min.js"></script>
     <script src="libs/jquery.min.js"></script>
@@ -47,6 +47,7 @@
     <script src="scripts/controllers/products/size/sizeEditController.js"></script>
     <script src="scripts/controllers/products/product/productListController.js"></script>
     <script src="scripts/controllers/products/product/productAddController.js"></script>
+    <script src="scripts/controllers/products/product/productEditController.js"></script>
     <script src="scripts/services/ApiHandler.js"></script>
     <link href="styles/panel.css" rel="stylesheet"/>
 </head>

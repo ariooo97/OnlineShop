@@ -25,4 +25,7 @@ public interface ProductRepository extends PagingAndSortingRepository<Product,Lo
 
     @Query("from Product where enable=true and (title like concat('%',:search,'%') or description like concat('%',:search,'%'))")
    List<Product> findAllByEnableIsTrueAndTitleContainsOrDescriptionContains(String search);
+
+
+    List<Product> findTop3ByOrderByAddDateDesc();
 }

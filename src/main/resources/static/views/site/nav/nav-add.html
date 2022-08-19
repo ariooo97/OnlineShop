@@ -22,8 +22,8 @@
                                     <div class="form-group">
                                         <label for="enable" class="form-label">Enable</label>
                                         <select class="form-control" id="enable" ng-model="data.enable">
-                                            <option value="true">Yes</option>
-                                            <option value="false">No</option>
+                                            <option value="true" ng-selected="data.enable">Yes</option>
+                                            <option value="false" ng-selected="!data.enable">No</option>
                                         </select>
                                     </div>
                                     <br/>

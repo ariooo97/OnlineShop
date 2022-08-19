@@ -1,10 +1,13 @@
 package ir.largesize.OnlineShop.helper.uimodels;
 
+import ir.largesize.OnlineShop.entities.product.Feature;
 import ir.largesize.OnlineShop.entities.product.Product;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductVm {
     private long id;
@@ -15,13 +18,30 @@ public class ProductVm {
     private boolean enable;
     private boolean exists;
     private long categoryId;
+    private Date addDate;
     private List<Long> colors;
     private List<Long> sizes;
     private List<Long> features;
+    private List<Feature> featuresDataList;
 
     public ProductVm() {
     }
 
+    public ProductVm(Product product) {
+        setId(product.getId());
+        setTitle(product.getTitle());
+        setPrice(product.getPrice());
+        setDescription(product.getDescription());
+        setImage(product.getImage());
+        setEnable(product.isEnable());
+        setExists(product.isExists());
+        setAddDate(product.getAddDate());
+        setCategoryId(product.getCategory().getId());
+        product.getFeatures().forEach(x->getFeaturesDataList().add(x));
+        setColors(product.getColors().stream().map(x->x.getId()).collect(Collectors.toList()));
+        setSizes(product.getSizes().stream().map(x->x.getId()).collect(Collectors.toList()));
+        setFeatures(product.getFeatures().stream().map(x->x.getId()).collect(Collectors.toList()));
+    }
     public List<Long> getColors() {
         if(colors==null)
             colors=new ArrayList<>();
@@ -117,6 +137,24 @@ public class ProductVm {
         this.categoryId = categoryId;
     }
 
+    public Date getAddDate() {
+        return addDate;
+    }
+
+    public void setAddDate(Date addDate) {
+        this.addDate = addDate;
+    }
+
+    public List<Feature> getFeaturesDataList() {
+        if(featuresDataList == null)
+            featuresDataList = new ArrayList<>();
+        return featuresDataList;
+    }
+
+    public void setFeaturesDataList(List<Feature> featuresDataList) {
+        this.featuresDataList = featuresDataList;
+    }
+
     public Product convert() {
         Product product = new Product();
         product.setId(getId());
@@ -124,6 +162,7 @@ public class ProductVm {
         product.setPrice(getPrice());
         product.setImage(getImage());
         product.setDescription(getDescription());
+        product.setAddDate(getAddDate());
         product.setExists(isExists());
         product.setEnable(isEnable());
         return product;
