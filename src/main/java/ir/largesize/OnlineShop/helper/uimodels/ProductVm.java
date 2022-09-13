@@ -4,6 +4,7 @@ import ir.largesize.OnlineShop.entities.product.Feature;
 import ir.largesize.OnlineShop.entities.product.Product;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +24,7 @@ public class ProductVm {
     private List<Long> sizes;
     private List<Long> features;
     private List<Feature> featuresDataList;
+    private String addDateStr;
 
     public ProductVm() {
     }
@@ -149,6 +151,11 @@ public class ProductVm {
         if(featuresDataList == null)
             featuresDataList = new ArrayList<>();
         return featuresDataList;
+    }
+
+    public String getAddDateStr() {
+        SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(addDate);
     }
 
     public void setFeaturesDataList(List<Feature> featuresDataList) {

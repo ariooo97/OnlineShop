@@ -39,6 +39,17 @@ public class ContentController {
         }
     }
 
+    @GetMapping("/getAllData")
+    public ServiceResponse<Content> getAllData() {
+        try {
+            List<Content> result = service.getAllData();
+            long totalCount=service.getAllCount();
+            return new ServiceResponse<Content>(ResponseStatus.SUCCESS, result,totalCount);
+        } catch (Exception e) {
+            return new ServiceResponse<Content>(e);
+        }
+    }
+
     @GetMapping("/{id}")
     public ServiceResponse<Content> search(@PathVariable long id) {
         try {

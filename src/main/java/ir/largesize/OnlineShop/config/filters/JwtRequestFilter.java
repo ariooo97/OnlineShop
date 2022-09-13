@@ -24,24 +24,31 @@ public class JwtRequestFilter implements Filter {
     @Autowired
     private UserService userService;
 
-    private List<String> excludeUrl;
+    private List<String> excludeUrls;
+    private List<String> excludeContentUrls;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        excludeUrl = new ArrayList<>();
-        excludeUrl.add("/api/user/login");
-        excludeUrl.add("/api/color/");
-        excludeUrl.add("/api/utils/upload/files/");
-        excludeUrl.add("/api/nav/");
-        excludeUrl.add("/api/slider/");
-        excludeUrl.add("/api/product/newProducts");
+        excludeUrls = new ArrayList<>();
+        excludeContentUrls = new ArrayList<>();
+        excludeContentUrls.add("/api/utils/upload/files/");
+        excludeUrls.add("/api/user/login");
+        excludeUrls.add("/api/color/");
+        excludeUrls.add("/api/nav/");
+        excludeUrls.add("/api/slider/");
+        excludeUrls.add("/api/product/newProducts");
+        excludeUrls.add("/api/product/popularProducts");
+        excludeUrls.add("/api/productCategory");
+        excludeUrls.add("/api/content/getAllData");
+        excludeUrls.add("/api/blog/getAllData");
+
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         try {
             String url = (((HttpServletRequest) servletRequest).getRequestURI().toLowerCase());
-            if (excludeUrl.stream().anyMatch(x -> url.startsWith(x.toLowerCase()))) {
+            if (excludeUrls.stream().anyMatch(x -> url.equals(x.toLowerCase())) || excludeContentUrls.stream().anyMatch(x -> url.startsWith(x.toLowerCase()))) {
                 filterChain.doFilter(servletRequest, servletResponse);
                 return;
             }
@@ -62,11 +69,10 @@ public class JwtRequestFilter implements Filter {
         } catch (JwtTokenException ex) {
             ((HttpServletResponse) servletResponse).sendError(HttpServletResponse.SC_UNAUTHORIZED, "unauthorized");
 
-        } catch (ExpiredJwtException ex){
+        } catch (ExpiredJwtException ex) {
             ((HttpServletResponse) servletResponse).sendError(HttpServletResponse.SC_EXPECTATION_FAILED, ex.getMessage());
 
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ((HttpServletResponse) servletResponse).sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
 
         }

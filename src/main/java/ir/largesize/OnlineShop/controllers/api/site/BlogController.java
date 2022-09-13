@@ -37,6 +37,19 @@ public class BlogController {
             return new ServiceResponse<Blog>(e);
         }
     }
+
+    @GetMapping("/getAllData")
+    public ServiceResponse<Blog> getAllData(
+            @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {
+        try {
+            List<Blog> result = service.getAllData(pageSize,pageNumber);
+            long totalCount=service.getAllCountData();
+            return new ServiceResponse<Blog>(ResponseStatus.SUCCESS, result,totalCount);
+        } catch (Exception e) {
+            return new ServiceResponse<Blog>(e);
+        }
+    }
+
     @GetMapping("/{id}")
     public ServiceResponse<Blog> search(@PathVariable long id) {
         try {

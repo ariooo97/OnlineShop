@@ -2,9 +2,11 @@ package ir.largesize.OnlineShop.entities.site;
 
 import ir.largesize.OnlineShop.enums.BlogStatus;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -15,10 +17,17 @@ public class Blog {
     private String title;
     private String subtitle;
     private String image;
+    @Column(length = 4000)
     private String description;
     private long visitCount;
     private Date publishDate;
+    private String addDateStr;
     private BlogStatus status;
+
+    public String getAddDateStr() {
+        SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(publishDate);
+    }
 
     public BlogStatus getStatus() {
         return status;
@@ -83,4 +92,6 @@ public class Blog {
     public void setPublishDate(Date publishDate) {
         this.publishDate = publishDate;
     }
+
+
 }

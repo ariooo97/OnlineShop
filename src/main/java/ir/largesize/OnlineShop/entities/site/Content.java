@@ -1,5 +1,6 @@
 package ir.largesize.OnlineShop.entities.site;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,6 +11,7 @@ public class Content {
     @GeneratedValue
     private long id;
     private String key;
+    @Column(length = 4000)
     private String value;
 
     public long getId() {

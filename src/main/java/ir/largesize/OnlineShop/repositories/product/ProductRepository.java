@@ -28,4 +28,6 @@ public interface ProductRepository extends PagingAndSortingRepository<Product,Lo
 
 
     List<Product> findTop3ByOrderByAddDateDesc();
+
+    List<Product> findTop3ByOrderByVisitCountDesc();
 }

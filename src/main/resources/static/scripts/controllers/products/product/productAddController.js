@@ -84,9 +84,9 @@ app.controller('productAddCtrl', function ($scope, apiHandler, $rootScope) {
     }
 
     $scope.addFeature = () => {
-        debugger;
+
         apiHandler.callPost('feature/', $scope.newFeature, (response) => {
-            debugger;
+
             $scope.data.features.push(response.dataList[0].id);
             $scope.featureList.push(response.dataList[0]);
             $scope.newFeature = {};

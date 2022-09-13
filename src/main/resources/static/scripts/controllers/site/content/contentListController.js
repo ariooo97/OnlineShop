@@ -35,21 +35,21 @@ app.controller('contentListCrtl', function ($scope, apiHandler, $rootScope) {
         $scope.changeMenu('content-edit');
     }
 
-    $scope.changeOrder = (id, direction) => {
+    $scope.deleteItem = (id) => {
         Swal.fire({
             title: 'Are you sure?',
-            text: "Do you want change order?",
+            text: "You won't be able to revert this!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d73636',
-            confirmButtonText: 'Yes, change it!'
+            confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                apiHandler.callPost('content/changeOrder/' + id +'/'+direction, null,(response) => {
+                apiHandler.callDelete('content/' + id, (response) => {
                     Swal.fire(
-                        'Changed!',
-                        'Your data has been changed.',
+                        'Deleted!',
+                        'Your data has been deleted.',
                         'success'
                     );
                     $scope.getDataList();

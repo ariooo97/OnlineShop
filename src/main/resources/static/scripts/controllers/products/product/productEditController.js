@@ -11,7 +11,7 @@ app.controller('productEditCtrl', function ($scope, apiHandler, $rootScope) {
     $scope.selectedSizes = [];
 
     $scope.editData = () => {
-       debugger;
+
         $scope.data.categoryId = $scope.category.id;
         if ($rootScope.uploadedFile != undefined && $rootScope.uploadedFile != null && $rootScope.uploadedFile != "")
             $scope.data.image = $rootScope.uploadedFile;
@@ -61,7 +61,7 @@ app.controller('productEditCtrl', function ($scope, apiHandler, $rootScope) {
 
             return;
         }
-        debugger;
+
         apiHandler.callPut('product/edit', $scope.data, (response) => {
             $scope.changeMenu('product-list');
         }, (error) => {
@@ -89,9 +89,9 @@ app.controller('productEditCtrl', function ($scope, apiHandler, $rootScope) {
     }
 
     $scope.addFeature = () => {
-        debugger;
+
         apiHandler.callPost('feature/', $scope.newFeature, (response) => {
-            debugger;
+
             $scope.data.features.push(response.dataList[0].id);
             $scope.featureList.push(response.dataList[0]);
             $scope.newFeature = {};
@@ -161,7 +161,7 @@ app.controller('productEditCtrl', function ($scope, apiHandler, $rootScope) {
     }
 
     $scope.onColorChange = (color) => {
-        debugger;
+
         if ($scope.data.colors[color.id] && !$scope.selectedColors.some(x => x == color.id)) {
             $scope.selectedColors.push(color.id);
         } else if ($scope.data.colors[color.id] && !$scope.selectedColors.some(x => x == color.id)) {

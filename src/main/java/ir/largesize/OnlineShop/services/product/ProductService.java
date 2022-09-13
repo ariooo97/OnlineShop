@@ -36,9 +36,12 @@ public class ProductService {
         return repository.findAllByCategory(categoryId);
     }
 
+
     public List<Product> search(String keyword) {
         return repository.findAllByEnableIsTrueAndTitleContainsOrDescriptionContains(keyword);
     }
+
+
 
     public List<Product> getAll(Integer pageSize, Integer pageNumber) {
         Pageable page = PageRequest.of(pageNumber, pageSize, Sort.by("id"));
@@ -73,6 +76,13 @@ public class ProductService {
         List<Product> top6 = repository.findTop3ByOrderByAddDateDesc();
         top6.forEach(x-> vmList.add(new ProductVm(x)));
     return vmList;
+    }
+
+    public List<ProductVm> findTop3ByOrderByVisitCountDesc(){
+        List<ProductVm> vmList=new ArrayList<>();
+        List<Product> top6 = repository.findTop3ByOrderByVisitCountDesc();
+        top6.forEach(x-> vmList.add(new ProductVm(x)));
+        return vmList;
     }
 
     public Product add(ProductVm vm) {

@@ -1,13 +1,21 @@
-app.controller('productCtrl',function ($scope,mainApiHandler){
-$scope.newProductList=[];
-    
-$scope.getNewProductData = () => {
+app.controller('productCtrl', function ($scope, mainApiHandler) {
+    $scope.newProductList = [];
+    $scope.popularProductList = [];
 
-    mainApiHandler.callGet('product/newProducts', (response) => {
-        debugger;
-        $scope.newProductList = response.dataList;
-    });
-}
-        $scope.getNewProductData();
+
+    $scope.getNewProductData = () => {
+        mainApiHandler.callGet('product/newProducts', (response) => {
+            $scope.newProductList = response.dataList;
+        });
+    }
+
+    $scope.getPopularProductData = () => {
+        mainApiHandler.callGet('product/popularProducts', (response) => {
+            $scope.popularProductList = response.dataList;
+        });
+    }
+
+    $scope.getNewProductData();
+    $scope.getPopularProductData();
 
 });

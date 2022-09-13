@@ -28,6 +28,7 @@ public class ProductController {
         }
     }
 
+
     @GetMapping("/{id}")
     public ServiceResponse<ProductVm> findId(@PathVariable long id) {
         try {
@@ -82,6 +83,17 @@ public class ProductController {
             return new ServiceResponse<ProductVm>(e);
         }
     }
+
+    @GetMapping("/popularProducts")
+    public ServiceResponse<ProductVm> popularProducts() {
+        try {
+            List<ProductVm> result = productService.findTop3ByOrderByVisitCountDesc();
+            return new ServiceResponse<ProductVm>(ResponseStatus.SUCCESS, result);
+        } catch (Exception e) {
+            return new ServiceResponse<ProductVm>(e);
+        }
+    }
+
     @PostMapping("/add")
     public ServiceResponse<Product> add(@RequestBody ProductVm data) {
         try {

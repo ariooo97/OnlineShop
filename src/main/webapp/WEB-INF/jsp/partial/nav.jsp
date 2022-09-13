@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-light" ng-controller="navCtrl">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" ng-controller="navCtrl">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
             <img src="/images/basket.png" width="40"/>
@@ -9,16 +9,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li ng-repeat="nav in navList" class="nav-item">
+                <li ng-repeat="nav in navList" class="nav-item" ng-class="{active: page == nav.title}">
                     <a class="nav-link active" aria-current="page" href="{{nav.link}}">{{nav.title}}</a>
                 </li>
             </ul>
-            </li>
-            </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <div class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" ng-model="searchKey">
+                <button class="btn btn-outline-success" type="submit" ng-click="search()">Search</button>
+            </div>
         </div>
     </div>
 </nav>

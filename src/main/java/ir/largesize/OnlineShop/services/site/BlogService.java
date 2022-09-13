@@ -1,6 +1,7 @@
 package ir.largesize.OnlineShop.services.site;
 
 import ir.largesize.OnlineShop.entities.site.Blog;
+import ir.largesize.OnlineShop.enums.BlogStatus;
 import ir.largesize.OnlineShop.helper.Exceptions.DataNotFoundException;
 import ir.largesize.OnlineShop.repositories.site.BlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +28,7 @@ public class BlogService {
        return null;
     }
     public List<Blog> getAll(Integer pageSize, Integer pageNumber) {
-        Pageable page = PageRequest.of(pageNumber, pageSize, Sort.by("publishDate"));
+        Pageable page = PageRequest.of(pageNumber, pageSize, Sort.by("publishDate").descending());
         Page<Blog> all = repository.findAll(page);
         return all.toList();
     }
@@ -33,6 +36,17 @@ public class BlogService {
     public long getAllCount() {
 
         return repository.count();
+    }
+
+    public List<Blog> getAllData(Integer pageSize, Integer pageNumber) {
+        Pageable page = PageRequest.of(pageNumber, pageSize, Sort.by("publishDate").descending());
+        Page<Blog> all = repository.findAllByStatusAndPublishDateLessThanEqual(BlogStatus.PUBLISHED, new Date(),page);
+        return all.toList();
+    }
+
+    public long getAllCountData() {
+
+        return repository.countByStatusAndPublishDateLessThanEqual(BlogStatus.PUBLISHED, new Date());
     }
     public Blog add(Blog data) throws Exception {
         if(data.getTitle()==null || data.getTitle().equals(""))

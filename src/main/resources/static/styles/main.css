@@ -1,0 +1,91 @@
+.m-b-20 {
+    margin-bottom: 20px;
+}
+
+.m-l-1 {
+    margin-left: 1px;
+}
+
+.m-t-30 {
+    margin-top: 30px;
+}
+
+.parallax-cover {
+    background-color: #3C68B3;
+    background-image: url("/images/Denim.png");
+    min-height: 350px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+.main-footer {
+    background-color: #282828;
+    padding: 85px 55px;
+    color: #eeeeee;
+}
+
+.footer-description {
+    color: #808080;
+    font-size: 18px;
+}
+
+.footer-social {
+    background-color: #525252;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    margin: 5px;
+}
+
+.footer-social i {
+
+    color: #fff;
+
+}
+
+.footer-circle-item {
+    background-color: #525252;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 18px;
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    margin-right: 15px;
+    margin-top: 09px;
+}
+
+.footer-circle-item-title {
+    display: inline-block;
+    position: relative;
+    top: 8px;
+}
+
+.footer-circle-item-title * {
+    display: inline-block;
+
+}
+
+.product-cat-item {
+    text-align: center;
+    text-decoration: none;
+    color: #222;
+}
+
+.product-cat-image {
+    background-color: #eee;
+    padding: 10px;
+    text-align: center;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+
+.product-cat-title{
+    text-align: center;
+    font-weight: bold ;
+}

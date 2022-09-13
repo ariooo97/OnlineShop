@@ -28,6 +28,12 @@ public class ContentService {
         if (data.isPresent()) return data.get();
         return null;
     }
+
+    public List<Content> getAllData() {
+
+        return  repository.findAll();
+    }
+
     public List<Content> getAll(Integer pageSize, Integer pageNumber) {
         Pageable page = PageRequest.of(pageNumber, pageSize, Sort.by("id"));
         Page<Content> all = repository.findAll(page);
@@ -49,7 +55,7 @@ public class ContentService {
         }
 
         oldData.setValue(data.getValue());
-        return repository.save(oldData);
+        return repository.save(data);
     }
 
     public boolean deleteById(long id) throws DataNotFoundException {

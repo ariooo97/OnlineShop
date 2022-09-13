@@ -32,7 +32,7 @@ app.service("apiHandler", function ($http, $cookies) {
                 }
             }
         }, (err) => {
-            if(err.status == 417){
+            if (err.status == 417) {
                 $cookies.remove("userToken");
                 location.href = "/login";
                 return;
@@ -88,7 +88,6 @@ app.service("apiHandler", function ($http, $cookies) {
     }
 
     this.callPut = (url, data, onSuccess, onError, setToken) => {
-        debugger;
         url = "/api/" + url;
         let request = {
             url: url,
@@ -96,16 +95,16 @@ app.service("apiHandler", function ($http, $cookies) {
             data: data
         };
         this.checkAndSetToken(request, setToken);
-        debugger;
+
         $http(request).then((response) => {
-            debugger;
+
             if (response != null && response.data != null) {
-                debugger;
+
                 let result = response.data;
-                debugger;
+
                 if (result.status == "SUCCESS") {
                     onSuccess(result);
-                    debugger;
+
                 } else if (result.status == "hasError") {
                     Swal.fire({
                         icon: 'error',

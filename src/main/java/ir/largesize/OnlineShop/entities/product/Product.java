@@ -12,12 +12,14 @@ public class Product {
     private long id;
     private String title;
     private String image;
+    @Column(length = 4000)
     private String description;
     private long visitCount;
     private long price;
     private boolean enable;
     private boolean exists;
     private Date addDate;
+
 
     @ManyToOne
     @JoinColumn(name = "category_id")
