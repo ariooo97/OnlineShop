@@ -19,15 +19,18 @@ public interface ProductRepository extends PagingAndSortingRepository<Product,Lo
     long countByCategoryId(long categoryId);
 
     @Query(value = "from Product where category.id= :categoryId",
-    countQuery = "select count(id) from Product where category.id= :categoryId")
-
+            countQuery = "select count(id) from Product where category.id= :categoryId")
     Page<Product> findAllByCategory(long categoryId, Pageable pageable);
 
     @Query("from Product where enable=true and (title like concat('%',:search,'%') or description like concat('%',:search,'%'))")
-   List<Product> findAllByEnableIsTrueAndTitleContainsOrDescriptionContains(String search);
+    List<Product> findAllByEnableIsTrueAndTitleContainsOrDescriptionContains(String search);
 
 
     List<Product> findTop3ByOrderByAddDateDesc();
 
     List<Product> findTop3ByOrderByVisitCountDesc();
+
+    List<Product> findTop6ByOrderByPriceDesc();
+
+    List<Product> findTop6ByOrderByPriceAsc();
 }

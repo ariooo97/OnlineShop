@@ -50,8 +50,8 @@ public class BlogController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ServiceResponse<Blog> search(@PathVariable long id) {
+    @GetMapping("info/{id}")
+    public ServiceResponse<Blog> getInfo(@PathVariable long id) {
         try {
             Blog result = service.getById(id);
             return new ServiceResponse<Blog>(ResponseStatus.SUCCESS, result);

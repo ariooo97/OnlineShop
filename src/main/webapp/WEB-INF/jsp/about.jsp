@@ -12,7 +12,7 @@
 <div>
     <img src="images/about.png" width="100%"/>
 </div>
-<div ng-controller="contentCtrl" class="container">
+<div ng-controller="contentCtrl" class="container-fluid">
     <div class="row">
         <div class="col-1"></div>
         <div class="col">

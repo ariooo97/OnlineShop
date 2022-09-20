@@ -32,15 +32,20 @@ public class JwtRequestFilter implements Filter {
         excludeUrls = new ArrayList<>();
         excludeContentUrls = new ArrayList<>();
         excludeContentUrls.add("/api/utils/upload/files/");
-        excludeUrls.add("/api/user/login");
+        excludeContentUrls.add("/api/blog/info/");
+        excludeContentUrls.add("/api/product/getAll/");
+               excludeUrls.add("/api/user/login");
         excludeUrls.add("/api/color/");
         excludeUrls.add("/api/nav/");
         excludeUrls.add("/api/slider/");
         excludeUrls.add("/api/product/newProducts");
         excludeUrls.add("/api/product/popularProducts");
+        excludeUrls.add("/api/product/cheapestProducts");
+        excludeUrls.add("/api/product/expensiveProducts");
         excludeUrls.add("/api/productCategory");
         excludeUrls.add("/api/content/getAllData");
         excludeUrls.add("/api/blog/getAllData");
+
 
     }
 

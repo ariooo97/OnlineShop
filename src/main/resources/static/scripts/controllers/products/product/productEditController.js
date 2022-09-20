@@ -11,7 +11,7 @@ app.controller('productEditCtrl', function ($scope, apiHandler, $rootScope) {
     $scope.selectedSizes = [];
 
     $scope.editData = () => {
-
+        debugger;
         $scope.data.categoryId = $scope.category.id;
         if ($rootScope.uploadedFile != undefined && $rootScope.uploadedFile != null && $rootScope.uploadedFile != "")
             $scope.data.image = $rootScope.uploadedFile;

@@ -74,6 +74,7 @@
     text-align: center;
     text-decoration: none;
     color: #222;
+    margin: 5px auto;
 }
 
 .product-cat-image {
@@ -81,8 +82,9 @@
     padding: 10px;
     text-align: center;
     border-radius: 50%;
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
+    margin: 5px auto;
 }
 
 .product-cat-title{

@@ -52,16 +52,16 @@ public class ProductController {
     }
 
     @GetMapping("/getAll/{cid}")
-    public ServiceResponse<Product> getAll(
+    public ServiceResponse<ProductVm> getAll(
             @RequestParam Integer pageSize,
             @RequestParam Integer pageNumber,
             @PathVariable long cid) {
         try {
-            List<Product> result = productService.getAllByCategoryId(cid, pageSize, pageNumber);
+            List<ProductVm> result = productService.getAllByCategoryId(cid, pageSize, pageNumber);
             long totalCount = productService.getAllCountByCategoryId(cid);
-            return new ServiceResponse<Product>(ResponseStatus.SUCCESS, result, totalCount);
+            return new ServiceResponse<ProductVm>(ResponseStatus.SUCCESS, result, totalCount);
         } catch (Exception e) {
-            return new ServiceResponse<Product>(e);
+            return new ServiceResponse<ProductVm>(e);
         }
     }
 
@@ -88,6 +88,26 @@ public class ProductController {
     public ServiceResponse<ProductVm> popularProducts() {
         try {
             List<ProductVm> result = productService.findTop3ByOrderByVisitCountDesc();
+            return new ServiceResponse<ProductVm>(ResponseStatus.SUCCESS, result);
+        } catch (Exception e) {
+            return new ServiceResponse<ProductVm>(e);
+        }
+    }
+
+    @GetMapping("/cheapestProducts")
+    public ServiceResponse<ProductVm> cheapestProducts() {
+        try {
+            List<ProductVm> result = productService.findTop6ByOrderByPriceAsc();
+            return new ServiceResponse<ProductVm>(ResponseStatus.SUCCESS, result);
+        } catch (Exception e) {
+            return new ServiceResponse<ProductVm>(e);
+        }
+    }
+
+    @GetMapping("/expensiveProducts")
+    public ServiceResponse<ProductVm> expensiveProducts() {
+        try {
+            List<ProductVm> result = productService.findTop6ByOrderByPriceDesc();
             return new ServiceResponse<ProductVm>(ResponseStatus.SUCCESS, result);
         } catch (Exception e) {
             return new ServiceResponse<ProductVm>(e);

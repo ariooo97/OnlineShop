@@ -1,4 +1,5 @@
 package ir.largesize.OnlineShop.services.product;
+
 import ir.largesize.OnlineShop.entities.product.Product;
 import ir.largesize.OnlineShop.helper.Exceptions.DataNotFoundException;
 import ir.largesize.OnlineShop.helper.uimodels.ProductVm;
@@ -42,7 +43,6 @@ public class ProductService {
     }
 
 
-
     public List<Product> getAll(Integer pageSize, Integer pageNumber) {
         Pageable page = PageRequest.of(pageNumber, pageSize, Sort.by("id"));
         Page<Product> all = repository.findAll(page);
@@ -54,10 +54,12 @@ public class ProductService {
         return repository.count();
     }
 
-    public List<Product> getAllByCategoryId(long categoryId, Integer pageSize, Integer pageNumber) {
+    public List<ProductVm> getAllByCategoryId(long categoryId, Integer pageSize, Integer pageNumber) {
         Pageable page = PageRequest.of(pageNumber, pageSize, Sort.by("id"));
         Page<Product> all = repository.findAllByCategory(categoryId, page);
-        return all.toList();
+        List<ProductVm> vmList = new ArrayList<>();
+        all.toList().forEach(x -> vmList.add(new ProductVm(x)));
+        return vmList;
     }
 
     public long getAllCountByCategoryId(long categoryId) {
@@ -71,17 +73,31 @@ public class ProductService {
         return null;
     }
 
-    public List<ProductVm> findTop3ByOrderByAddDateDesc(){
-    List<ProductVm> vmList=new ArrayList<>();
+    public List<ProductVm> findTop3ByOrderByAddDateDesc() {
+        List<ProductVm> vmList = new ArrayList<>();
         List<Product> top6 = repository.findTop3ByOrderByAddDateDesc();
-        top6.forEach(x-> vmList.add(new ProductVm(x)));
-    return vmList;
+        top6.forEach(x -> vmList.add(new ProductVm(x)));
+        return vmList;
     }
 
-    public List<ProductVm> findTop3ByOrderByVisitCountDesc(){
-        List<ProductVm> vmList=new ArrayList<>();
+    public List<ProductVm> findTop3ByOrderByVisitCountDesc() {
+        List<ProductVm> vmList = new ArrayList<>();
         List<Product> top6 = repository.findTop3ByOrderByVisitCountDesc();
-        top6.forEach(x-> vmList.add(new ProductVm(x)));
+        top6.forEach(x -> vmList.add(new ProductVm(x)));
+        return vmList;
+    }
+
+    public List<ProductVm> findTop6ByOrderByPriceDesc() {
+        List<ProductVm> vmList = new ArrayList<>();
+        List<Product> top6 = repository.findTop6ByOrderByPriceDesc();
+        top6.forEach(x -> vmList.add(new ProductVm(x)));
+        return vmList;
+    }
+
+    public List<ProductVm> findTop6ByOrderByPriceAsc() {
+        List<ProductVm> vmList = new ArrayList<>();
+        List<Product> top6 = repository.findTop6ByOrderByPriceAsc();
+        top6.forEach(x -> vmList.add(new ProductVm(x)));
         return vmList;
     }
 
@@ -130,10 +146,10 @@ public class ProductService {
                 e.printStackTrace();
             }
         });
-        List<Long> deletingFeatures=new ArrayList<>();
+        List<Long> deletingFeatures = new ArrayList<>();
         repository.deleteById(id);
 
-        oldData.getFeatures().forEach(x ->deletingFeatures.add(x.getId()));
+        oldData.getFeatures().forEach(x -> deletingFeatures.add(x.getId()));
         deletingFeatures.forEach(x -> {
             try {
                 featureService.deleteById(x);
