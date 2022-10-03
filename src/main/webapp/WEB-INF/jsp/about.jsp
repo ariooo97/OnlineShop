@@ -21,7 +21,6 @@
                     <h1>About Us</h1>
                 </div>
                 <div class="card-body">
-
                     <p class="card-text" ng-bind-html="getContent('about')"></p>
                     <a href="/products" class="btn btn-primary">Go Shopping</a>
                 </div>

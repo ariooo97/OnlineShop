@@ -1,7 +1,9 @@
 package ir.largesize.OnlineShop.helper.uimodels;
 
+import ir.largesize.OnlineShop.entities.product.Color;
 import ir.largesize.OnlineShop.entities.product.Feature;
 import ir.largesize.OnlineShop.entities.product.Product;
+import ir.largesize.OnlineShop.entities.product.Size;
 
 
 import java.text.SimpleDateFormat;
@@ -19,12 +21,15 @@ public class ProductVm {
     private boolean enable;
     private boolean exists;
     private long categoryId;
+    private long visitCount;
     private Date addDate;
     private List<Long> colors;
     private List<Long> sizes;
     private List<Long> features;
     private List<Feature> featuresDataList;
     private String addDateStr;
+    private List<Color> colorsList;
+    private List<Size> sizesList;
 
     public ProductVm() {
     }
@@ -35,18 +40,22 @@ public class ProductVm {
         setPrice(product.getPrice());
         setDescription(product.getDescription());
         setImage(product.getImage());
+        setVisitCount(product.getVisitCount());
         setEnable(product.isEnable());
         setExists(product.isExists());
         setAddDate(product.getAddDate());
         setCategoryId(product.getCategory().getId());
-        product.getFeatures().forEach(x->getFeaturesDataList().add(x));
-        setColors(product.getColors().stream().map(x->x.getId()).collect(Collectors.toList()));
-        setSizes(product.getSizes().stream().map(x->x.getId()).collect(Collectors.toList()));
-        setFeatures(product.getFeatures().stream().map(x->x.getId()).collect(Collectors.toList()));
+        product.getFeatures().forEach(x -> getFeaturesDataList().add(x));
+        setColors(product.getColors().stream().map(x -> x.getId()).collect(Collectors.toList()));
+        setSizes(product.getSizes().stream().map(x -> x.getId()).collect(Collectors.toList()));
+        setFeatures(product.getFeatures().stream().map(x -> x.getId()).collect(Collectors.toList()));
+        product.getColors().forEach(x -> getColorsList().add(x));
+        product.getSizes().forEach(x -> getSizesList().add(x));
     }
+
     public List<Long> getColors() {
-        if(colors==null)
-            colors=new ArrayList<>();
+        if (colors == null)
+            colors = new ArrayList<>();
         return colors;
     }
 
@@ -56,8 +65,8 @@ public class ProductVm {
     }
 
     public List<Long> getSizes() {
-        if(sizes==null)
-            sizes=new ArrayList<>();
+        if (sizes == null)
+            sizes = new ArrayList<>();
         return sizes;
     }
 
@@ -66,8 +75,8 @@ public class ProductVm {
     }
 
     public List<Long> getFeatures() {
-        if(features==null)
-            features=new ArrayList<>();
+        if (features == null)
+            features = new ArrayList<>();
         return features;
     }
 
@@ -139,6 +148,18 @@ public class ProductVm {
         this.categoryId = categoryId;
     }
 
+    public long getVisitCount() {
+        return visitCount;
+    }
+
+    public void setVisitCount(long visitCount) {
+        this.visitCount = visitCount;
+    }
+
+    public void setAddDateStr(String addDateStr) {
+        this.addDateStr = addDateStr;
+    }
+
     public Date getAddDate() {
         return addDate;
     }
@@ -148,14 +169,34 @@ public class ProductVm {
     }
 
     public List<Feature> getFeaturesDataList() {
-        if(featuresDataList == null)
+        if (featuresDataList == null)
             featuresDataList = new ArrayList<>();
         return featuresDataList;
     }
 
     public String getAddDateStr() {
-        SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return format.format(addDate);
+    }
+
+    public List<Color> getColorsList() {
+        if (colorsList == null)
+            colorsList = new ArrayList<>();
+        return colorsList;
+    }
+
+    public void setColorsList(List<Color> colorsList) {
+        this.colorsList = colorsList;
+    }
+
+    public List<Size> getSizesList() {
+        if (sizesList == null)
+            sizesList = new ArrayList<>();
+        return sizesList;
+    }
+
+    public void setSizesList(List<Size> sizesList) {
+        this.sizesList = sizesList;
     }
 
     public void setFeaturesDataList(List<Feature> featuresDataList) {
@@ -168,6 +209,7 @@ public class ProductVm {
         product.setTitle(getTitle());
         product.setPrice(getPrice());
         product.setImage(getImage());
+        product.setVisitCount(getVisitCount());
         product.setDescription(getDescription());
         product.setAddDate(getAddDate());
         product.setExists(isExists());

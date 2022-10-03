@@ -5,6 +5,7 @@ import ir.largesize.OnlineShop.entities.product.Feature;
 import ir.largesize.OnlineShop.helper.ui.ResponseStatus;
 import ir.largesize.OnlineShop.helper.ui.ServiceResponse;
 import ir.largesize.OnlineShop.services.product.FeatureService;
+import ir.largesize.OnlineShop.services.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 public class FeatureController {
     @Autowired
     private FeatureService service;
+
+    @Autowired
+    private ProductService productService;
 
     @GetMapping("")
     public ServiceResponse<Feature> search(@PathVariable long id) {

@@ -36,16 +36,16 @@
                                     <div class="form-group  border-form p-3 m-1 ">
                                         <label for="colors" class="form-label">Colors</label>
                                         <div id="colors" ng-repeat="item in colors">
-                                            <select  id="colors_{{item.id}}"  ng-checked="isSelected(data.colors,item)" type="checkbox" value="{{item.id}}" ng-model="data.colors[item.id]"/>
+                                            <input  id="colors_{{item.id}}"  ng-checked="isSelected(data.colors,item)"
+                                                    type="checkbox" value="{{item.id}}" ng-change="onColorChange(item)" ng-model="data.colors[item.id]"/>
                                             <label for="colors_{{item.id}}">{{item.name}}</label>
                                         </div>
                                     </div>
                                     <div class="form-group border-form p-3 m-1">
                                         <label for="sizes" class="form-label">Sizes</label>
                                         <div id="sizes" ng-repeat="item in sizes">
-                                            <input  id="sizes_{{item.id}}"
-                                                   ng-checked="isSelected(data.sizes,item)" type="checkbox" value="{{item.id}}"
-                                                   ng-model="data.sizes[item.id]"/>
+                                            <input  id="sizes_{{item.id}}" ng-checked="isSelected(data.sizes,item)"
+                                                    type="checkbox" value="{{item.id}}" ng-change="onSizeChange(item)" ng-model="data.sizes[item.id]"/>
                                             <label for="sizes_{{item.id}}">{{item.title}}</label>
                                         </div>
                                     </div>

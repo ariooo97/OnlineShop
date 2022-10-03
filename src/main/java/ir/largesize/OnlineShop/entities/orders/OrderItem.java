@@ -1,7 +1,9 @@
 package ir.largesize.OnlineShop.entities.orders;
 
 import ir.largesize.OnlineShop.entities.people.Customer;
+import ir.largesize.OnlineShop.entities.product.Color;
 import ir.largesize.OnlineShop.entities.product.Product;
+import ir.largesize.OnlineShop.entities.product.Size;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -20,8 +22,24 @@ public class OrderItem {
     @JoinColumn(name="customer_id")
     private Customer customer;
 
+    @OneToOne
+    @JoinColumn(name = "color_id")
+    private Color color;
+
+    @OneToOne
+    @JoinColumn(name = "size_id")
+    private Size size;
+
     private long count;
     private long price;
+
+    public Size getSize() {
+        return size;
+    }
+
+    public Color getColor() {
+        return color;
+    }
 
     public long getId() {
         return id;
@@ -61,5 +79,13 @@ public class OrderItem {
 
     public void setPrice(long price) {
         this.price = price;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public void setSize(Size size) {
+        this.size = size;
     }
 }

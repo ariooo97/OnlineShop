@@ -11,9 +11,12 @@
 <script src="/libs/textAngular-1.5.16/dist/textAngular-rangy.min.js"></script>
 <script src="/libs/textAngular-1.5.16/dist/textAngular-sanitize.min.js"></script>
 <script src="/libs/textAngular-1.5.16/dist/textAngular.min.js"></script>
+<script src="/libs/angular-cookies.js"></script>
 <script src="/scripts/mainApp.js"></script>
 <script src="/scripts/filters/removeHtmlTagsFilters.js"></script>
 <script src="/scripts/services/mainApiHandler.js"></script>
 <link href="/styles/main.css" rel="stylesheet">
 <script src="/scripts/controllers/main/navController.js"></script>
 <script src="/scripts/controllers/main/contentController.js"></script>
+<script src="/libs/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<link rel="stylesheet" href="/libs/sweetalert2/dist/sweetalert2.min.css">

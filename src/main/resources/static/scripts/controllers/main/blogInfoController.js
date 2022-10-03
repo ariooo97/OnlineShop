@@ -16,6 +16,4 @@ app.controller('blogInfoCtrl', function ($scope, mainApiHandler, $rootScope) {
         $scope.dataId=id;
         $scope.getBlogInfo();
     }
-
-
 });

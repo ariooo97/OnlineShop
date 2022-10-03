@@ -1,6 +1,7 @@
 app.service("apiHandler", function ($http, $cookies) {
 
     this.callGet = (url, onSuccess, onError, setToken) => {
+
         url = "/api/" + url;
         let request = {
             url: url,
@@ -133,6 +134,7 @@ app.service("apiHandler", function ($http, $cookies) {
     }
 
     this.callDelete = (url, onSuccess, onError, setToken) => {
+
         url = "/api/" + url;
         let request = {
             url: url,

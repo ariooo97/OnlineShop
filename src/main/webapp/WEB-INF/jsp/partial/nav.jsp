@@ -14,6 +14,7 @@
                 </li>
             </ul>
             <div class="d-flex" role="search">
+                <a href="/basket" class="btn btn-outline-primary m-1 "><i class="fa fa-shopping-bag"></i></a>
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" ng-model="searchKey">
                 <button class="btn btn-outline-success" type="submit" ng-click="search()">Search</button>
             </div>

@@ -2,7 +2,6 @@ app.controller('productsCategoryCtrl', function ($scope, mainApiHandler, $rootSc
 
     $rootScope.page = "Products";
 
-    $rootScope.page = "Blog";
     $scope.query = {
         pageSize: 12,
         pageNumber: 0
@@ -16,10 +15,8 @@ app.controller('productsCategoryCtrl', function ($scope, mainApiHandler, $rootSc
 
 
     $scope.getProductsByCategory = () => {
-        debugger;
         let url = 'product/getAll/' + $scope.dataId + '?pageSize=' + $scope.query.pageSize + '&pageNumber='
             + $scope.query.pageNumber;
-
         mainApiHandler.callGet(url, (response) => {
             $scope.dataList = response.dataList;
             $scope.totalCount = response.totalCount;
@@ -28,20 +25,19 @@ app.controller('productsCategoryCtrl', function ($scope, mainApiHandler, $rootSc
             if ($scope.totalCount % $scope.query.pageSize > 0)
                 $scope.pageCount++;
         });
-
     }
+
 
     $scope.init = (id) => {
         $scope.dataId = id;
-              $scope.getProductsByCategory();
-
-
+        $scope.getProductsByCategory();
     }
 
     $scope.changePage = (pageNumber) => {
         $scope.query.pageNumber = pageNumber;
         $scope.getProductsByCategory();
     }
+
     $scope.range = (max) => {
         return new Array(max);
 

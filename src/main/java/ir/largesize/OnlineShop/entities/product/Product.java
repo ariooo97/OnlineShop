@@ -1,6 +1,7 @@
 package ir.largesize.OnlineShop.entities.product;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,6 +20,7 @@ public class Product {
     private boolean enable;
     private boolean exists;
     private Date addDate;
+    private String addDateStr;
 
 
     @ManyToOne
@@ -172,5 +174,9 @@ public class Product {
         if (feature != null)
             getFeatures().add(feature);
 
+    }
+    public String getAddDateStr() {
+        SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(addDate);
     }
 }

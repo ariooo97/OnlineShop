@@ -6,12 +6,13 @@ app.controller('productEditCtrl', function ($scope, apiHandler, $rootScope) {
     $scope.sizes = [];
     $scope.newFeature = {};
     $scope.data.features = [];
+    $scope.data.colors = [];
+    $scope.data.size = [];
     $scope.featureList = [];
     $scope.selectedColors = [];
     $scope.selectedSizes = [];
 
     $scope.editData = () => {
-        debugger;
         $scope.data.categoryId = $scope.category.id;
         if ($rootScope.uploadedFile != undefined && $rootScope.uploadedFile != null && $rootScope.uploadedFile != "")
             $scope.data.image = $rootScope.uploadedFile;
@@ -61,6 +62,13 @@ app.controller('productEditCtrl', function ($scope, apiHandler, $rootScope) {
 
             return;
         }
+        for(let i=0;i <$scope.data.colors.length; i++){
+            $scope.data.colors.push($scope.selectedColors[i]);
+        }
+
+        for(let i=0;i <$scope.data.size.length; i++){
+            $scope.data.size.push($scope.selectedSizes[i]);
+        }
 
         apiHandler.callPut('product/edit', $scope.data, (response) => {
             $scope.changeMenu('product-list');
@@ -91,7 +99,6 @@ app.controller('productEditCtrl', function ($scope, apiHandler, $rootScope) {
     $scope.addFeature = () => {
 
         apiHandler.callPost('feature/', $scope.newFeature, (response) => {
-
             $scope.data.features.push(response.dataList[0].id);
             $scope.featureList.push(response.dataList[0]);
             $scope.newFeature = {};
@@ -111,6 +118,7 @@ app.controller('productEditCtrl', function ($scope, apiHandler, $rootScope) {
         }).then((result) => {
             if (result.isConfirmed) {
                 apiHandler.callDelete('feature/' + id, (response) => {
+
                     for (let i = 0; i < $scope.data.features.length; i++) {
                         if ($scope.data.features[i] == id) {
                             $scope.data.features.splice(i, 1);
@@ -129,13 +137,13 @@ app.controller('productEditCtrl', function ($scope, apiHandler, $rootScope) {
                 }, true);
 
             }
-
         })
 
     }
     $scope.fillFeature = () => {
-        for (let i = 0; i < $scope.data.featuresDataList.length; i++) {
-            $scope.featureList.push($scope.data.featuresDataList[i]);
+
+        for (let i = 0; i < $scope.data.features.length; i++) {
+            $scope.featureList.push($scope.data.features[i]);
         }
     }
 
@@ -149,7 +157,7 @@ app.controller('productEditCtrl', function ($scope, apiHandler, $rootScope) {
             for (let i = 0; i < $scope.data.sizes.length; i++) {
                 $scope.selectedSizes.push($scope.sizes[i]);
             }
-            $scope.fillFeature();
+                   $scope.fillFeature();
         }, (onerror) => {
 
         }, true);
@@ -157,6 +165,7 @@ app.controller('productEditCtrl', function ($scope, apiHandler, $rootScope) {
 
     $scope.isSelected = (list, item) => {
         if (list == undefined) return false;
+
         return list.some(x => x == item.id);
     }
 
@@ -174,6 +183,20 @@ app.controller('productEditCtrl', function ($scope, apiHandler, $rootScope) {
             }
         }
 
+    }
+
+    $scope.onSizeChange = (size) => {
+        if ($scope.data.sizes[size.id] && !$scope.selectedSizes.some(x => x == size.id)) {
+            $scope.selectedSizes.push(size.id);
+        } else if ($scope.data.sizes[size.id] && !$scope.selectedSizes.some(x => x == size.id)) {
+            for (let i = 0; i < $scope.selectedSizes.length; i++) {
+                if ($scope.selectedSizes[i] == size.id) {
+                    $scope.data.sizes.splice(i, 1);
+                    return;
+                    ;
+                }
+            }
+        }
     }
 
     $scope.getColors();

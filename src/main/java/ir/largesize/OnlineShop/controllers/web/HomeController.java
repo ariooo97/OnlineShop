@@ -1,6 +1,7 @@
 package ir.largesize.OnlineShop.controllers.web;
 
 import ir.largesize.OnlineShop.helper.Exceptions.DataNotFoundException;
+import ir.largesize.OnlineShop.services.product.ProductService;
 import ir.largesize.OnlineShop.services.site.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,9 @@ public class HomeController{
 
     @Autowired
     private BlogService blogService;
+
+    @Autowired
+    private ProductService productService;
 
     @GetMapping("/")
     public String index(){
@@ -55,9 +59,25 @@ public class HomeController{
                 return "productsCategory";
     }
 
+    @GetMapping("/product/{id}")
+    public String product(@PathVariable Long id, Model model){
+        model.addAttribute("dataId",id);
+        try {
+            productService.increaseVisitCount(id);
+        } catch (DataNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "product";
+    }
+
     @GetMapping("/about")
     public String about(){
         return "about";
+    }
+
+    @GetMapping("/basket")
+    public String basket(){
+        return "basket";
     }
 
 }

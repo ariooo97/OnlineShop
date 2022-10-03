@@ -15,6 +15,8 @@ public class FeatureService {
     private FeatureRepository repository;
 
 
+
+
     public Feature getById(long id) {
         Optional<Feature> data = repository.findById(id);
         if (data.isPresent()) return data.get();
@@ -43,9 +45,11 @@ public class FeatureService {
         if (oldData == null) {
             throw new DataNotFoundException("Data Whit Id: " + id + " Not Found");
         }
+
         repository.deleteById(id);
         return true;
     }
+
 }
 
 

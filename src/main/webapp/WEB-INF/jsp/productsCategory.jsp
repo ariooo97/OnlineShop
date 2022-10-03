@@ -40,8 +40,8 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <small class="text-muted">{{product.addDateStr}}</small>
-                                <a href="product/{{product.id}}" class="btn btn-sm btn-primary float-end">Add to basket</a>
+                                <small class="text-muted"><span>Price: </span>{{product.price}}</small>
+                            <a href="/product/{{product.id}}" class="btn btn-sm btn-primary float-end">Add to basket</a>
                             </div>
                         </div>
                     </div>

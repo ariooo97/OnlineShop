@@ -57,3 +57,6 @@
 .pagination .page-link{
     cursor: pointer;
 }
+.m-l-10 {
+    margin-left: 10px;
+}

@@ -29,13 +29,23 @@ public class ProductController {
     }
 
 
-    @GetMapping("/{id}")
-    public ServiceResponse<ProductVm> findId(@PathVariable long id) {
+
+    @GetMapping("/info/{id}")
+    public ServiceResponse<ProductVm> getById(@PathVariable long id) {
         try {
             Product result = productService.getById(id);
             return new ServiceResponse<ProductVm>(ResponseStatus.SUCCESS,new ProductVm(result));
         } catch (Exception e) {
             return new ServiceResponse<ProductVm>(e);
+        }
+    }
+    @GetMapping("/{id}")
+    public ServiceResponse<Product> findById(@PathVariable long id) {
+        try {
+            Product result = productService.getById(id);
+            return new ServiceResponse<Product>(ResponseStatus.SUCCESS,result);
+        } catch (Exception e) {
+            return new ServiceResponse<Product>(e);
         }
     }
 
@@ -74,6 +84,7 @@ public class ProductController {
             return new ServiceResponse<Product>(e);
         }
     }
+
     @GetMapping("/newProducts")
     public ServiceResponse<ProductVm> newProducts() {
         try {
@@ -125,7 +136,7 @@ public class ProductController {
     }
 
     @PutMapping("/edit")
-    public ServiceResponse<Product> update(@RequestBody Product data) {
+    public ServiceResponse<Product> update(@RequestBody ProductVm data) {
         try {
             Product result = productService.update(data);
             return new ServiceResponse<Product>(ResponseStatus.SUCCESS, result);

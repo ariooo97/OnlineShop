@@ -1,6 +1,9 @@
 package ir.largesize.OnlineShop.services.product;
 
+import ir.largesize.OnlineShop.entities.product.Color;
+import ir.largesize.OnlineShop.entities.product.Feature;
 import ir.largesize.OnlineShop.entities.product.Product;
+import ir.largesize.OnlineShop.entities.product.Size;
 import ir.largesize.OnlineShop.helper.Exceptions.DataNotFoundException;
 import ir.largesize.OnlineShop.helper.uimodels.ProductVm;
 import ir.largesize.OnlineShop.repositories.product.ProductRepository;
@@ -115,7 +118,7 @@ public class ProductService {
     }
 
 
-    public Product update(Product data) throws DataNotFoundException {
+    public Product update(ProductVm data) throws DataNotFoundException {
         Product oldData = getById(data.getId());
         if (oldData == null) {
             throw new DataNotFoundException("Data Whit Id: " + data.getId() + " Not Found");
@@ -128,14 +131,46 @@ public class ProductService {
         oldData.setDescription(data.getDescription());
         oldData.setPrice(data.getPrice());
         oldData.setExists(data.isExists());
-        oldData.setColors(data.getColors());
-        oldData.setSizes(data.getSizes());
-        oldData.setFeatures(data.getFeatures());
+        if (data.getColors() != null){
+            for (long colorId : data.getColors()){
+                if(!oldData.getColors().stream().map(x->x.getId()).anyMatch(z -> z == colorId))
+                    oldData.addColor(colorService.getById(colorId));
+            }
+            for(Color color :oldData.getColors()){
+                if(!data.getColors().stream().anyMatch(x -> x == color.getId())){
+                    oldData.removeColor(color.getId());
+                }
+            }
+        }
+        if (data.getSizes() != null)
+        {
+            for (long sizeId : data.getSizes()){
+                if(!oldData.getSizes().stream().map(x->x.getId()).anyMatch(z -> z == sizeId))
+                    oldData.addSize(sizeService.getById(sizeId));
+            }
+            for(Size size :oldData.getSizes()){
+                if(!data.getSizes().stream().anyMatch(x -> x == size.getId())){
+                    oldData.removeSize(size.getId());
+                }
+            }
+        }
+        if (data.getFeatures() != null)
+        {
+            for (long featureId : data.getFeatures()){
+                if(!oldData.getFeatures().stream().map(x->x.getId()).anyMatch(z -> z == featureId))
+                    oldData.addFeature(featureService.getById(featureId));
+            }
+            for(Feature feature :oldData.getFeatures()){
+                if(!data.getFeatures().stream().anyMatch(x -> x == feature.getId())){
+                    oldData.removeFeature(feature.getId());
+                }
+            }
+        }
         return repository.save(oldData);
     }
 
     public boolean deleteById(long id) throws DataNotFoundException {
-        ir.largesize.OnlineShop.entities.product.Product oldData = getById(id);
+        Product oldData = getById(id);
         if (oldData == null) {
             throw new DataNotFoundException("Data Whit Id: " + id + " Not Found");
         }
@@ -169,6 +204,8 @@ public class ProductService {
         oldData.setVisitCount(oldData.getVisitCount() + 1);
         return repository.save(oldData);
     }
+
+
 }
 
 
