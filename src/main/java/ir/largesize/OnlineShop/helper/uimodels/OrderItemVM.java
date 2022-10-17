@@ -1,12 +1,8 @@
 package ir.largesize.OnlineShop.helper.uimodels;
 
 import ir.largesize.OnlineShop.entities.orders.OrderItem;
-import ir.largesize.OnlineShop.entities.people.Customer;
-import ir.largesize.OnlineShop.entities.product.Color;
-import ir.largesize.OnlineShop.entities.product.Product;
-import ir.largesize.OnlineShop.entities.product.Size;
 
-public class OrderItemVm {
+public class OrderItemVM {
 
     private long id;
     private long productId;
@@ -16,10 +12,10 @@ public class OrderItemVm {
     private long count;
     private long price;
 
-    public OrderItemVm() {
+    public OrderItemVM() {
     }
 
-    public OrderItemVm(OrderItem item) {
+    public OrderItemVM(OrderItem item) {
         setId(item.getId());
         setProductId(item.getProduct().getId());
         setCustomerId(item.getCustomer().getId());

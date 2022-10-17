@@ -5,7 +5,7 @@ import ir.largesize.OnlineShop.entities.people.User;
 import ir.largesize.OnlineShop.helper.Exceptions.JwtTokenException;
 import ir.largesize.OnlineShop.helper.ui.ResponseStatus;
 import ir.largesize.OnlineShop.helper.ui.ServiceResponse;
-import ir.largesize.OnlineShop.helper.uimodels.UserVm;
+import ir.largesize.OnlineShop.helper.uimodels.UserVM;
 import ir.largesize.OnlineShop.services.people.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,43 +24,43 @@ public class UserController {
     private JwtTokenUtil jwtTokenUtil;
 
     @PostMapping("/login")
-    public ServiceResponse<UserVm> login(@RequestBody User user) {
+    public ServiceResponse<UserVM> login(@RequestBody User user) {
         User userData = service.auth(user.getUserName(), user.getPassword());
         if (userData == null)
-            return new ServiceResponse<UserVm>(ResponseStatus.FAILED, "Username And Password Incorrect");
+            return new ServiceResponse<UserVM>(ResponseStatus.FAILED, "Username And Password Incorrect");
 
-        UserVm userVm = new UserVm(userData);
+        UserVM userVm = new UserVM(userData);
         String token=jwtTokenUtil.generateToken(userVm);
         userVm.setToken(token);
-        return new ServiceResponse<UserVm>(ResponseStatus.SUCCESS, userVm);
+        return new ServiceResponse<UserVM>(ResponseStatus.SUCCESS, userVm);
 
     }
     @GetMapping("/getAll")
-    public ServiceResponse<UserVm> getAll(
+    public ServiceResponse<UserVM> getAll(
             @RequestParam Integer pageSize,
             @RequestParam Integer pageNumber) {
         try {
             List<User> result = service.getAll(pageSize,pageNumber);
-            List<UserVm> resultVm=new ArrayList<>();
-            result.stream().forEach(x->resultVm.add(new UserVm(x)));
+            List<UserVM> resultVm=new ArrayList<>();
+            result.stream().forEach(x->resultVm.add(new UserVM(x)));
             long totalCount=service.getAllCount();
-            return new ServiceResponse<UserVm>(ResponseStatus.SUCCESS, resultVm,totalCount);
+            return new ServiceResponse<UserVM>(ResponseStatus.SUCCESS, resultVm,totalCount);
         } catch (Exception e) {
-            return new ServiceResponse<UserVm>(e);
+            return new ServiceResponse<UserVM>(e);
         }
     }
 
      @GetMapping("/{id}")
-    public ServiceResponse<UserVm> search(@PathVariable long id) {
+    public ServiceResponse<UserVM> search(@PathVariable long id) {
         try {
             User result = service.getById(id);
-            return new ServiceResponse<UserVm>(ResponseStatus.SUCCESS, new UserVm(result));
+            return new ServiceResponse<UserVM>(ResponseStatus.SUCCESS, new UserVM(result));
         } catch (Exception e) {
-            return new ServiceResponse<UserVm>(e);
+            return new ServiceResponse<UserVM>(e);
         }
     }
     @GetMapping("/getUserInfo")
-    public ServiceResponse<UserVm> getUserInfo(HttpServletRequest request) {
+    public ServiceResponse<UserVM> getUserInfo(HttpServletRequest request) {
         try {
             String requestTokenHeader =request.getHeader("Authorization");
             if(requestTokenHeader==null || !requestTokenHeader.startsWith("Bearer "))
@@ -73,30 +73,30 @@ public class UserController {
                 throw new JwtTokenException("username can not resolve");
 
             User result = service.getByUserName(userName);
-            return new ServiceResponse<UserVm>(ResponseStatus.SUCCESS, new UserVm(result));
+            return new ServiceResponse<UserVM>(ResponseStatus.SUCCESS, new UserVM(result));
         } catch (Exception e) {
-            return new ServiceResponse<UserVm>(e);
+            return new ServiceResponse<UserVM>(e);
         }
     }
     @PostMapping("/add")
-    public ServiceResponse<UserVm> add(@RequestBody User data) {
+    public ServiceResponse<UserVM> add(@RequestBody User data) {
         try {
 
             User result = service.add(data);
 
-            return new ServiceResponse<UserVm>(ResponseStatus.SUCCESS, new UserVm(result));
+            return new ServiceResponse<UserVM>(ResponseStatus.SUCCESS, new UserVM(result));
         } catch (Exception e) {
-            return new ServiceResponse<UserVm>(e);
+            return new ServiceResponse<UserVM>(e);
         }
     }
 
     @PutMapping("/")
-    public ServiceResponse<UserVm> update(@RequestBody User data) {
+    public ServiceResponse<UserVM> update(@RequestBody User data) {
         try {
             User result = service.update(data);
-            return new ServiceResponse<UserVm>(ResponseStatus.SUCCESS, new UserVm(result));
+            return new ServiceResponse<UserVM>(ResponseStatus.SUCCESS, new UserVM(result));
         } catch (Exception e) {
-            return new ServiceResponse<UserVm>(e);
+            return new ServiceResponse<UserVM>(e);
         }
     }
 
@@ -111,12 +111,12 @@ public class UserController {
     }
 
     @PutMapping("/changePass")
-    public ServiceResponse<UserVm> changePassword(@RequestBody UserVm data) {
+    public ServiceResponse<UserVM> changePassword(@RequestBody UserVM data) {
         try {
             User result = service.changePassword(data.getId(), data.getPassword(), data.getNewPassword());
-            return new ServiceResponse<UserVm>(ResponseStatus.SUCCESS, new UserVm(result));
+            return new ServiceResponse<UserVM>(ResponseStatus.SUCCESS, new UserVM(result));
         } catch (Exception e) {
-            return new ServiceResponse<UserVm>(e);
+            return new ServiceResponse<UserVM>(e);
         }
     }
 }

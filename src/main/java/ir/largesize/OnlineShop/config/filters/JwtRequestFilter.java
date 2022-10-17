@@ -3,7 +3,7 @@ package ir.largesize.OnlineShop.config.filters;
 import io.jsonwebtoken.ExpiredJwtException;
 import ir.largesize.OnlineShop.config.JwtTokenUtil;
 import ir.largesize.OnlineShop.helper.Exceptions.JwtTokenException;
-import ir.largesize.OnlineShop.helper.uimodels.UserVm;
+import ir.largesize.OnlineShop.helper.uimodels.UserVM;
 import ir.largesize.OnlineShop.services.people.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -46,6 +46,7 @@ public class JwtRequestFilter implements Filter {
         excludeUrls.add("/api/productCategory");
         excludeUrls.add("/api/content/getAllData");
         excludeUrls.add("/api/blog/getAllData");
+        excludeUrls.add("/api/payment/");
 
 
     }
@@ -67,7 +68,7 @@ public class JwtRequestFilter implements Filter {
 
             if (userName == null)
                 throw new JwtTokenException("username can not resolve");
-            UserVm userVm = new UserVm(userService.getByUserName(userName));
+            UserVM userVm = new UserVM(userService.getByUserName(userName));
             if (!jwtTokenUtil.validateToken(token, userVm))
                 throw new JwtTokenException("invalid token");
             filterChain.doFilter(servletRequest, servletResponse);

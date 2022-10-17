@@ -5,7 +5,7 @@ package ir.largesize.OnlineShop.config;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import ir.largesize.OnlineShop.helper.uimodels.UserVm;
+import ir.largesize.OnlineShop.helper.uimodels.UserVM;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import java.io.Serializable;
@@ -48,7 +48,7 @@ public class JwtTokenUtil implements Serializable {
     }
 
     //generate token for user
-    public String generateToken(UserVm userDetails) {
+    public String generateToken(UserVM userDetails) {
         Map<String, Object> claims = new HashMap<>();
         return doGenerateToken(claims, userDetails.getUserName());
     }
@@ -65,7 +65,7 @@ public class JwtTokenUtil implements Serializable {
     }
 
     //validate token
-    public Boolean validateToken(String token, UserVm userDetails) {
+    public Boolean validateToken(String token, UserVM userDetails) {
         final String username = getUserNameFromToken(token);
         return (username.equals(userDetails.getUserName()) && !isTokenExpired(token));
     }

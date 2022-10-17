@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 
 //user view model class
-public class UserVm {
+public class UserVM {
     private long id;
     private String firstName;
     private String lastName;
@@ -19,10 +19,10 @@ public class UserVm {
     private  String token;
     private String fullName;
 
-   public UserVm(){
+   public UserVM(){
    }
 
-    public UserVm(@NotNull User user){
+    public UserVM(@NotNull User user){
         setId(user.getId());
         setEmail(user.getEmail());
         setEnable(user.isEnable());

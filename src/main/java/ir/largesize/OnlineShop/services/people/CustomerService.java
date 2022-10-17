@@ -21,6 +21,7 @@ public class CustomerService {
     }
 
     public Customer add(Customer data) {
+        //TODO :check validity of enter
         return repository.save(data);
     }
 

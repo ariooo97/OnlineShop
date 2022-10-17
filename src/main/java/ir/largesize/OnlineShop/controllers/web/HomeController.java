@@ -80,5 +80,10 @@ public class HomeController{
         return "basket";
     }
 
+    @GetMapping("/payment")
+    public String payment(){
+        return "payment";
+    }
+
 }
 

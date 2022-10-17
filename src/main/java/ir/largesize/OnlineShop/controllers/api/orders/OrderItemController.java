@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/OrderItem")
+@RequestMapping("/api/orderItem")
 public class OrderItemController {
     @Autowired
     private OrderItemService service;

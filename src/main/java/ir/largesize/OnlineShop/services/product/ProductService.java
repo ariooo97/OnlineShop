@@ -5,7 +5,7 @@ import ir.largesize.OnlineShop.entities.product.Feature;
 import ir.largesize.OnlineShop.entities.product.Product;
 import ir.largesize.OnlineShop.entities.product.Size;
 import ir.largesize.OnlineShop.helper.Exceptions.DataNotFoundException;
-import ir.largesize.OnlineShop.helper.uimodels.ProductVm;
+import ir.largesize.OnlineShop.helper.uimodels.ProductVM;
 import ir.largesize.OnlineShop.repositories.product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -57,11 +57,11 @@ public class ProductService {
         return repository.count();
     }
 
-    public List<ProductVm> getAllByCategoryId(long categoryId, Integer pageSize, Integer pageNumber) {
+    public List<ProductVM> getAllByCategoryId(long categoryId, Integer pageSize, Integer pageNumber) {
         Pageable page = PageRequest.of(pageNumber, pageSize, Sort.by("id"));
         Page<Product> all = repository.findAllByCategory(categoryId, page);
-        List<ProductVm> vmList = new ArrayList<>();
-        all.toList().forEach(x -> vmList.add(new ProductVm(x)));
+        List<ProductVM> vmList = new ArrayList<>();
+        all.toList().forEach(x -> vmList.add(new ProductVM(x)));
         return vmList;
     }
 
@@ -76,35 +76,35 @@ public class ProductService {
         return null;
     }
 
-    public List<ProductVm> findTop3ByOrderByAddDateDesc() {
-        List<ProductVm> vmList = new ArrayList<>();
+    public List<ProductVM> findTop3ByOrderByAddDateDesc() {
+        List<ProductVM> vmList = new ArrayList<>();
         List<Product> top6 = repository.findTop3ByOrderByAddDateDesc();
-        top6.forEach(x -> vmList.add(new ProductVm(x)));
+        top6.forEach(x -> vmList.add(new ProductVM(x)));
         return vmList;
     }
 
-    public List<ProductVm> findTop3ByOrderByVisitCountDesc() {
-        List<ProductVm> vmList = new ArrayList<>();
+    public List<ProductVM> findTop3ByOrderByVisitCountDesc() {
+        List<ProductVM> vmList = new ArrayList<>();
         List<Product> top6 = repository.findTop3ByOrderByVisitCountDesc();
-        top6.forEach(x -> vmList.add(new ProductVm(x)));
+        top6.forEach(x -> vmList.add(new ProductVM(x)));
         return vmList;
     }
 
-    public List<ProductVm> findTop6ByOrderByPriceDesc() {
-        List<ProductVm> vmList = new ArrayList<>();
+    public List<ProductVM> findTop6ByOrderByPriceDesc() {
+        List<ProductVM> vmList = new ArrayList<>();
         List<Product> top6 = repository.findTop6ByOrderByPriceDesc();
-        top6.forEach(x -> vmList.add(new ProductVm(x)));
+        top6.forEach(x -> vmList.add(new ProductVM(x)));
         return vmList;
     }
 
-    public List<ProductVm> findTop6ByOrderByPriceAsc() {
-        List<ProductVm> vmList = new ArrayList<>();
+    public List<ProductVM> findTop6ByOrderByPriceAsc() {
+        List<ProductVM> vmList = new ArrayList<>();
         List<Product> top6 = repository.findTop6ByOrderByPriceAsc();
-        top6.forEach(x -> vmList.add(new ProductVm(x)));
+        top6.forEach(x -> vmList.add(new ProductVM(x)));
         return vmList;
     }
 
-    public Product add(ProductVm vm) {
+    public Product add(ProductVM vm) {
         Product data = vm.convert();
         if (vm.getFeatures() != null)
             vm.getFeatures().forEach(x -> data.addFeature(featureService.getById(x)));
@@ -118,7 +118,7 @@ public class ProductService {
     }
 
 
-    public Product update(ProductVm data) throws DataNotFoundException {
+    public Product update(ProductVM data) throws DataNotFoundException {
         Product oldData = getById(data.getId());
         if (oldData == null) {
             throw new DataNotFoundException("Data Whit Id: " + data.getId() + " Not Found");

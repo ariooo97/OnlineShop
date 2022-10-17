@@ -60,7 +60,16 @@ public class UserService {
         return null;
     }
 
-    public User add(User data) throws NoSuchAlgorithmException {
+    public User add(User data) throws Exception {
+        if(data.getUserName().equals("") ||data.getUserName()==null )
+            throw new Exception("Please enter username!");
+        User oldUser = getByUserName(data.getUserName());
+        if(oldUser !=null)
+            throw new Exception("Duplicated username, please change username!");
+        //TODO : check password strenght
+        if(data.getPassword().equals("") ||data.getPassword()==null )
+            throw new Exception("Please enter password!");
+
         data.setPassword(securityUtils.encryptSHA1(data.getPassword()));
         return repository.save(data);
     }

@@ -4,7 +4,7 @@ package ir.largesize.OnlineShop.controllers.api.product;
 import ir.largesize.OnlineShop.entities.product.Product;
 import ir.largesize.OnlineShop.helper.ui.ResponseStatus;
 import ir.largesize.OnlineShop.helper.ui.ServiceResponse;
-import ir.largesize.OnlineShop.helper.uimodels.ProductVm;
+import ir.largesize.OnlineShop.helper.uimodels.ProductVM;
 import ir.largesize.OnlineShop.services.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,12 +31,12 @@ public class ProductController {
 
 
     @GetMapping("/info/{id}")
-    public ServiceResponse<ProductVm> getById(@PathVariable long id) {
+    public ServiceResponse<ProductVM> getById(@PathVariable long id) {
         try {
             Product result = productService.getById(id);
-            return new ServiceResponse<ProductVm>(ResponseStatus.SUCCESS,new ProductVm(result));
+            return new ServiceResponse<ProductVM>(ResponseStatus.SUCCESS,new ProductVM(result));
         } catch (Exception e) {
-            return new ServiceResponse<ProductVm>(e);
+            return new ServiceResponse<ProductVM>(e);
         }
     }
     @GetMapping("/{id}")
@@ -62,16 +62,16 @@ public class ProductController {
     }
 
     @GetMapping("/getAll/{cid}")
-    public ServiceResponse<ProductVm> getAll(
+    public ServiceResponse<ProductVM> getAll(
             @RequestParam Integer pageSize,
             @RequestParam Integer pageNumber,
             @PathVariable long cid) {
         try {
-            List<ProductVm> result = productService.getAllByCategoryId(cid, pageSize, pageNumber);
+            List<ProductVM> result = productService.getAllByCategoryId(cid, pageSize, pageNumber);
             long totalCount = productService.getAllCountByCategoryId(cid);
-            return new ServiceResponse<ProductVm>(ResponseStatus.SUCCESS, result, totalCount);
+            return new ServiceResponse<ProductVM>(ResponseStatus.SUCCESS, result, totalCount);
         } catch (Exception e) {
-            return new ServiceResponse<ProductVm>(e);
+            return new ServiceResponse<ProductVM>(e);
         }
     }
 
@@ -86,47 +86,47 @@ public class ProductController {
     }
 
     @GetMapping("/newProducts")
-    public ServiceResponse<ProductVm> newProducts() {
+    public ServiceResponse<ProductVM> newProducts() {
         try {
-            List<ProductVm> result = productService.findTop3ByOrderByAddDateDesc();
-            return new ServiceResponse<ProductVm>(ResponseStatus.SUCCESS, result);
+            List<ProductVM> result = productService.findTop3ByOrderByAddDateDesc();
+            return new ServiceResponse<ProductVM>(ResponseStatus.SUCCESS, result);
         } catch (Exception e) {
-            return new ServiceResponse<ProductVm>(e);
+            return new ServiceResponse<ProductVM>(e);
         }
     }
 
     @GetMapping("/popularProducts")
-    public ServiceResponse<ProductVm> popularProducts() {
+    public ServiceResponse<ProductVM> popularProducts() {
         try {
-            List<ProductVm> result = productService.findTop3ByOrderByVisitCountDesc();
-            return new ServiceResponse<ProductVm>(ResponseStatus.SUCCESS, result);
+            List<ProductVM> result = productService.findTop3ByOrderByVisitCountDesc();
+            return new ServiceResponse<ProductVM>(ResponseStatus.SUCCESS, result);
         } catch (Exception e) {
-            return new ServiceResponse<ProductVm>(e);
+            return new ServiceResponse<ProductVM>(e);
         }
     }
 
     @GetMapping("/cheapestProducts")
-    public ServiceResponse<ProductVm> cheapestProducts() {
+    public ServiceResponse<ProductVM> cheapestProducts() {
         try {
-            List<ProductVm> result = productService.findTop6ByOrderByPriceAsc();
-            return new ServiceResponse<ProductVm>(ResponseStatus.SUCCESS, result);
+            List<ProductVM> result = productService.findTop6ByOrderByPriceAsc();
+            return new ServiceResponse<ProductVM>(ResponseStatus.SUCCESS, result);
         } catch (Exception e) {
-            return new ServiceResponse<ProductVm>(e);
+            return new ServiceResponse<ProductVM>(e);
         }
     }
 
     @GetMapping("/expensiveProducts")
-    public ServiceResponse<ProductVm> expensiveProducts() {
+    public ServiceResponse<ProductVM> expensiveProducts() {
         try {
-            List<ProductVm> result = productService.findTop6ByOrderByPriceDesc();
-            return new ServiceResponse<ProductVm>(ResponseStatus.SUCCESS, result);
+            List<ProductVM> result = productService.findTop6ByOrderByPriceDesc();
+            return new ServiceResponse<ProductVM>(ResponseStatus.SUCCESS, result);
         } catch (Exception e) {
-            return new ServiceResponse<ProductVm>(e);
+            return new ServiceResponse<ProductVM>(e);
         }
     }
 
     @PostMapping("/add")
-    public ServiceResponse<Product> add(@RequestBody ProductVm data) {
+    public ServiceResponse<Product> add(@RequestBody ProductVM data) {
         try {
             Product result = productService.add(data);
             return new ServiceResponse<Product>(ResponseStatus.SUCCESS, result);
@@ -136,7 +136,7 @@ public class ProductController {
     }
 
     @PutMapping("/edit")
-    public ServiceResponse<Product> update(@RequestBody ProductVm data) {
+    public ServiceResponse<Product> update(@RequestBody ProductVM data) {
         try {
             Product result = productService.update(data);
             return new ServiceResponse<Product>(ResponseStatus.SUCCESS, result);

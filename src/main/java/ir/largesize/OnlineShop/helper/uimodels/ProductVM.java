@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProductVm {
+public class ProductVM {
     private long id;
     private String title;
     private String image;
@@ -31,10 +31,10 @@ public class ProductVm {
     private List<Color> colorsList;
     private List<Size> sizesList;
 
-    public ProductVm() {
+    public ProductVM() {
     }
 
-    public ProductVm(Product product) {
+    public ProductVM(Product product) {
         setId(product.getId());
         setTitle(product.getTitle());
         setPrice(product.getPrice());
