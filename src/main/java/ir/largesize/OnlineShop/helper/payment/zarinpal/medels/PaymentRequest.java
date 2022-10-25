@@ -3,58 +3,58 @@ package ir.largesize.OnlineShop.helper.payment.zarinpal.medels;
 import java.io.Serializable;
 
 public class PaymentRequest implements Serializable {
-    private String MerchantId;
-    private Long Amount;
-    private String CallBackURL;
-    private String Description;
-    private String Email;
-    private String Mobile;
+    private String merchant_id;
+    private Long amount;
+    private String callback_url;
+    private String description;
+    private String email;
+    private String mobile;
 
     public String getMerchantId() {
-        return MerchantId;
+        return merchant_id;
     }
 
     public void setMerchantId(String merchantId) {
-        MerchantId = merchantId;
+        merchant_id = merchantId;
     }
 
     public Long getAmount() {
-        return Amount;
+        return amount;
     }
 
     public void setAmount(Long amount) {
-        Amount = amount;
+        this.amount = amount;
     }
 
-    public String getCallBackURL() {
-        return CallBackURL;
+    public String getCallback_url() {
+        return callback_url;
     }
 
-    public void setCallBackURL(String callBackURL) {
-        CallBackURL = callBackURL;
+    public void setCallback_url(String callback_url) {
+        this.callback_url = callback_url;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public String getMobile() {
-        return Mobile;
+        return mobile;
     }
 
     public void setMobile(String mobile) {
-        Mobile = mobile;
+        this.mobile = mobile;
     }
 }

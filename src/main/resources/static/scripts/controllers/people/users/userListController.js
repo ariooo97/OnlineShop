@@ -1,4 +1,4 @@
-app.controller('userListCrtl', function ($scope, apiHandler, $rootScope) {
+app.controller('userListCtrl', function ($scope, apiHandler, $rootScope) {
     $scope.query = {
         pageSize: 10,
         pageNumber: 0

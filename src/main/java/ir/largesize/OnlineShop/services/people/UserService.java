@@ -91,7 +91,7 @@ public class UserService {
         return repository.save(oldData);
     }
 
-    public boolean deleteById(long id) throws DataNotFoundException {
+    public Boolean deleteById(long id) throws DataNotFoundException {
         User oldData = getById(id);
         if (oldData == null) {
             throw new DataNotFoundException("Data Whit Id: " + id + " Not Found");

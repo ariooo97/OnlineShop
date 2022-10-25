@@ -3,22 +3,22 @@ package ir.largesize.OnlineShop.helper.payment.zarinpal.medels;
 import java.io.Serializable;
 
 public class PaymentResponse implements Serializable {
-    private String Authority;
-    private long status;
+    private String authority;
+    private Long code;
 
     public String getAuthority() {
-        return Authority;
+        return authority;
     }
 
     public void setAuthority(String authority) {
-        Authority = authority;
+        this.authority = authority;
     }
 
-    public long getStatus() {
-        return status;
+    public Long getCode() {
+        return code;
     }
 
-    public void setStatus(long status) {
-        this.status = status;
+    public void setCode(Long code) {
+        this.code = code;
     }
 }

@@ -39,14 +39,13 @@ app.controller('paymentCtrl', function ($scope, mainApiHandler, $rootScope, $coo
             swal.fire("Your basket is empty");
             return;
         }
-        debugger;
+
         let paymentVM={
 
             customer :$scope.data,
             orderItems: orderItems
         };
         mainApiHandler.callPost('payment/',paymentVM,(response)=>{
-            debugger;
         let href=response.dataList[0].location;
         location.href=href;
         },(err)=>{});

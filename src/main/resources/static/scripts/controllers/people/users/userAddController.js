@@ -1,4 +1,4 @@
-app.controller('userAddCrtl', function ($scope, apiHandler) {
+app.controller('userAddCtrl', function ($scope, apiHandler) {
     $scope.data = {};
     $scope.addData = () => {
         if ($scope.data.userName == undefined || $scope.data.userName == null || $scope.data.userName == "") {

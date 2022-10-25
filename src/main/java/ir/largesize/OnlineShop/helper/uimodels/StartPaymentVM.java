@@ -6,6 +6,8 @@ public class StartPaymentVM {
     private String location;
     private String email;
     private String mobile;
+    private String authority;
+    private long status;
 
     public StartPaymentVM() {
         amount = 0;
@@ -54,5 +56,21 @@ public class StartPaymentVM {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
+
+    public long getStatus() {
+        return status;
+    }
+
+    public void setStatus(long status) {
+        this.status = status;
     }
 }

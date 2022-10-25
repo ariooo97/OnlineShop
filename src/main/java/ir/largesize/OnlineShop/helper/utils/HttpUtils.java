@@ -1,24 +1,30 @@
 package ir.largesize.OnlineShop.helper.utils;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
+import com.google.gson.*;
+import ir.largesize.OnlineShop.helper.payment.zarinpal.medels.PaymentResponse;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Map;
-
-import static org.springframework.asm.Type.getType;
+import java.util.Arrays;
+import java.util.function.Predicate;
 
 
 public class HttpUtils<T> {
     final Class<T> type;
 
+    @Autowired
+    private PaymentResponse paymentResponse;
+
+
     public HttpUtils(Class<T> type) {
         this.type = type;
     }
 
-
-    public  T callPost(String address, Object data) {
+    public T callPost(String address, Object data) throws JSONException {
         Gson gson = getGson();
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -26,8 +32,11 @@ public class HttpUtils<T> {
         String bodyData = gson.toJson(data);
         HttpEntity<String> httpEntity = new HttpEntity<>(bodyData, headers);
         ResponseEntity<String> responseEntity = restTemplate.exchange(address, HttpMethod.POST, httpEntity, String.class);
-        T responseData= gson.fromJson(responseEntity.getBody(),getType());
-        return responseData;
+        JSONObject jsonObject = new JSONObject(responseEntity.getBody());
+        PaymentResponse paymentResponse = new PaymentResponse();
+        paymentResponse.setCode(Long.parseLong(jsonObject.getJSONObject("data").getString("code")));
+        paymentResponse.setAuthority(jsonObject.getJSONObject("data").getString("authority"));
+        return (T) paymentResponse;
     }
 
 

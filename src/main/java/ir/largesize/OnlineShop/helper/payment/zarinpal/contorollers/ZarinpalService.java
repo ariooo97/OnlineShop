@@ -26,15 +26,15 @@ public class ZarinpalService {
         PaymentRequest request = new PaymentRequest();
         request.setAmount(data.getAmount());
         request.setDescription(data.getDescription());
-        request.setCallBackURL(callbackUrl);
+        request.setCallback_url(callbackUrl);
         request.setMerchantId(merchantId);
         request.setEmail(data.getEmail());
         request.setMobile(data.getMobile());
 
         HttpUtils<PaymentResponse> httpUtils = new HttpUtils<>(PaymentResponse.class);
         PaymentResponse response = httpUtils.callPost(paymentAddress, request);
-        if (response.getStatus() != 100)
-            throw new Exception("Errore on payment!");
+        if (response.getCode() != 100)
+            throw new Exception("Error on payment!");
         return startPayAddress + response.getAuthority();
 
     }
