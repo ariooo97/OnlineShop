@@ -1,5 +1,9 @@
 package ir.largesize.OnlineShop.helper.uimodels;
 
+import ir.largesize.OnlineShop.entities.orders.Invoice;
+import ir.largesize.OnlineShop.entities.people.Customer;
+import ir.largesize.OnlineShop.enums.PaymentType;
+
 public class StartPaymentVM {
     private long amount;
     private String description;
@@ -8,6 +12,9 @@ public class StartPaymentVM {
     private String mobile;
     private String authority;
     private long status;
+    private Customer customer;
+    private Invoice invoice;
+    private PaymentType paymentType;
 
     public StartPaymentVM() {
         amount = 0;
@@ -72,5 +79,29 @@ public class StartPaymentVM {
 
     public void setStatus(long status) {
         this.status = status;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
+    }
+
+    public PaymentType getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(PaymentType paymentType) {
+        this.paymentType = paymentType;
     }
 }

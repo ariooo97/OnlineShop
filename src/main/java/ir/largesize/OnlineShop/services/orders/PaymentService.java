@@ -2,9 +2,13 @@ package ir.largesize.OnlineShop.services.orders;
 
 import ir.largesize.OnlineShop.entities.orders.Invoice;
 import ir.largesize.OnlineShop.entities.orders.OrderItem;
+import ir.largesize.OnlineShop.entities.orders.Transactions;
 import ir.largesize.OnlineShop.entities.people.Customer;
 import ir.largesize.OnlineShop.entities.people.User;
 import ir.largesize.OnlineShop.entities.product.Product;
+import ir.largesize.OnlineShop.enums.PaymentType;
+import ir.largesize.OnlineShop.helper.payment.zarinpal.contorollers.ZarinpalService;
+import ir.largesize.OnlineShop.helper.payment.zarinpal.medels.VerifyRequest;
 import ir.largesize.OnlineShop.helper.uimodels.PaymentVM;
 import ir.largesize.OnlineShop.helper.uimodels.StartPaymentVM;
 import ir.largesize.OnlineShop.services.people.CustomerService;
@@ -13,6 +17,7 @@ import ir.largesize.OnlineShop.services.product.ColorService;
 import ir.largesize.OnlineShop.services.product.ProductService;
 import ir.largesize.OnlineShop.services.product.SizeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -41,6 +46,12 @@ public class PaymentService {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ZarinpalService zarinpalService;
+
+    @Autowired
+    private TransactionsService transactionsService;
 
     public StartPaymentVM addPayment(PaymentVM data) throws Exception {
         /*
@@ -78,6 +89,28 @@ public class PaymentService {
         response.setDescription(data.getOrderItems().size() + " products for " + data.getCustomer().getFullName());
         response.setMobile(customerInfo.getMobile());
         response.setEmail(customerInfo.getEmail());
+        response.setCustomer(customerInfo);
+        response.setInvoice(invoice);
+        response.setPaymentType(data.getPaymentType());
         return response;
     }
+
+    public String goToPayment(StartPaymentVM startPaymentVM) throws Exception {
+        String result = "#";
+        if(startPaymentVM.getPaymentType() == PaymentType.ZarinPal){
+           result = zarinpalService.goToPayment(startPaymentVM);
+        }
+        transactionsService.add(startPaymentVM);
+        return result;
+    }
+    public Transactions doVerify(Transactions transactions) throws Exception {
+        Transactions result = null;
+        if(transactions.getPaymentType() == PaymentType.ZarinPal){
+             result= zarinpalService.goToVerify(transactions);
+        }
+        transactionsService.update(result);
+        return result;
+    }
+
+
 }

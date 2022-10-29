@@ -5,19 +5,14 @@ import com.google.gson.*;
 import ir.largesize.OnlineShop.helper.payment.zarinpal.medels.PaymentResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
-import java.util.function.Predicate;
 
 
 public class HttpUtils<T> {
     final Class<T> type;
 
-    @Autowired
-    private PaymentResponse paymentResponse;
 
 
     public HttpUtils(Class<T> type) {

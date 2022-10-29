@@ -49,7 +49,7 @@
                                 </tbody>
                                 <tfoot ng-show="dataList.length>0" class="table-footer">
                                 <tr>
-                                                                      <td><b>Total</b></td>
+                                    <td><b>Total</b></td>
                                     <td>
                                         <b>{{totalCount}}</b>
                                     </td>
@@ -60,7 +60,17 @@
                                 </tfoot>
                             </table>
                             <br/>
-                            <a ng-click="goToPayment()" class="btn btn-success"><i class="fa fa-credit-card"></i> Proceed to
+                            <div>
+                                <label for="paymentType">Payment Type</label>
+                                <div id="paymentType" class="form-group">
+                                    <select ng-model="paymentType" class="form-control">
+                                        <option value="ZarinPal">ZarinPal</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br/>
+                            <a ng-click="goToPayment()" class="btn btn-success"><i class="fa fa-credit-card"></i>
+                                Proceed to
                                 payment</a>
                         </div>
                     </div>

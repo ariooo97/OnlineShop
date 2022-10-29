@@ -8,6 +8,7 @@ import ir.largesize.OnlineShop.helper.ui.ServiceResponse;
 import ir.largesize.OnlineShop.helper.uimodels.PaymentVM;
 import ir.largesize.OnlineShop.helper.uimodels.StartPaymentVM;
 import ir.largesize.OnlineShop.services.orders.PaymentService;
+import ir.largesize.OnlineShop.services.orders.TransactionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,17 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/payment")
 public class PaymentController {
-    @Autowired
-    private PaymentService service;
 
     @Autowired
-    private ZarinpalService zarinpalService;
+    private PaymentService service;
 
     @PostMapping("/")
     public ServiceResponse<StartPaymentVM> addPayment(@RequestBody PaymentVM data) {
         try {
             StartPaymentVM startPaymentVM = service.addPayment(data);
-            String location=zarinpalService.goToPayment(startPaymentVM);
+            String location=service.goToPayment(startPaymentVM);
+           // String location=zarinpalService.goToPayment(startPaymentVM);
             startPaymentVM.setLocation(location);
             return new ServiceResponse<StartPaymentVM>(ResponseStatus.SUCCESS, startPaymentVM);
         } catch (Exception e) {

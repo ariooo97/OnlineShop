@@ -7,6 +7,7 @@ app.controller('paymentCtrl', function ($scope, mainApiHandler, $rootScope, $coo
     $scope.countPrice=0;
     $scope.totalCount=0;
     $scope.data={};
+    $scope.paymentType ='ZarinPal';
 
     $scope.loadOrderItemList = () => {
         if($cookies.get("basket") == null ||
@@ -43,7 +44,8 @@ app.controller('paymentCtrl', function ($scope, mainApiHandler, $rootScope, $coo
         let paymentVM={
 
             customer :$scope.data,
-            orderItems: orderItems
+            orderItems: orderItems,
+            paymentType: $scope.paymentType
         };
         mainApiHandler.callPost('payment/',paymentVM,(response)=>{
         let href=response.dataList[0].location;
