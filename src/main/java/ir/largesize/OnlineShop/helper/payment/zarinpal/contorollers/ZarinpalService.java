@@ -44,21 +44,20 @@ public class ZarinpalService {
         data.setStatus(response.getCode());
         if (response.getCode() != 100)
             throw new Exception("Error on payment!");
-               return startPayAddress + response.getAuthority();
+        return startPayAddress + response.getAuthority();
 
     }
 
     public Transactions goToVerify(Transactions transactions) throws Exception {
-        VerifyRequest request=new VerifyRequest();
+        VerifyRequest request = new VerifyRequest();
         request.setAmount(transactions.getAmount());
         request.setAuthority(transactions.getAuthority());
-        request.setMerchantId(merchantId);
-
+        request.setMerchant_id(merchantId);
         HttpUtils<VerifyResponse> httpUtils = new HttpUtils<>(VerifyResponse.class);
-        VerifyResponse response = httpUtils.callPost(verificationAddress, request);
-        transactions.setTransactionVerify(response.getStatus());
-        transactions.setRefId(response.getRefId());
-        if (response.getStatus() != 100)
+        VerifyResponse response = httpUtils.callPostVerify(verificationAddress, request);
+        transactions.setTransactionVerify(response.getCode());
+        transactions.setRefId(response.getRef_id());
+        if (response.getCode() != 100)
             throw new Exception("Error on payment!");
 
         return transactions;

@@ -1,16 +1,16 @@
 package ir.largesize.OnlineShop.helper.payment.zarinpal.medels;
 
 public class VerifyRequest {
-    private String merchantId;
+    private String merchant_id;
     private String authority;
     private long amount;
 
-    public String getMerchantId() {
-        return merchantId;
+    public String getMerchant_id() {
+        return merchant_id;
     }
 
-    public void setMerchantId(String merchantId) {
-        this.merchantId = merchantId;
+    public void setMerchant_id(String merchant_id) {
+        this.merchant_id = merchant_id;
     }
 
     public long getAmount() {

@@ -2,22 +2,22 @@ package ir.largesize.OnlineShop.helper.payment.zarinpal.medels;
 
 public class VerifyResponse {
 
-    private String RefId;
-    private long Status;
+    private long ref_id;
+    private long code;
 
-    public String getRefId() {
-        return RefId;
+    public long getRef_id() {
+        return ref_id;
     }
 
-    public void setRefId(String refId) {
-        RefId = refId;
+    public void setRef_id(long ref_id) {
+        this.ref_id = ref_id;
     }
 
-    public long getStatus() {
-        return Status;
+    public long getCode() {
+        return code;
     }
 
-    public void setStatus(long status) {
-        Status = status;
+    public void setCode(long code) {
+        this.code = code;
     }
 }

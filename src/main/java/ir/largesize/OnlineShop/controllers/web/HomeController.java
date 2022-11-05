@@ -102,17 +102,22 @@ public class HomeController {
                          Model model) {
         try {
             Transactions transactions = transactionsService.getByAuthority(Authority);
-            if(transactions == null)
+            if (transactions == null)
                 throw new Exception("Data not found!");
             transactions.setVerifyStatus(Status);
-            if (Status.toLowerCase().equals("OK".toLowerCase())) {
-               Transactions result= paymentService.doVerify(transactions);
-                model.addAttribute("transaction", result);
+            transactions.setRefId(transactions.getRefId());
+            if ((transactions.getRefId()==0)
+                    && Status.toLowerCase().equals("OK".toLowerCase())) {
+                Transactions result = paymentService.doVerify(transactions);
+
+            } else {
+                model.addAttribute("transaction", transactions);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            model.addAttribute("massage",e.getMessage());
+            if (e != null && e.getMessage() != null)
+                model.addAttribute("massage", e.getMessage());
         }
 
         return "verify";

@@ -3,7 +3,6 @@ package ir.largesize.OnlineShop.entities.orders;
 
 import ir.largesize.OnlineShop.entities.people.Customer;
 import ir.largesize.OnlineShop.enums.PaymentType;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -27,10 +26,9 @@ public class Transactions {
     private Date addDate;
     private long amount;
     private  String description;
-
     private  String authority;
     private long status;
-    private String refId;
+    private long refId;
     private String verifyStatus;
     private long transactionVerify;
     private PaymentType paymentType;
@@ -99,11 +97,11 @@ public class Transactions {
         this.status = status;
     }
 
-    public String getRefId() {
+    public long getRefId() {
         return refId;
     }
 
-    public void setRefId(String refId) {
+    public void setRefId(long refId) {
         this.refId = refId;
     }
 

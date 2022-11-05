@@ -3,16 +3,15 @@ package ir.largesize.OnlineShop.helper.utils;
 
 import com.google.gson.*;
 import ir.largesize.OnlineShop.helper.payment.zarinpal.medels.PaymentResponse;
+import ir.largesize.OnlineShop.helper.payment.zarinpal.medels.VerifyResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 
-
 public class HttpUtils<T> {
     final Class<T> type;
-
 
 
     public HttpUtils(Class<T> type) {
@@ -34,6 +33,20 @@ public class HttpUtils<T> {
         return (T) paymentResponse;
     }
 
+    public T callPostVerify(String address, Object data) throws JSONException {
+        Gson gson = getGson();
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        String bodyData = gson.toJson(data);
+        HttpEntity<String> httpEntity = new HttpEntity<>(bodyData, headers);
+        ResponseEntity<String> responseEntity = restTemplate.exchange(address, HttpMethod.POST, httpEntity, String.class);
+        JSONObject jsonObject = new JSONObject(responseEntity.getBody());
+        VerifyResponse verifyResponse = new VerifyResponse();
+        verifyResponse.setCode(Long.parseLong(jsonObject.getJSONObject("data").getString("code")));
+        verifyResponse.setRef_id(Long.parseLong(jsonObject.getJSONObject("data").getString("ref_id")));
+        return (T) verifyResponse;
+    }
 
     public ResponseEntity<T> callGet(String address) {
         RestTemplate restTemplate = new RestTemplate();

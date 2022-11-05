@@ -73,7 +73,7 @@
                         </tfoot>
                     </table>
                     <br/>
-                    <a href="/payment" class="btn btn-success"><i class="fa fa-credit-card"></i> Proceed to payment</a>
+                    <a ng-show="dataList.length>0" href="/payment" class="btn btn-success"><i class="fa fa-credit-card"></i> Proceed to payment</a>
                     <a href="/products" class="btn btn-outline-primary"><i class="fa fa-basket-shopping"></i> Continue shopping</a>
 
                 </div>

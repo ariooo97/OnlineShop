@@ -1,14 +1,11 @@
 package ir.largesize.OnlineShop.controllers.api.orders;
 
 
-
-import ir.largesize.OnlineShop.helper.payment.zarinpal.contorollers.ZarinpalService;
 import ir.largesize.OnlineShop.helper.ui.ResponseStatus;
 import ir.largesize.OnlineShop.helper.ui.ServiceResponse;
 import ir.largesize.OnlineShop.helper.uimodels.PaymentVM;
 import ir.largesize.OnlineShop.helper.uimodels.StartPaymentVM;
 import ir.largesize.OnlineShop.services.orders.PaymentService;
-import ir.largesize.OnlineShop.services.orders.TransactionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +24,6 @@ public class PaymentController {
         try {
             StartPaymentVM startPaymentVM = service.addPayment(data);
             String location=service.goToPayment(startPaymentVM);
-           // String location=zarinpalService.goToPayment(startPaymentVM);
             startPaymentVM.setLocation(location);
             return new ServiceResponse<StartPaymentVM>(ResponseStatus.SUCCESS, startPaymentVM);
         } catch (Exception e) {

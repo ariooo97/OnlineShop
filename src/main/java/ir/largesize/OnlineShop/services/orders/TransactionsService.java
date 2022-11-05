@@ -38,7 +38,7 @@ public class TransactionsService {
         data.setAmount(startPaymentVM.getAmount());
         data.setCustomer(startPaymentVM.getCustomer());
         data.setDescription(startPaymentVM.getDescription());
-        data.setRefId("");
+        data.setRefId(0);
         data.setInvoice(startPaymentVM.getInvoice());
         data.setAuthority(startPaymentVM.getAuthority());
         data.setPaymentType(startPaymentVM.getPaymentType());
