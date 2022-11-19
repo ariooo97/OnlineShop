@@ -1,0 +1,109 @@
+<div ng-controller="invoiceDetailsCtrl">
+    <div class="container  p-3">
+        <div class="row">
+            <div class="col">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h1><span class="badge  badge-list">Invoices Detail</span>
+                            <a ng-click="changeMenu('customer-dashboard')" class="btn btn-sm btn-primary float-end">Return</a></h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text text-lg-start">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div>
+                                        <span>Invoice No : </span>
+                                        <span>{{data.id}}</span>
+                                    </div>
+                                    <br/>
+                                    <div>
+                                        <span>Status :</span>
+                                        <span class="badge badge-success" ng-show="data.payed">Payed</span>
+                                        <span class="badge badge-danger" ng-show="!data.payed">NotPayed</span>
+                                    </div>
+                                    <br/>
+                                    <div>
+                                        <span>Invoice Date</span>
+                                        <span>{{data.invoiceDateStr}}</span>
+                                    </div>
+                                    <br/>
+                                    <div ng-show="data.payed">
+                                        <span>Payed Date : </span>
+                                        <span>{{data.payedDateStr}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <span>Customer Name : </span>
+                                    <span>{{data.customer.fullName}}</span>
+                                    <br/>
+                                    <span>Mobile : </span>
+                                    <span>{{data.customer.mobile}}</span>
+                                    <br/>
+                                    <span>TelPhone : </span>
+                                    <span>{{data.customer.tel}}</span>
+                                    <br/>
+                                    <span>Address : </span>
+                                    <span>{{data.customer.address}}</span>
+                                    <br/>
+                                    <span>Postal Code : </span>
+                                    <span>{{data.customer.postalCode}}</span>
+                                    <br/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col">
+                <h1><span class="badge  badge-list">Items list</span></h1>
+                <br/>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Color</th>
+                        <th scope="col">Size</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in data.orderItems">
+                        <th scope="row">{{$index + 1}}</th>
+                        <td>
+                            <a title="Show Details" target="_blank" href="/product/{{item.product.id}}">
+                                <img width="60" src="/api/utils/upload/files/{{item.product.image}}"/>
+                                <span>{{item.product.title}}</span>
+                            </a>
+                        </td>
+                        <td>
+                            <div class="color-entity-box" style="background: {{data.color.value}}"></div>
+                            <span class="color-title">  {{item.color.name}}</span>
+                        </td>
+                        <td>{{item.size.title}}</td>
+                        <td>{{item.count}}</td>
+                        <td>{{item.price}}</td>
+                    </tr>
+                    </tbody>
+                    <tfoot  class="table-footer">
+                    <tr>
+                        <td colspan="3">#</td>
+                        <td><b>Total</b></td>
+                        <td>
+                            <b>{{totalCount}}</b>
+                        </td>
+                        <td>
+                            <b>{{totalPrice}}</b>
+                        </td>
+                        <td></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,7 +8,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends PagingAndSortingRepository<User,Long> {
-    User findAllByUserNameAndPassword(String userName, String password);
-    User findAllByUserName(String userName);
+    User findFirstByUserNameAndPassword(String userName, String password);
+
+    User findFirstByUserName(String userName);
+
+    long countByEnableIsTrue();
+
+
 
 }

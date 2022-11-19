@@ -18,6 +18,8 @@ public class UserVM {
     private UserRole role;
     private  String token;
     private String fullName;
+    private long customerId;
+    private CustomerVM customer;
 
    public UserVM(){
    }
@@ -119,5 +121,21 @@ public class UserVM {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(long customerId) {
+        this.customerId = customerId;
+    }
+
+    public CustomerVM getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(CustomerVM customer) {
+        this.customer = customer;
     }
 }

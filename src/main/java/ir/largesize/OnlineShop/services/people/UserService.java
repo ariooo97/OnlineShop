@@ -30,7 +30,7 @@ public class UserService {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        return repository.findAllByUserNameAndPassword(userName, password);
+        return repository.findFirstByUserNameAndPassword(userName, password);
 
     }
 
@@ -45,13 +45,14 @@ public class UserService {
         return repository.count();
     }
 
+    public long getEnableCount() {
+
+        return repository.countByEnableIsTrue();
+    }
+
     public User getByUserName(String userName) {
-       /* try {
-            userName=securityUtils.encryptSHA1(userName);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }*/
-        return repository.findAllByUserName(userName);
+
+        return repository.findFirstByUserName(userName);
     }
 
     public User getById(long id) {

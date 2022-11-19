@@ -57,6 +57,16 @@ public class ProductService {
         return repository.count();
     }
 
+    public long getExistCount() {
+
+        return repository.countByExistsIsTrue();
+    }
+
+    public long getEnableCount() {
+
+        return repository.countByEnableIsTrue();
+    }
+
     public List<ProductVM> getAllByCategoryId(long categoryId, Integer pageSize, Integer pageNumber) {
         Pageable page = PageRequest.of(pageNumber, pageSize, Sort.by("id"));
         Page<Product> all = repository.findAllByCategory(categoryId, page);

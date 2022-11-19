@@ -1,7 +1,8 @@
 app.controller("panelCtrl", function ($scope, apiHandler, $cookies, $rootScope) {
-    $scope.template = "views/dashboard.html";
-    $scope.templateName = "dashboard";
-    $scope.templateGroup = "dashboard";
+    $scope.template = "";
+    $scope.templateName = "";
+    $scope.templateGroup = "";
+
     $scope.checkAccess = () => {
         var token = $cookies.get("userToken");
         if (token == undefined || token == null || token == "") {
@@ -27,7 +28,7 @@ app.controller("panelCtrl", function ($scope, apiHandler, $cookies, $rootScope) 
     }
     $scope.getMenuPrefix = (templateName) => {
         if (templateName === 'dashboard') {
-            return 'views' + templateName + '.html';
+            return 'views/' + templateName + '.html';
         } else if (templateName === 'nav-list' || templateName === 'nav-edit' || templateName === 'nav-add') {
             return 'views/site/nav/' + templateName + '.html';
         } else if (templateName === 'content-list' || templateName === 'content-edit' || templateName === 'content-add') {
@@ -46,8 +47,12 @@ app.controller("panelCtrl", function ($scope, apiHandler, $cookies, $rootScope) 
             return 'views/products/size/' + templateName + '.html';
         } else if (templateName === 'product-list' || templateName === 'product-edit' || templateName === 'product-add') {
             return 'views/products/product/' + templateName + '.html';
+        } else if (templateName === 'customer-dashboard' || templateName === 'invoice-detail' || templateName === 'customer-edit') {
+            return 'views/customer-dashboard/' + templateName + '.html';
         }else if (templateName === 'uploader') {
             return 'views/util/' + templateName + '.html';
+        }else if (templateName === 'customer-list') {
+            return 'views/people/customers/' + templateName + '.html';
         }
     }
     $scope.getMenuGroup = (templateName) => {
@@ -72,11 +77,32 @@ app.controller("panelCtrl", function ($scope, apiHandler, $cookies, $rootScope) 
             return 'product';
         } else if (templateName === 'uploader') {
             return 'uploader';
-        } else {
+        } else if (templateName === 'customer-dashboard'  || templateName === 'invoice-detail') {
+            return 'customer-dashboard';
+        }  else if (templateName === 'customer-edit') {
+            return 'customer-edit';
+        }   else if (templateName === 'customer-list') {
+        return 'customer-list';
+    }else {
             return 'dashboard';
 
         }
     }
+    
+    $scope.logout = () => {
+        $cookies.remove("userToken");
+        location.href="/login";
+    }
+
+    $scope.init=(cid)=>{
+        $rootScope.currentCustomerId=cid;
+        if(cid==0 || cid == null || cid == undefined){
+            $scope.changeMenu('dashboard');
+        }else {
+            $scope.changeMenu('customer-dashboard');
+        }
+    }
+
     $scope.checkAccess();
 })
 ;

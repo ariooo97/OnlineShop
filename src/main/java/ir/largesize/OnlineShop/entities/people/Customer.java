@@ -14,6 +14,7 @@ public class Customer {
     private String address;
     private String postalCode;
     private String email;
+    private String fullName;
 
     @OneToOne
     @JoinColumn(name="user_id")
@@ -89,5 +90,13 @@ public class Customer {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getFullName(){
+        return  getFirstName() + " " + getLastName();
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

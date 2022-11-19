@@ -4,7 +4,6 @@ import ir.largesize.OnlineShop.entities.people.Customer;
 import ir.largesize.OnlineShop.entities.product.Color;
 import ir.largesize.OnlineShop.entities.product.Product;
 import ir.largesize.OnlineShop.entities.product.Size;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 

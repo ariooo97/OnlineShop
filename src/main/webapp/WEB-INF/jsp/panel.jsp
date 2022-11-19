@@ -1,3 +1,5 @@
+<%@ page import="ir.largesize.OnlineShop.helper.uimodels.UserVM" %>
+<%@ page import="ir.largesize.OnlineShop.enums.UserRole" %>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -10,17 +12,18 @@
     <script src="libs/sweetalert2/dist/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="libs/sweetalert2/dist/sweetalert2.min.css">
     <link href="libs/fontawesome-web/css/all.min.css" rel="stylesheet"/>
-    <link href="libs/textAngular-1.5.16/dist/textAngular.css" rel="stylesheet"/>
+    <link  rel="stylesheet" href="libs/textAngular-1.5.16/dist/textAngular.css"/>
     <script src="libs/textAngular-1.5.16/dist/textAngular-rangy.min.js"></script>
     <script src="libs/textAngular-1.5.16/dist/textAngular-sanitize.min.js"></script>
     <script src="libs/textAngular-1.5.16/dist/textAngular.min.js"></script>
     <script src="libs/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
-    <link href="libs/bootstrap-5.1.3-dist/css/bootstrap.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="libs/bootstrap-5.1.3-dist/css/bootstrap.css" />
     <script src="scripts/app.js"></script>
     <script src="scripts/directives/fileModel.js"></script>
     <script src="scripts/controllers/util/uploadFileController.js"></script>
     <script src="scripts/controllers/util/getFileController.js"></script>
     <script src="scripts/controllers/panelController.js"></script>
+    <script src="scripts/controllers/dashboardController.js"></script>
     <script src="scripts/controllers/site/nav/navListController.js"></script>
     <script src="scripts/controllers/site/nav/navAddController.js"></script>
     <script src="scripts/controllers/site/nav/navEditController.js"></script>
@@ -48,15 +51,23 @@
     <script src="scripts/controllers/products/product/productListController.js"></script>
     <script src="scripts/controllers/products/product/productAddController.js"></script>
     <script src="scripts/controllers/products/product/productEditController.js"></script>
+    <script src="scripts/controllers/customer-dashboard/customerDashboardController.js"></script>
+    <script src="scripts/controllers/customer-dashboard/invoiceDetailController.js"></script>
+    <script src="scripts/controllers/customer-dashboard/customerEditController.js"></script>
+    <script src="scripts/controllers/people/customers/customerListController.js"></script>
     <script src="scripts/services/ApiHandler.js"></script>
     <link href="styles/panel.css" rel="stylesheet"/>
+    <%
+        UserVM user = (UserVM) request.getAttribute("user");
+    %>
 </head>
 <body ng-app="onlineShopApp">
-<div class="container-fluid" ng-controller="panelCtrl">
+<% if (user !=null) { %>
+<div class="container-fluid" ng-controller="panelCtrl" ng-init="<%=user.getCustomerId()%>">
     <div class="row">
         <div class="col p-0">
             <div class="panel-header">
-                <a href="/logout" class="btn btn-danger btn-sm ">Logout</a>
+                <a ng-click="logout()" class="btn btn-danger btn-sm ">Logout</a>
             </div>
         </div>
     </div>
@@ -69,6 +80,13 @@
                     <span>{{user.fullName}}</span>
                 </div>
                 <ul>
+                    <li>
+                        <a href="/">
+                            <i class="fa fa-globe"></i>
+                            <span>Website</span>
+                        </a>
+                    </li>
+                    <% if(user.getRole()== UserRole.ADMIN){ %>
                     <li ng-class="{'slide-nav-active':templateGroup=='dashboard'}">
                         <a href="#" ng-click="changeMenu('dashboard')">
                             <i class="fa fa-dashboard"></i>
@@ -112,7 +130,7 @@
                         </a>
                     </li>
                     <li ng-class="{'slide-nav-active':templateGroup=='customer'}">
-                        <a href="#">
+                        <a href="#" ng-click="changeMenu('customer-list')">
                             <i class="fa fa-shopping-bag"></i>
                             <span>Customers</span>
                         </a>
@@ -123,6 +141,20 @@
                             <span>File Manager</span>
                         </a>
                     </li>
+                    <% } else { %>
+                    <li ng-class="{'slide-nav-active':templateGroup=='customer-dashboard'}">
+                        <a href="#" ng-click="changeMenu('customer-dashboard')">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li ng-class="{'slide-nav-active':templateGroup=='customer-edit'}">
+                        <a href="#" ng-click="changeMenu('customer-edit')">
+                            <i class="fa fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    <% } %>
                 </ul>
             </div>
         </div>
@@ -131,5 +163,10 @@
         </div>
     </div>
 </div>
+<% } else { %>
+<script>
+    location.href="/login";
+</script>
+<% } %>
 </body>
 </html>

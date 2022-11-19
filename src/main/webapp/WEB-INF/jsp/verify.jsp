@@ -28,7 +28,7 @@
                     <p class="card-text">
                         Amount : <%=transaction.getAmount()%>
                         <br/>
-                        Status : <%if (transaction.getStatus() == 100) {%>
+                        Status : <% if (transaction.getStatus() == 100) {%>
                         <span class="badge badge-success">Successfully</span>
                         <br/>
                         <b>Reference Id : <%=transaction.getRefId()%>

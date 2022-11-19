@@ -1,6 +1,5 @@
 package ir.largesize.OnlineShop.services.product;
 
-import ir.largesize.OnlineShop.entities.product.Color;
 import ir.largesize.OnlineShop.entities.product.Size;
 import ir.largesize.OnlineShop.helper.Exceptions.DataNotFoundException;
 import ir.largesize.OnlineShop.repositories.product.SizeRepository;

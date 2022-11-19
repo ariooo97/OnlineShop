@@ -1,7 +1,6 @@
 package ir.largesize.OnlineShop.controllers.api.product;
 
 
-import ir.largesize.OnlineShop.entities.product.Product;
 import ir.largesize.OnlineShop.entities.product.ProductCategory;
 import ir.largesize.OnlineShop.helper.ui.ResponseStatus;
 import ir.largesize.OnlineShop.helper.ui.ServiceResponse;

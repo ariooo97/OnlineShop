@@ -47,7 +47,8 @@ public class JwtRequestFilter implements Filter {
         excludeUrls.add("/api/content/getAllData");
         excludeUrls.add("/api/blog/getAllData");
         excludeUrls.add("/api/payment/");
-
+        excludeUrls.add("/api/invoice/find");
+        excludeUrls.add("/api/user/getUserInfo");
 
     }
 

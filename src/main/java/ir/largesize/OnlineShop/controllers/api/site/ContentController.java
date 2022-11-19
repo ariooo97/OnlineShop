@@ -2,7 +2,6 @@ package ir.largesize.OnlineShop.controllers.api.site;
 
 
 import ir.largesize.OnlineShop.entities.site.Content;
-import ir.largesize.OnlineShop.entities.site.Content;
 import ir.largesize.OnlineShop.helper.ui.ResponseStatus;
 import ir.largesize.OnlineShop.helper.ui.ServiceResponse;
 import ir.largesize.OnlineShop.services.site.ContentService;

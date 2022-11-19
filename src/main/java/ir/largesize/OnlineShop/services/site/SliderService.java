@@ -2,7 +2,6 @@ package ir.largesize.OnlineShop.services.site;
 
 
 
-import ir.largesize.OnlineShop.entities.site.Nav;
 import ir.largesize.OnlineShop.entities.site.Slider;
 import ir.largesize.OnlineShop.helper.Exceptions.DataNotFoundException;
 import ir.largesize.OnlineShop.repositories.site.SliderRepository;

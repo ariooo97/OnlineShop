@@ -6,12 +6,11 @@ app.service("apiHandler", function ($http, $cookies) {
         let request = {
             url: url,
             method: 'GET'
-
-
         };
-        this.checkAndSetToken(request, setToken);
-        $http(request).then((response) => {
 
+        this.checkAndSetToken(request, setToken);
+
+        $http(request).then((response) => {
             if (response != null && response.data != null) {
                 var result = response.data;
 

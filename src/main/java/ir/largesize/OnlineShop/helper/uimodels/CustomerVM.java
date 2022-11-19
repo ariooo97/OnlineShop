@@ -16,6 +16,20 @@ public class CustomerVM {
     private String userName;
     private String password;
 
+    public CustomerVM() {
+    }
+
+    public CustomerVM(Customer customer) {
+        setId(customer.getId());
+        setFirstName(customer.getFirstName());
+        setLastName(customer.getLastName());
+        setMobile(customer.getMobile());
+        setEmail(customer.getEmail());
+        setAddress(customer.getAddress());
+        setPostalCode(customer.getPostalCode());
+        setTel(customer.getTel());
+           }
+
     public long getId() {
         return id;
     }

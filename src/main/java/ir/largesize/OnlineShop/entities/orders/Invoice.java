@@ -3,6 +3,7 @@ package ir.largesize.OnlineShop.entities.orders;
 import ir.largesize.OnlineShop.entities.people.Customer;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -14,15 +15,17 @@ public class Invoice {
 
 
     @OneToOne
-    @JoinColumn(name="customer_id")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @OneToMany
-    @JoinColumn(name="order_items")
+    @JoinColumn(name = "order_items")
     private List<OrderItem> orderItems;
 
-    private Date invoicDate;
+    private Date invoiceDate;
     private Date payedDate;
+    private  String invoiceDateStr;
+    private String payedDateStr;
 
     public long getId() {
         return id;
@@ -48,12 +51,12 @@ public class Invoice {
         this.orderItems = orderItems;
     }
 
-    public Date getInvoicDate() {
-        return invoicDate;
+    public Date getInvoiceDate() {
+        return invoiceDate;
     }
 
-    public void setInvoicDate(Date invoicDate) {
-        this.invoicDate = invoicDate;
+    public void setInvoiceDate(Date invoicDate) {
+        this.invoiceDate = invoicDate;
     }
 
     public Date getPayedDate() {
@@ -63,4 +66,21 @@ public class Invoice {
     public void setPayedDate(Date payedDate) {
         this.payedDate = payedDate;
     }
+
+    public boolean isPayed() {
+        return getPayedDate() != null;
+    }
+
+    public String getInvoiceDateStr() {
+        SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        return format.format(invoiceDate);
+    }
+
+    public String getPayedDateStr() {
+        if(!isPayed())
+            return "";
+        SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        return format.format(payedDate);
+    }
+
 }

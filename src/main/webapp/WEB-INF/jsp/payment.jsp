@@ -70,8 +70,7 @@
                             </div>
                             <br/>
                             <a ng-click="goToPayment()" class="btn btn-success"><i class="fa fa-credit-card"></i>
-                                Proceed to
-                                payment</a>
+                                Proceed to payment</a>
                         </div>
                     </div>
                 </div>
@@ -101,7 +100,7 @@
                                        ng-model="data.userName">
                             </div>
                             <br/>
-                            <div class="form-group">
+                            <div class="form-group" ng-show="!userLoggedIn">
                                 <input type="password" placeholder="Password" class="form-control" id="password"
                                        ng-model="data.password">
                             </div>
@@ -127,7 +126,7 @@
                             </div>
                             <br/>
                             <div class="form-group">
-                                <input type="number" placeholder="Postal Code" class="form-control" id="postalCode"
+                                <input type="text" placeholder="Postal Code" class="form-control" id="postalCode"
                                        ng-model="data.postalCode">
                             </div>
                         </div>

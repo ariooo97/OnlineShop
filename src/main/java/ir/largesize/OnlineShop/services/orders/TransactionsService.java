@@ -4,7 +4,6 @@ import ir.largesize.OnlineShop.entities.orders.Transactions;
 import ir.largesize.OnlineShop.helper.Exceptions.DataNotFoundException;
 import ir.largesize.OnlineShop.helper.uimodels.StartPaymentVM;
 import ir.largesize.OnlineShop.repositories.order.TransactionsRepository;
-import ir.largesize.OnlineShop.repositories.order.TransactionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

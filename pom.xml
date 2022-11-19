@@ -11,7 +11,7 @@
     <groupId>ir.largesize</groupId>
     <artifactId>OnlineShop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-       <name>OnlineShop</name>
+    <name>OnlineShop</name>
     <description>Online shopping for large size group</description>
     <properties>
         <java.version>1.8</java.version>

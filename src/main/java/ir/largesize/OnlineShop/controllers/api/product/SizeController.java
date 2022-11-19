@@ -3,7 +3,6 @@ package ir.largesize.OnlineShop.controllers.api.product;
 
 
 import ir.largesize.OnlineShop.entities.product.Size;
-import ir.largesize.OnlineShop.entities.product.Size;
 import ir.largesize.OnlineShop.helper.ui.ResponseStatus;
 import ir.largesize.OnlineShop.helper.ui.ServiceResponse;
 import ir.largesize.OnlineShop.services.product.SizeService;

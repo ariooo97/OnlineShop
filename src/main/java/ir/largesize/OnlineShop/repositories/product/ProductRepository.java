@@ -33,4 +33,9 @@ public interface ProductRepository extends PagingAndSortingRepository<Product,Lo
     List<Product> findTop6ByOrderByPriceDesc();
 
     List<Product> findTop6ByOrderByPriceAsc();
+
+    long countByEnableIsTrue();
+
+    long countByExistsIsTrue();
+
 }

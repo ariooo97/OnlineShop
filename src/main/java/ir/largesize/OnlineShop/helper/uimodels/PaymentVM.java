@@ -8,6 +8,7 @@ public class PaymentVM {
     private CustomerVM customer;
     private List<OrderItemVM> orderItems;
     private PaymentType paymentType;
+    private long customerId;
 
     public CustomerVM getCustomer() {
         return customer;
@@ -31,5 +32,13 @@ public class PaymentVM {
 
     public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
+    }
+
+    public long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(long customerId) {
+        this.customerId = customerId;
     }
 }

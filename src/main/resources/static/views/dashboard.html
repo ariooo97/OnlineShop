@@ -1,1 +1,118 @@
-<h1>dashboard</h1>
+<div ng-controller="dashboardCtrl">
+    <div class="container  p-3">
+        <div class="row">
+            <div class="col">
+                <h1>
+                    <span class="badge  badge-list">Admin dashboard</span>
+                </h1>
+                <br/>
+                <div class="row">
+                    <div class="col-2">
+                        <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+                            <div class="card-header">Navigations</div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{data.navigations}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="card text-bg-secondary mb-3" style="max-width: 18rem;">
+                            <div class="card-header">Sliders</div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{data.sliders}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="card text-bg-warning mb-3" style="max-width: 18rem;">
+                            <div class="card-header">All Blog</div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{data.allBlog}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="card text-bg-success mb-3" style="max-width: 18rem;">
+                            <div class="card-header">Active Blogs</div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{data.activeBlog}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="card text-bg-danger mb-3" style="max-width: 18rem;">
+                            <div class="card-header"><small>Product Categories</small></div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{data.categories}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="card text-bg-info mb-3" style="max-width: 18rem;">
+                            <div class="card-header">All Products</div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{data.products}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="card text-bg-warning mb-3" style="max-width: 18rem;">
+                            <div class="card-header">Exists Products</div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{data.existProducts}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+                            <div class="card-header"><small>Enable Products</small></div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{data.enableProducts}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="card text-bg-info mb-3" style="max-width: 18rem;">
+                            <div class="card-header">All User</div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{data.users}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+                            <div class="card-header">Active Users</div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{data.activeUsers}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+                            <div class="card-header">All Customers</div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{data.customers}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="card text-bg-secondary mb-3" style="max-width: 18rem;">
+                            <div class="card-header">All Invoices</div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{data.invoices}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="card text-bg-danger mb-3" style="max-width: 18rem;">
+                            <div class="card-header">Payed Invoices</div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{data.payedInvoices}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

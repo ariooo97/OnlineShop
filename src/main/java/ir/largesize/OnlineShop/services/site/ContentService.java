@@ -1,7 +1,6 @@
 package ir.largesize.OnlineShop.services.site;
 
 import ir.largesize.OnlineShop.entities.site.Content;
-import ir.largesize.OnlineShop.entities.site.Content;
 import ir.largesize.OnlineShop.helper.Exceptions.DataNotFoundException;
 import ir.largesize.OnlineShop.repositories.site.ContentRepository;
 import org.springframework.beans.factory.annotation.Autowired;

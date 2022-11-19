@@ -1,11 +1,15 @@
 package ir.largesize.OnlineShop.controllers.api.people;
 
 import ir.largesize.OnlineShop.config.JwtTokenUtil;
+import ir.largesize.OnlineShop.entities.people.Customer;
 import ir.largesize.OnlineShop.entities.people.User;
+import ir.largesize.OnlineShop.enums.UserRole;
 import ir.largesize.OnlineShop.helper.Exceptions.JwtTokenException;
 import ir.largesize.OnlineShop.helper.ui.ResponseStatus;
 import ir.largesize.OnlineShop.helper.ui.ServiceResponse;
+import ir.largesize.OnlineShop.helper.uimodels.CustomerVM;
 import ir.largesize.OnlineShop.helper.uimodels.UserVM;
+import ir.largesize.OnlineShop.services.people.CustomerService;
 import ir.largesize.OnlineShop.services.people.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +24,12 @@ public class UserController {
 
     @Autowired
     private UserService service;
+
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    private CustomerService customerService;
 
     @PostMapping("/login")
     public ServiceResponse<UserVM> login(@RequestBody User user) {
@@ -35,6 +43,7 @@ public class UserController {
         return new ServiceResponse<UserVM>(ResponseStatus.SUCCESS, userVm);
 
     }
+
     @GetMapping("/getAll")
     public ServiceResponse<UserVM> getAll(
             @RequestParam Integer pageSize,
@@ -72,8 +81,13 @@ public class UserController {
             if(userName==null)
                 throw new JwtTokenException("username can not resolve");
 
-            User result = service.getByUserName(userName);
-            return new ServiceResponse<UserVM>(ResponseStatus.SUCCESS, new UserVM(result));
+            UserVM user = new UserVM(service.getByUserName(userName));
+            if(user.getRole() != UserRole.ADMIN) {
+                Customer customer = customerService.getByUserId(user.getId());
+                user.setCustomerId(customer.getId());
+                user.setCustomer(new CustomerVM(customer));
+            }
+            return new ServiceResponse<UserVM>(ResponseStatus.SUCCESS, user);
         } catch (Exception e) {
             return new ServiceResponse<UserVM>(e);
         }

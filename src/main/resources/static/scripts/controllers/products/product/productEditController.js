@@ -1,112 +1,88 @@
 app.controller('productEditCtrl', function ($scope, apiHandler, $rootScope) {
+
     $scope.data = {};
     $scope.id = $rootScope.dataId;
-    $scope.category = $rootScope.category;
+    $scope.category = $rootScope.Category;
     $scope.colors = [];
     $scope.sizes = [];
     $scope.newFeature = {};
     $scope.data.features = [];
-    $scope.data.colors = [];
-    $scope.data.size = [];
     $scope.featureList = [];
     $scope.selectedColors = [];
     $scope.selectedSizes = [];
 
+
     $scope.editData = () => {
         debugger;
-        $scope.data.categoryId = $scope.category.id;
         if ($rootScope.uploadedFile != undefined && $rootScope.uploadedFile != null && $rootScope.uploadedFile != "")
             $scope.data.image = $rootScope.uploadedFile;
-        if ($scope.data.title == undefined || $scope.data.title == null || $scope.data.title == "") {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Please enter title!'
-            })
+        $scope.data.categoryId = $rootScope.category.id;
 
+        if ($scope.data.title == undefined || $scope.data.title == null || $scope.data.title == "") {
+            Swal.fire('please enter title')
             return;
         }
         if ($scope.data.price == undefined || $scope.data.price == null || $scope.data.price == "") {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Please enter price!'
-            })
-
-            return;
-        }
-
-        if ($scope.data.enable == undefined || $scope.data.enable == null) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Please set enable!'
-            })
-
+            Swal.fire('please enter price')
             return;
         }
         if ($scope.data.exists == undefined || $scope.data.exists == null) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Please set exists!'
-            })
-
+            Swal.fire('please set exists')
+            return;
+        }
+        if ($scope.data.enable == undefined || $scope.data.enable == null) {
+            Swal.fire('please set enable')
             return;
         }
         if ($scope.data.image == undefined || $scope.data.image == null || $scope.data.image == '') {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Please upload an image!'
-            })
-
+            Swal.fire('please upload an image')
             return;
         }
-        for(let i=0;i <$scope.data.colors.length; i++){
+
+        $scope.data.colors = [];
+        for (let i = 0; i < $scope.selectedColors.length; i++) {
             $scope.data.colors.push($scope.selectedColors[i]);
         }
 
-        for(let i=0;i <$scope.data.size.length; i++){
-            $scope.data.size.push($scope.selectedSizes[i]);
+        $scope.data.sizes = [];
+        for (let i = 0; i < $scope.selectedSizes.length; i++) {
+            $scope.data.sizes.push($scope.selectedSizes[i]);
         }
 
-        apiHandler.callPut('product/edit', $scope.data, (response) => {
-            $scope.changeMenu('product-list');
+        apiHandler.callPut('product/edit/', $scope.data, (response) => {
+            $scope.changeMenuWithCategory('product-list');
         }, (error) => {
-
         }, true);
     }
-    $scope.changeMenuWhitCategory = (template) => {
-        $rootScope.category = $scope.category;
-        $scope.changeMenu(template);
 
+    $scope.changeMenuWithCategory = (template) => {
+        $rootScope.Category = $scope.category;
+        $scope.changeMenu(template);
     }
+
     $scope.getColors = () => {
         apiHandler.callGet('color/', (response) => {
             $scope.colors = response.dataList;
         }, (error) => {
-
-        }, true)
+        }, true);
     }
+
     $scope.getSizes = () => {
         apiHandler.callGet('size/', (response) => {
             $scope.sizes = response.dataList;
         }, (error) => {
-
-        }, true)
+        }, true);
     }
 
     $scope.addFeature = () => {
-
         apiHandler.callPost('feature/', $scope.newFeature, (response) => {
             $scope.data.features.push(response.dataList[0].id);
             $scope.featureList.push(response.dataList[0]);
             $scope.newFeature = {};
         }, (error) => {
-
-        }, true)
+        }, true);
     }
+
     $scope.deleteFeature = (id) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -114,12 +90,11 @@ app.controller('productEditCtrl', function ($scope, apiHandler, $rootScope) {
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d73636',
+            cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
                 apiHandler.callDelete('feature/' + id, (response) => {
-
                     for (let i = 0; i < $scope.data.features.length; i++) {
                         if ($scope.data.features[i] == id) {
                             $scope.data.features.splice(i, 1);
@@ -132,69 +107,59 @@ app.controller('productEditCtrl', function ($scope, apiHandler, $rootScope) {
                             break;
                         }
                     }
-
                 }, (error) => {
-
                 }, true);
-
             }
         })
 
     }
-    $scope.fillFeature = () => {
 
-        for (let i = 0; i < $scope.data.features.length; i++) {
-            $scope.featureList.push($scope.data.features[i]);
+    $scope.fillFeatures = () => {
+        for (let i = 0; i < $scope.data.featuresDataList.length; i++) {
+            $scope.featureList.push($scope.data.featuresDataList[i]);
         }
     }
 
-
     $scope.getData = () => {
-        apiHandler.callGet("product/" + $scope.id, (response) => {
+        apiHandler.callGet("product/info/" + $scope.id, (response) => {
             $scope.data = response.dataList[0];
             for (let i = 0; i < $scope.data.colors.length; i++) {
-                $scope.selectedColors.push($scope.colors[i]);
+                $scope.selectedColors.push($scope.data.colors[i]);
             }
             for (let i = 0; i < $scope.data.sizes.length; i++) {
-                $scope.selectedSizes.push($scope.sizes[i]);
+                $scope.selectedSizes.push($scope.data.sizes[i]);
             }
-                   $scope.fillFeature();
-        }, (onerror) => {
-
+            $scope.fillFeatures();
+        }, (error) => {
         }, true);
     }
 
     $scope.isSelected = (list, item) => {
         if (list == undefined) return false;
-
         return list.some(x => x == item.id);
     }
 
-    $scope.onColorChange = (color) => {
-
+    $scope.onColorChanged = (color) => {
         if ($scope.data.colors[color.id] && !$scope.selectedColors.some(x => x == color.id)) {
             $scope.selectedColors.push(color.id);
-        } else if ($scope.data.colors[color.id] && !$scope.selectedColors.some(x => x == color.id)) {
+        } else if (!$scope.data.colors[color.id] && $scope.selectedColors.some(x => x == color.id)) {
             for (let i = 0; i < $scope.selectedColors.length; i++) {
                 if ($scope.selectedColors[i] == color.id) {
-                    $scope.data.colors.splice(i, 1);
+                    $scope.selectedColors.splice(i, 1);
                     return;
-                    ;
                 }
             }
         }
-
     }
 
-    $scope.onSizeChange = (size) => {
+    $scope.onSizeChanged = (size) => {
         if ($scope.data.sizes[size.id] && !$scope.selectedSizes.some(x => x == size.id)) {
             $scope.selectedSizes.push(size.id);
-        } else if ($scope.data.sizes[size.id] && !$scope.selectedSizes.some(x => x == size.id)) {
+        } else if (!$scope.data.sizes[size.id] && $scope.selectedSizes.some(x => x == size.id)) {
             for (let i = 0; i < $scope.selectedSizes.length; i++) {
                 if ($scope.selectedSizes[i] == size.id) {
-                    $scope.data.sizes.splice(i, 1);
+                    $scope.selectedSizes.splice(i, 1);
                     return;
-                    ;
                 }
             }
         }

@@ -8,7 +8,6 @@ import ir.largesize.OnlineShop.entities.people.User;
 import ir.largesize.OnlineShop.entities.product.Product;
 import ir.largesize.OnlineShop.enums.PaymentType;
 import ir.largesize.OnlineShop.helper.payment.zarinpal.contorollers.ZarinpalService;
-import ir.largesize.OnlineShop.helper.payment.zarinpal.medels.VerifyRequest;
 import ir.largesize.OnlineShop.helper.uimodels.PaymentVM;
 import ir.largesize.OnlineShop.helper.uimodels.StartPaymentVM;
 import ir.largesize.OnlineShop.services.people.CustomerService;
@@ -17,7 +16,6 @@ import ir.largesize.OnlineShop.services.product.ColorService;
 import ir.largesize.OnlineShop.services.product.ProductService;
 import ir.largesize.OnlineShop.services.product.SizeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -62,15 +60,21 @@ public class PaymentService {
         */
         StartPaymentVM response=new StartPaymentVM();
         List<OrderItem> orderItemList = new ArrayList<>();
-        User userInfo = userService.add(data.getCustomer().getUserInfo());
-        Customer customer=data.getCustomer().getCustomerInfo();
-        customer.setUser(userInfo);
-        Customer customerInfo = customerService.add(customer);
+        Customer customerInfo = null;
+        if(data.getCustomerId() == 0) {
+            User userInfo = userService.add(data.getCustomer().getUserInfo());
+            Customer customer = data.getCustomer().getCustomerInfo();
+            customer.setUser(userInfo);
+             customerInfo = customerService.add(customer);
+        }else {
+            customerInfo = customerService.getById(data.getCustomerId());
+        }
+        Customer finalCustomerInfo = customerInfo;
         data.getOrderItems().forEach(x -> {
             OrderItem orderItem = new OrderItem();
             orderItem.setColor(colorService.getById(x.getColorId()));
             orderItem.setCount(x.getCount());
-            orderItem.setCustomer(customerInfo);
+            orderItem.setCustomer(finalCustomerInfo);
             Product product = productService.getById(x.getProductId());
             orderItem.setPrice(product.getPrice());
             orderItem.setProduct(product);
@@ -82,7 +86,7 @@ public class PaymentService {
         });
         Invoice invoice = new Invoice();
         invoice.setCustomer(customerInfo);
-        invoice.setInvoicDate(new Date());
+        invoice.setInvoiceDate(new Date());
         invoice.setPayedDate(null);
         invoice.setOrderItems(orderItemList);
         invoiceService.add(invoice);
@@ -107,6 +111,11 @@ public class PaymentService {
         Transactions result = null;
         if(transactions.getPaymentType() == PaymentType.ZarinPal){
              result= zarinpalService.goToVerify(transactions);
+             if(result.getTransactionVerify()==100){
+                 Invoice invoice = invoiceService.getById(result.getInvoice().getId());
+                 invoice.setPayedDate(new Date());
+                 invoiceService.update(invoice);
+             }
         }
         transactionsService.update(result);
         return result;
