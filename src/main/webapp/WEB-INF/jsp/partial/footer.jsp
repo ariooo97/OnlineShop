@@ -34,7 +34,7 @@
                         <i class="fa fa-instagram-square"></i>
                     </a>
                     <a href="{{getContent('telegram-link') | removeHTMLTags}}" class="footer-social">
-                        <i class="fas fa-telegram" aria-hidden="true" style='color: rgba(75,75,229,0.96)'></i>
+                        <i class="fas fa-telegram"  style='color: rgba(75,75,229,0.96)'></i>
                     </a>
                 </div>
             </div>

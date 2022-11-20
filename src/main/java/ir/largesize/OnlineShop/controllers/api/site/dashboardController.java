@@ -60,6 +60,7 @@ public class dashboardController {
             result.setExistProducts(productService.getExistCount());
             result.setEnableProducts(productService.getEnableCount());
             result.setEnableProducts(userService.getAllCount());
+            result.setUsers(userService.getAllCount());
             result.setActiveUsers(userService.getEnableCount());
             result.setCustomers(customerService.getAllCount());
             result.setSliders(sliderService.getAllCount());

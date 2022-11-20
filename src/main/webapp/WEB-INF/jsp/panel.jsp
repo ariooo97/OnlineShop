@@ -17,7 +17,7 @@
     <script src="libs/textAngular-1.5.16/dist/textAngular-sanitize.min.js"></script>
     <script src="libs/textAngular-1.5.16/dist/textAngular.min.js"></script>
     <script src="libs/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="libs/bootstrap-5.1.3-dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="libs/bootstrap-5.1.3-dist/css/bootstrap.min.css" />
     <script src="scripts/app.js"></script>
     <script src="scripts/directives/fileModel.js"></script>
     <script src="scripts/controllers/util/uploadFileController.js"></script>

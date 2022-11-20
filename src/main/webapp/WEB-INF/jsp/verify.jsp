@@ -29,7 +29,7 @@
                         Amount : <%=transaction.getAmount()%>
                         <br/>
                         Status : <% if (transaction.getStatus() == 100) {%>
-                        <span class="badge badge-success">Successfully</span>
+                        <span class="badge bg-success">Successfully</span>
                         <br/>
                         <b>Reference Id : <%=transaction.getRefId()%>
                         </b>

@@ -2,7 +2,7 @@
     <div class="container  p-3">
         <div class="row">
             <div class="col">
-                <h1><span class="badge  badge-list">Blog List</span></h1>
+                <h1><span class="badge bg-info">Blog List</span></h1>
                 <a class="btn btn-sm btn-primary float-end" ng-click="changeMenu('blog-add')">Add New +</a>
                 <br/>
                 <br/>
@@ -26,7 +26,7 @@
                         </td>
                         <td>{{data.title}} ({{data.subtitle}})</td>
                         <td>
-                            <span class="badge  badge-success" ng-show="data.status == 'PUBLISHED'">{{data.status}}</span>
+                            <span class="badge  bg-success" ng-show="data.status == 'PUBLISHED'">{{data.status}}</span>
                             <span class="badge   badge-danger" ng-show="data.status == 'DRAFT'">{{data.status}}</span>
                         </td>
                         <td>{{data.visitCount}}</td>

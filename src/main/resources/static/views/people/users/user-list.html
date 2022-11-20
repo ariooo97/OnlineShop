@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col">
                 <h1>
-                    <span class="badge  badge-list">Users List</span>
+                    <span class="badge bg-info">Users List</span>
                 </h1>
                 <a class="btn btn-sm btn-primary float-end" ng-click="changeMenu('user-add')">Add New +</a>
                 <br/>
@@ -27,8 +27,8 @@
                         <td>{{data.firstName}} {{data.lastName}}</td>
                         <td>{{data.email}}</td>
                         <td>
-                            <span class="badge  badge-success" ng-show="data.role == 'ADMIN'">{{data.role}}</span>
-                            <span class="badge   badge-list" ng-show="data.role == 'USER'">{{data.role}}</span>
+                            <span class="badge  bg-success" ng-show="data.role == 'ADMIN'">{{data.role}}</span>
+                            <span class="badge  bg-info" ng-show="data.role == 'USER'">{{data.role}}</span>
                         </td>
                         <td>
                             <i class="fa fa-check" ng-show="data.enable"></i>
