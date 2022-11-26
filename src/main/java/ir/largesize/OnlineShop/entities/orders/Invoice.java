@@ -2,6 +2,7 @@ package ir.largesize.OnlineShop.entities.orders;
 
 import ir.largesize.OnlineShop.entities.people.Customer;
 
+
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,10 +23,13 @@ public class Invoice {
     @JoinColumn(name = "order_items")
     private List<OrderItem> orderItems;
 
+    private boolean invoiceStatus;
     private Date invoiceDate;
     private Date payedDate;
-    private  String invoiceDateStr;
+    private String invoiceDateStr;
     private String payedDateStr;
+
+
 
     public long getId() {
         return id;
@@ -55,8 +59,8 @@ public class Invoice {
         return invoiceDate;
     }
 
-    public void setInvoiceDate(Date invoicDate) {
-        this.invoiceDate = invoicDate;
+    public void setInvoiceDate(Date invoiceDate) {
+        this.invoiceDate = invoiceDate;
     }
 
     public Date getPayedDate() {
@@ -69,6 +73,14 @@ public class Invoice {
 
     public boolean isPayed() {
         return getPayedDate() != null;
+    }
+
+    public boolean isInvoiceStatus() {
+        return invoiceStatus;
+    }
+
+    public void setInvoiceStatus(boolean invoiceStatus) {
+        this.invoiceStatus = invoiceStatus;
     }
 
     public String getInvoiceDateStr() {

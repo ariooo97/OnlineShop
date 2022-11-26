@@ -1,7 +1,6 @@
 package ir.largesize.OnlineShop.controllers.api.site;
 
 
-import ir.largesize.OnlineShop.entities.site.Content;
 import ir.largesize.OnlineShop.helper.ui.ResponseStatus;
 import ir.largesize.OnlineShop.helper.ui.ServiceResponse;
 import ir.largesize.OnlineShop.helper.uimodels.DashboardVM;
@@ -65,7 +64,8 @@ public class dashboardController {
             result.setCustomers(customerService.getAllCount());
             result.setSliders(sliderService.getAllCount());
             result.setInvoices(invoiceService.getAllCount());
-            result.setPayedInvoices(invoiceService.countByPayedDateInNotNull());
+            result.setPayedInvoices(invoiceService.countByPayedDateIsNotNull());
+            result.setNewOrder(invoiceService.getCountByStatus());
 
             return new ServiceResponse<DashboardVM>(ResponseStatus.SUCCESS, result);
         } catch (Exception e) {

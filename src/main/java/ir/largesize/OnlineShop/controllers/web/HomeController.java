@@ -102,7 +102,7 @@ public class HomeController {
                 throw new Exception("Data not found!");
             transactions.setVerifyStatus(Status);
             transactions.setRefId(transactions.getRefId());
-            if ((transactions.getRefId()==0)
+            if ((transactions.getRefId()!=0)
                     && Status.toLowerCase().equals("OK".toLowerCase())) {
                 Transactions result = paymentService.doVerify(transactions);
 

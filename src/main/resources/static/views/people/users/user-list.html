@@ -31,13 +31,13 @@
                             <span class="badge  bg-info" ng-show="data.role == 'USER'">{{data.role}}</span>
                         </td>
                         <td>
-                            <i class="fa fa-check" ng-show="data.enable"></i>
-                            <i class="fa fa-times" ng-show="!data.enable"></i>
+                            <i title="Active" class="fa fa-check color-green" ng-show="data.enable"></i>
+                            <i title="Inactive" class="fa fa-times color-red" ng-show="!data.enable"></i>
                         </td>
 
                         <td>
-                            <a ng-click="editItem(data.id)"><i class="fa fa-edit color-green cursor-pointer"></i></a>
-                            <a ng-hide="userInfo.id==data.id" ng-click="deleteItem(data.id)"><i
+                            <a title="Edit" ng-click="editItem(data.id)"><i class="fa fa-edit color-green cursor-pointer"></i></a>
+                            <a title="Delete" ng-hide="userInfo.id==data.id" ng-click="deleteItem(data.id)"><i
                                     class="fa fa-times color-red cursor-pointer"></i></a>
                         </td>
                     </tr>

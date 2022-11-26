@@ -20,4 +20,9 @@ public interface InvoiceRepository extends PagingAndSortingRepository<Invoice,Lo
     Page<Invoice> findAllByCustomer(long customerId, Pageable pageable);
 
     long countByPayedDateIsNotNull();
+
+    long countByInvoiceStatusIsFalse();
+
+
+
 }

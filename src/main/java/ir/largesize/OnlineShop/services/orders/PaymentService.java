@@ -89,6 +89,7 @@ public class PaymentService {
         invoice.setInvoiceDate(new Date());
         invoice.setPayedDate(null);
         invoice.setOrderItems(orderItemList);
+        invoice.setInvoiceStatus(false);
         invoiceService.add(invoice);
         response.setDescription(data.getOrderItems().size() + " products for " + data.getCustomer().getFullName());
         response.setMobile(customerInfo.getMobile());
@@ -96,6 +97,7 @@ public class PaymentService {
         response.setCustomer(customerInfo);
         response.setInvoice(invoice);
         response.setPaymentType(data.getPaymentType());
+
         return response;
     }
 

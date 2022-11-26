@@ -1,5 +1,6 @@
 <%@ page import="org.hibernate.Transaction" %>
 <%@ page import="ir.largesize.OnlineShop.entities.orders.Transactions" %>
+<%@ page import="java.util.Locale" %>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -28,13 +29,13 @@
                     <p class="card-text">
                         Amount : <%=transaction.getAmount()%>
                         <br/>
-                        Status : <% if (transaction.getStatus() == 100) {%>
+                        Status : <% if (transaction.getRefId() != 0) {%>
                         <span class="badge bg-success">Successfully</span>
                         <br/>
                         <b>Reference Id : <%=transaction.getRefId()%>
                         </b>
                         <% } else {%>
-                        <span class="badge badge-danger">Failed</span>
+                        <span class="badge bg-danger">Failed</span>
                         <% } %>
                         <br/>
                     </p>

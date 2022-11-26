@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class InvoiceService {
 
@@ -22,7 +23,11 @@ public class InvoiceService {
         return repository.count();
     }
 
-    public  long countByPayedDateInNotNull(){
+    public  long getCountByStatus(){
+        return repository.countByInvoiceStatusIsFalse();
+    }
+
+    public  long countByPayedDateIsNotNull(){
         return repository.countByPayedDateIsNotNull();
     }
 
@@ -43,7 +48,7 @@ public class InvoiceService {
     }
 
     public Invoice add(Invoice data) {
-        return repository.save(data);
+                      return repository.save(data);
     }
 
     public Invoice update(Invoice data) throws DataNotFoundException {

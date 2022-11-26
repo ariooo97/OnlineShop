@@ -15,6 +15,8 @@ public class DashboardVM {
     private long customers;
     private long invoices;
     private long payedInvoices;
+    private long newOrder;
+
 
     public long getNavigations() {
         return navigations;
@@ -119,4 +121,14 @@ public class DashboardVM {
     public void setPayedInvoices(long payedInvoices) {
         this.payedInvoices = payedInvoices;
     }
+
+    public long getNewOrder() {
+        return newOrder;
+    }
+
+    public void setNewOrder(long newOrder) {
+        this.newOrder = newOrder;
+    }
+
+
 }

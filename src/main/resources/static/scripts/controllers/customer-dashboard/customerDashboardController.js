@@ -4,10 +4,10 @@ app.controller('customerDashboardCtrl', function ($scope, apiHandler, $rootScope
         pageNumber: 0
     };
     $scope.customerId=0;
-
     $scope.totalCount = 0;
     $scope.pageCount = 0;
     $scope.dataList = [];
+
     $scope.getDataList = () => {
         let url = 'invoice/find?cid='+$scope.customerId+'&pageSize=' + $scope.query.pageSize + '&pageNumber='
             + $scope.query.pageNumber;
