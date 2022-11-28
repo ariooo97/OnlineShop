@@ -33,11 +33,13 @@ app.controller('customerDashboardCtrl', function ($scope, apiHandler, $rootScope
 
     }
 
-    $scope.init=()=>{
-        $scope.customerId=$rootScope.currentCustomerId;
+    $scope.init = () =>{
+        debugger;
+        $scope.customerId=$rootScope.user.customerId;
     }
 
     $scope.showItem =(id)=>{
+      debugger;
         $rootScope.customerId=id;
         $scope.changeMenu('invoice-detail');
     }

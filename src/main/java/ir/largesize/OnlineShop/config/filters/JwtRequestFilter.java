@@ -73,6 +73,7 @@ public class JwtRequestFilter implements Filter {
             if (!jwtTokenUtil.validateToken(token, userVm))
                 throw new JwtTokenException("invalid token");
             filterChain.doFilter(servletRequest, servletResponse);
+            
 
         } catch (JwtTokenException ex) {
             ((HttpServletResponse) servletResponse).sendError(HttpServletResponse.SC_UNAUTHORIZED, "unauthorized");

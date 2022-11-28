@@ -5,7 +5,8 @@
                 <div class="card text-center">
                     <div class="card-header">
                         <h1><span class="badge  bg-info">Invoices Detail</span>
-                            <a ng-click="changeMenu('customer-dashboard')" class="btn btn-sm btn-primary float-end">Return</a></h1>
+                            <a ng-click="changeMenu('customer-dashboard')" class="btn btn-sm btn-primary float-end">Return</a>
+                        </h1>
                     </div>
                     <div class="card-body">
                         <div class="card-text text-lg-start">
@@ -19,7 +20,7 @@
                                     <div>
                                         <span>Status :</span>
                                         <span class="badge bg-success" ng-show="data.payed">Payed</span>
-                                        <span class="badge badge-danger" ng-show="!data.payed">NotPayed</span>
+                                        <span class="badge bg-danger" ng-show="!data.payed">NotPayed</span>
                                     </div>
                                     <br/>
                                     <div>
@@ -71,8 +72,8 @@
                         <th scope="col">Price</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr ng-repeat="item in data.orderItems">
+                    <tbody ng-repeat="item in data.orderItems">
+                    <tr>
                         <th scope="row">{{$index + 1}}</th>
                         <td>
                             <a title="Show Details" target="_blank" href="/product/{{item.product.id}}">
@@ -81,15 +82,15 @@
                             </a>
                         </td>
                         <td>
-                            <div class="color-entity-box" style="background: {{data.color.value}}"></div>
-                            <span class="color-title">  {{item.color.name}}</span>
+                            <div class="color-entity-box" style="background:{{item.color.value}}"></div>
+                            <span class="color-title">{{item.color.name}}</span>
                         </td>
                         <td>{{item.size.title}}</td>
                         <td>{{item.count}}</td>
                         <td>{{item.price}}</td>
                     </tr>
                     </tbody>
-                    <tfoot  class="table-footer">
+                    <tfoot class="table-footer">
                     <tr>
                         <td colspan="3">#</td>
                         <td><b>Total</b></td>

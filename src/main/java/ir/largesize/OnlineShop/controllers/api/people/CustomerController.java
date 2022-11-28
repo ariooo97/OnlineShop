@@ -44,7 +44,6 @@ public class CustomerController {
     }
 
 
-
     @GetMapping("/{id}")
     public ServiceResponse<Customer> search(@PathVariable long id) {
         try {
@@ -85,6 +84,7 @@ public class CustomerController {
                     throw new Exception("You can only update your information");
             }
             Customer result = service.update(data.getCustomerInfo());
+            data.setId(userVM.getId());
             userService.update(data.getUserInfo());
             return new ServiceResponse<Customer>(ResponseStatus.SUCCESS, result);
         } catch (Exception e) {

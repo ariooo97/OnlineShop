@@ -124,6 +124,7 @@ public class CustomerVM {
         customer.setAddress(getAddress());
         customer.setPostalCode(getPostalCode());
         customer.setTel(getTel());
+
                 return customer;
     }
 

@@ -3,6 +3,7 @@ app.controller("panelCtrl", function ($scope, apiHandler, $cookies, $rootScope) 
     $scope.templateName = "";
     $scope.templateGroup = "";
 
+
     $scope.checkAccess = () => {
         var token = $cookies.get("userToken");
         if (token == undefined || token == null || token == "") {
@@ -95,6 +96,7 @@ app.controller("panelCtrl", function ($scope, apiHandler, $cookies, $rootScope) 
     }
 
     $scope.init=(cid)=>{
+        debugger;
         $rootScope.currentCustomerId=cid;
         if(cid==0 || cid == null || cid == undefined){
             $scope.changeMenu('dashboard');
@@ -102,6 +104,7 @@ app.controller("panelCtrl", function ($scope, apiHandler, $cookies, $rootScope) 
             $scope.changeMenu('customer-dashboard');
         }
     }
+
 
     $scope.checkAccess();
 })

@@ -64,8 +64,7 @@ app.controller('paymentCtrl', function ($scope, $http, mainApiHandler, $rootScop
     }
 
     $scope.getUserInfo = (token) => {
-        debugger;
-        let request = {
+               let request = {
             url: '/api/user/getUserInfo',
             method: 'GET',
             headers: {
@@ -77,7 +76,6 @@ app.controller('paymentCtrl', function ($scope, $http, mainApiHandler, $rootScop
             if (response != null && response.data != null) {
                 $scope.userLoggedIn =true;
                 $scope.data = response.data.dataList[0];
-                debugger;
                 $scope.data.mobile = $scope.data.customer.mobile;
                 $scope.data.address = $scope.data.customer.address;
                 $scope.data.tel = $scope.data.customer.tel;

@@ -25,7 +25,8 @@ app.controller('customerListCtrl', function ($scope, apiHandler, $rootScope) {
     }
 
     $scope.showInvoices = (id) =>{
-        $rootScope.customerId = id;
+        debugger;
+        $rootScope.user.customerId = id;
         $scope.changeMenu('customer-dashboard');
 
     }
