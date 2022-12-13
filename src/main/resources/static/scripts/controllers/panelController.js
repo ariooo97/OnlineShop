@@ -42,18 +42,26 @@ app.controller("panelCtrl", function ($scope, apiHandler, $cookies, $rootScope) 
             return 'views/people/users/' + templateName + '.html';
         } else if (templateName === 'category-list' || templateName === 'category-edit' || templateName === 'category-add') {
             return 'views/products/category/' + templateName + '.html';
-        }  else if (templateName === 'color-list' || templateName === 'color-edit' || templateName === 'color-add') {
+        } else if (templateName === 'color-list' || templateName === 'color-edit' || templateName === 'color-add') {
             return 'views/products/color/' + templateName + '.html';
-        }else if (templateName === 'size-list' || templateName === 'size-edit' || templateName === 'size-add') {
+        } else if (templateName === 'size-list' || templateName === 'size-edit' || templateName === 'size-add') {
             return 'views/products/size/' + templateName + '.html';
         } else if (templateName === 'product-list' || templateName === 'product-edit' || templateName === 'product-add') {
             return 'views/products/product/' + templateName + '.html';
         } else if (templateName === 'customer-dashboard' || templateName === 'invoice-detail' || templateName === 'customer-edit') {
             return 'views/customer-dashboard/' + templateName + '.html';
-        }else if (templateName === 'uploader') {
+        } else if (templateName === 'uploader') {
             return 'views/util/' + templateName + '.html';
-        }else if (templateName === 'customer-list') {
+        } else if (templateName === 'customer-list') {
             return 'views/people/customers/' + templateName + '.html';
+        } else if (templateName === 'new-order') {
+            return 'views/site/order/' + templateName + '.html';
+        } else if (templateName === 'all-orders') {
+            return 'views/site/order/' + templateName + '.html';
+        } else if (templateName === 'newOrderInvoice-detail') {
+            return 'views/site/order/' + templateName + '.html';
+        } else if (templateName === 'newOrderInvoice-detail') {
+            return 'views/site/order/' + templateName + '.html';
         }
     }
     $scope.getMenuGroup = (templateName) => {
@@ -78,29 +86,35 @@ app.controller("panelCtrl", function ($scope, apiHandler, $cookies, $rootScope) 
             return 'product';
         } else if (templateName === 'uploader') {
             return 'uploader';
-        } else if (templateName === 'customer-dashboard'  || templateName === 'invoice-detail') {
+        } else if (templateName === 'customer-dashboard' || templateName === 'invoice-detail') {
             return 'customer-dashboard';
-        }  else if (templateName === 'customer-edit') {
+        } else if (templateName === 'customer-edit') {
             return 'customer-edit';
-        }   else if (templateName === 'customer-list') {
-        return 'customer-list';
-    }else {
+        } else if (templateName === 'customer-list') {
+            return 'customer-list';
+        } else if (templateName === 'new-order') {
+            return 'new-order';
+        } else if (templateName === 'all-orders') {
+            return 'all-orders';
+        } else if (templateName === 'newOrderInvoice-detail') {
+            return 'new-order';
+        } else {
             return 'dashboard';
 
         }
     }
-    
+
     $scope.logout = () => {
         $cookies.remove("userToken");
-        location.href="/login";
+        location.href = "/login";
     }
 
-    $scope.init=(cid)=>{
+    $scope.init = (cid) => {
         debugger;
-        $rootScope.currentCustomerId=cid;
-        if(cid==0 || cid == null || cid == undefined){
+        $rootScope.currentCustomerId = cid;
+        if (cid == 0 || cid == null || cid == undefined) {
             $scope.changeMenu('dashboard');
-        }else {
+        } else {
             $scope.changeMenu('customer-dashboard');
         }
     }

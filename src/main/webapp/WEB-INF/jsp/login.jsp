@@ -43,9 +43,11 @@
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" autocomplete="false"
                            ng-model="user.password">
-                    <div id="emailHelp" class="form-text">Do not share your username and password</div>
-                </div>
+                                   </div>
+                <br/>
                 <button type="submit" class="btn btn-primary" ng-click="doLogin()">Login</button>
+                <br/>
+                <div id="emailHelp" class="form-text" style="cursor: pointer" ng-click="doRegister()">Do not have an account?</div>
             </form>
         </div>
         <div class="col-3"></div>

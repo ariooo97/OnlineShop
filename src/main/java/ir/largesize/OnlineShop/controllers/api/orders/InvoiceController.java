@@ -14,6 +14,7 @@ import ir.largesize.OnlineShop.services.people.CustomerService;
 import ir.largesize.OnlineShop.services.people.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -64,54 +65,92 @@ public class InvoiceController {
                 if (customer.getId() != result.getCustomer().getId())
                     throw new Exception("You can see only your invoice");
             }
-                return new ServiceResponse<Invoice>(ResponseStatus.SUCCESS, result);
-            } catch(Exception e){
-                return new ServiceResponse<Invoice>(e);
-            }
+            return new ServiceResponse<Invoice>(ResponseStatus.SUCCESS, result);
+        } catch (Exception e) {
+            return new ServiceResponse<Invoice>(e);
         }
-
-        @PostMapping("/add")
-        public ServiceResponse<Invoice> add (@RequestBody Invoice data){
-            try {
-                Invoice result = service.add(data);
-                return new ServiceResponse<Invoice>(ResponseStatus.SUCCESS, result);
-            } catch (Exception e) {
-                return new ServiceResponse<Invoice>(e);
-            }
-        }
-
-        @PutMapping("/")
-        public ServiceResponse<Invoice> update (@RequestBody Invoice data){
-            try {
-                Invoice result = service.update(data);
-                return new ServiceResponse<Invoice>(ResponseStatus.SUCCESS, result);
-            } catch (Exception e) {
-                return new ServiceResponse<Invoice>(e);
-            }
-        }
-
-        @DeleteMapping("/{id}")
-        public ServiceResponse<Boolean> delete ( @PathVariable long id){
-            try {
-                boolean result = service.deleteById(id);
-                return new ServiceResponse<Boolean>(ResponseStatus.SUCCESS, result);
-            } catch (Exception e) {
-                return new ServiceResponse<Boolean>(e);
-            }
-        }
-
-        private UserVM getUserVMFromToken(HttpServletRequest request) throws JwtTokenException {
-            String requestTokenHeader = request.getHeader("Authorization");
-            if (requestTokenHeader == null || !requestTokenHeader.startsWith("Bearer"))
-                throw new JwtTokenException("request token header dose not set");
-
-            String token = requestTokenHeader.substring(7);
-            String userName = jwtTokenUtil.getUserNameFromToken(token);
-
-            if (userName == null)
-                throw new JwtTokenException("username can not resolve");
-            UserVM userVm = new UserVM(userService.getByUserName(userName));
-            return userVm;
-        }
-
     }
+
+    @GetMapping("/getNewOrder")
+    public ServiceResponse<Invoice> newOrder(@RequestParam Integer pageSize,
+                                             @RequestParam Integer pageNumber) {
+
+        try {
+            List<Invoice> result = service.findByStatus(pageSize, pageNumber);
+            long totalCount = service.getCountByStatus();
+            return new ServiceResponse<Invoice>(ResponseStatus.SUCCESS, result,totalCount);
+        } catch (Exception e) {
+            return new ServiceResponse<Invoice>(e);
+        }
+    }
+
+    @GetMapping("/getAll")
+    public ServiceResponse<Invoice> getAll(@RequestParam Integer pageSize,
+                                             @RequestParam Integer pageNumber) {
+
+        try {
+            List<Invoice> result = service.getAll(pageSize, pageNumber);
+            long totalCount = service.getAllCount();
+            return new ServiceResponse<Invoice>(ResponseStatus.SUCCESS, result,totalCount);
+        } catch (Exception e) {
+            return new ServiceResponse<Invoice>(e);
+        }
+    }
+
+    @PostMapping("/add")
+    public ServiceResponse<Invoice> add(@RequestBody Invoice data) {
+        try {
+            Invoice result = service.add(data);
+            return new ServiceResponse<Invoice>(ResponseStatus.SUCCESS, result);
+        } catch (Exception e) {
+            return new ServiceResponse<Invoice>(e);
+        }
+    }
+
+    @PutMapping("/")
+    public ServiceResponse<Invoice> update(@RequestBody Invoice data) {
+        try {
+            Invoice result = service.update(data);
+            return new ServiceResponse<Invoice>(ResponseStatus.SUCCESS, result);
+        } catch (Exception e) {
+            return new ServiceResponse<Invoice>(e);
+        }
+    }
+
+    @PutMapping("/update/")
+    public ServiceResponse<Invoice> updateStatus(@RequestBody long id) {
+        try {
+            Invoice result = service.getById(id);
+            result.setInvoiceStatus(true);
+            service.update(result);
+            return new ServiceResponse<Invoice>(ResponseStatus.SUCCESS, result);
+        } catch (Exception e) {
+            return new ServiceResponse<Invoice>(e);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ServiceResponse<Boolean> delete(@PathVariable long id) {
+        try {
+            boolean result = service.deleteById(id);
+            return new ServiceResponse<Boolean>(ResponseStatus.SUCCESS, result);
+        } catch (Exception e) {
+            return new ServiceResponse<Boolean>(e);
+        }
+    }
+
+    private UserVM getUserVMFromToken(HttpServletRequest request) throws JwtTokenException {
+        String requestTokenHeader = request.getHeader("Authorization");
+        if (requestTokenHeader == null || !requestTokenHeader.startsWith("Bearer"))
+            throw new JwtTokenException("request token header dose not set");
+
+        String token = requestTokenHeader.substring(7);
+        String userName = jwtTokenUtil.getUserNameFromToken(token);
+
+        if (userName == null)
+            throw new JwtTokenException("username can not resolve");
+        UserVM userVm = new UserVM(userService.getByUserName(userName));
+        return userVm;
+    }
+
+}

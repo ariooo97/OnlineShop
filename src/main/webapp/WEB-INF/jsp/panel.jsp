@@ -35,6 +35,9 @@
     <script src="scripts/controllers/site/slider/sliderEditController.js"></script>
     <script src="scripts/controllers/site/blog/blogListController.js"></script>
     <script src="scripts/controllers/site/blog/blogAddController.js"></script>
+    <script src="scripts/controllers/site/order/newOrderController.js"></script>
+    <script src="scripts/controllers/site/order/allOrdersController.js"></script>
+    <script src="scripts/controllers/site/order/newOrderInvoiceDetailController.js"></script>
     <script src="scripts/controllers/site/blog/blogEditController.js"></script>
     <script src="scripts/controllers/people/users/userListController.js"></script>
     <script src="scripts/controllers/people/users/userAddController.js"></script>
@@ -133,6 +136,18 @@
                         <a href="#" ng-click="changeMenu('customer-list')">
                             <i class="fa fa-shopping-bag"></i>
                             <span>Customers</span>
+                        </a>
+                    </li>
+                    <li ng-class="{'slide-nav-active':templateGroup=='new-order'}">
+                        <a href="#" ng-click="changeMenu('new-order')">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span>New Orders</span>
+                        </a>
+                    </li>
+                    <li ng-class="{'slide-nav-active':templateGroup=='all-orders'}">
+                        <a href="#" ng-click="changeMenu('all-orders')">
+                            <i class="fa fa-receipt"></i>
+                            <span>All Invoices</span>
                         </a>
                     </li>
                     <li ng-class="{'slide-nav-active':templateGroup=='uploader'}">

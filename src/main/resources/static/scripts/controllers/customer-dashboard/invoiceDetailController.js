@@ -20,6 +20,7 @@ app.controller('invoiceDetailsCtrl', function ($scope, apiHandler, $rootScope) {
         }, true);
     }
 
+
     $scope.init = () => {
         debugger;
         $scope.dataId = $rootScope.customerId;

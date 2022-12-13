@@ -90,6 +90,7 @@ public class PaymentService {
         invoice.setPayedDate(null);
         invoice.setOrderItems(orderItemList);
         invoice.setInvoiceStatus(false);
+        invoice.setPayedStatus(false);
         invoiceService.add(invoice);
         response.setDescription(data.getOrderItems().size() + " products for " + data.getCustomer().getFullName());
         response.setMobile(customerInfo.getMobile());
@@ -116,6 +117,7 @@ public class PaymentService {
              if(result.getTransactionVerify()==100){
                  Invoice invoice = invoiceService.getById(result.getInvoice().getId());
                  invoice.setPayedDate(new Date());
+                 invoice.setPayedStatus(true);
                  invoiceService.update(invoice);
              }
         }

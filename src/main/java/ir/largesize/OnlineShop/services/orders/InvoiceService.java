@@ -24,8 +24,9 @@ public class InvoiceService {
     }
 
     public  long getCountByStatus(){
-        return repository.countByInvoiceStatusIsFalse();
+        return repository.countByInvoiceStatusIsFalseAndPayedStatusIsTrue();
     }
+
 
     public  long countByPayedDateIsNotNull(){
         return repository.countByPayedDateIsNotNull();
@@ -35,11 +36,25 @@ public class InvoiceService {
         return repository.findAllByCustomer(customerId);
     }
 
+    public List<Invoice> findByStatus(Integer pageSize, Integer pageNumber){
+              Pageable page = PageRequest.of(pageNumber, pageSize, Sort.by("id"));
+        Page<Invoice> all = repository.findAllByInvoiceStatusIsFalseAndPayedStatusIsTrue(page);
+        return all.toList();
+    }
+
+    public List<Invoice> getAll(Integer pageSize, Integer pageNumber){
+        Pageable page = PageRequest.of(pageNumber, pageSize, Sort.by("id"));
+        Page<Invoice> all = repository.getAllByIdIsNotNull(page);
+        return all.toList();
+    }
+
     public List<Invoice> findByCustomer(long customerId,Integer pageSize, Integer pageNumber) {
         Pageable page = PageRequest.of(pageNumber, pageSize, Sort.by("id"));
         Page<Invoice> all = repository.findAllByCustomer(customerId,page);
         return all.toList();
     }
+
+
 
     public Invoice getById(long id) {
         Optional<Invoice> data = repository.findById(id);

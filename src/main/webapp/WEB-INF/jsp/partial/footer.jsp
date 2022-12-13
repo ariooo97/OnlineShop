@@ -31,10 +31,10 @@
                 <br/>
                 <div>
                     <a href="{{getContent('instagram-link') | removeHTMLTags}}" class="footer-social">
-                        <i class="fa fa-instagram-square"></i>
+                        <i class="fa fa-instagram"></i>
                     </a>
                     <a href="{{getContent('telegram-link') | removeHTMLTags}}" class="footer-social">
-                        <i class="fas fa-telegram"  style='color: rgba(75,75,229,0.96)'></i>
+                        <i class="fab fa-telegram"></i>
                     </a>
                 </div>
             </div>

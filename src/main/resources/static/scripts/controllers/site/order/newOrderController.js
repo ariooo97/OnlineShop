@@ -1,4 +1,4 @@
-app.controller('customerListCtrl', function ($scope, apiHandler, $rootScope) {
+app.controller('newOrderCtrl', function ($scope, apiHandler, $rootScope) {
     $scope.query = {
         pageSize: 10,
         pageNumber: 0
@@ -7,9 +7,11 @@ app.controller('customerListCtrl', function ($scope, apiHandler, $rootScope) {
     $scope.totalCount = 0;
     $scope.pageCount = 0;
     $scope.dataList = [];
+    $scope.view=false;
 
     $scope.getDataList = () => {
-        let url = 'customer/getAll?pageSize=' + $scope.query.pageSize + '&pageNumber='
+        debugger;
+        let url = 'invoice/getNewOrder?pageSize=' + $scope.query.pageSize + '&pageNumber='
             + $scope.query.pageNumber;
         apiHandler.callGet(url, (response) => {
             debugger;
@@ -25,11 +27,12 @@ app.controller('customerListCtrl', function ($scope, apiHandler, $rootScope) {
         }, true);
     }
 
-    $scope.showInvoices = (id) =>{
-        debugger;
-        $rootScope.user.customerId = id;
-        $scope.changeMenu('customer-dashboard');
 
+
+    $scope.showItem =(id)=>{
+        $scope.view=true;
+        $rootScope.customerId=id;
+        $scope.changeMenu('newOrderInvoice-detail');
     }
 
     $scope.changePage = (pageNumber) => {

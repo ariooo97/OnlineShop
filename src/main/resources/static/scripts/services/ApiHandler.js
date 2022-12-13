@@ -88,6 +88,7 @@ app.service("apiHandler", function ($http, $cookies) {
     }
 
     this.callPut = (url, data, onSuccess, onError, setToken) => {
+        debugger;
         url = "/api/" + url;
         let request = {
             url: url,

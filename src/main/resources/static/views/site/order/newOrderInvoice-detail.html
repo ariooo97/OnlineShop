@@ -1,11 +1,11 @@
-<div ng-controller="invoiceDetailsCtrl">
+<div ng-controller="newOrderInvoiceDetailsCtrl">
     <div class="container  p-3">
         <div class="row">
             <div class="col">
                 <div class="card text-center">
                     <div class="card-header">
                         <h1><span class="badge  bg-info">Invoices Detail</span>
-                            <a ng-click="changeMenu('customer-dashboard')" class="btn btn-sm btn-primary float-end">Return</a>
+                            <a ng-click="invoiceAction(data.id)" class="btn btn-sm btn-primary float-end">Confirm & Return</a>
                         </h1>
                     </div>
                     <div class="card-body">

@@ -36,6 +36,7 @@ public class JwtRequestFilter implements Filter {
         excludeContentUrls.add("/api/product/getAll/");
         excludeContentUrls.add("/api/product/info/");
         excludeUrls.add("/api/user/login");
+        excludeUrls.add("/api/user/register");
         excludeUrls.add("/api/color/");
         excludeUrls.add("/api/nav/");
         excludeUrls.add("/api/slider/");
@@ -48,6 +49,9 @@ public class JwtRequestFilter implements Filter {
         excludeUrls.add("/api/blog/getAllData");
         excludeUrls.add("/api/payment/");
         excludeUrls.add("/api/invoice/find");
+        excludeUrls.add("/api/invoice/getNewOrder");
+        excludeUrls.add("/api/invoice/getAll");
+        excludeUrls.add("/api/invoice/update");
         excludeUrls.add("/api/user/getUserInfo");
 
     }

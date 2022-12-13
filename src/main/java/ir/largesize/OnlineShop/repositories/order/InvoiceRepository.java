@@ -19,9 +19,15 @@ public interface InvoiceRepository extends PagingAndSortingRepository<Invoice,Lo
             countQuery = "select count(id) from Invoice where customer.id= :customerId")
     Page<Invoice> findAllByCustomer(long customerId, Pageable pageable);
 
+    Page<Invoice> findAllByInvoiceStatusIsFalseAndPayedStatusIsTrue(Pageable pageable);
+
+    Page<Invoice> getAllByIdIsNotNull(Pageable pageable);
+
     long countByPayedDateIsNotNull();
 
-    long countByInvoiceStatusIsFalse();
+    long countByInvoiceStatusIsFalseAndPayedStatusIsTrue();
+
+
 
 
 

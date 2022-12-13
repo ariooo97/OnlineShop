@@ -21,4 +21,9 @@ app.controller("loginCtrl", function ($scope, apiHandler, $cookies) {
             }, (error) => {
             });
     }
+
+    $scope.doRegister = () => {
+        location.href = "/register"
+    }
+
 });

@@ -22,6 +22,7 @@
     background-color: #34495e;
     color: white;
     height: 100%;
+    border-radius: 0em 0em 1em;
 }
 .slide-nav ul{
     list-style:none;

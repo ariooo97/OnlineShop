@@ -11,6 +11,7 @@ import ir.largesize.OnlineShop.helper.uimodels.CustomerVM;
 import ir.largesize.OnlineShop.helper.uimodels.UserVM;
 import ir.largesize.OnlineShop.services.people.CustomerService;
 import ir.largesize.OnlineShop.services.people.UserService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +39,7 @@ public class UserController {
             return new ServiceResponse<UserVM>(ResponseStatus.FAILED, "Username And Password Incorrect");
 
         UserVM userVm = new UserVM(userData);
-        String token=jwtTokenUtil.generateToken(userVm);
+        String token = jwtTokenUtil.generateToken(userVm);
         userVm.setToken(token);
         return new ServiceResponse<UserVM>(ResponseStatus.SUCCESS, userVm);
 
@@ -49,17 +50,17 @@ public class UserController {
             @RequestParam Integer pageSize,
             @RequestParam Integer pageNumber) {
         try {
-            List<User> result = service.getAll(pageSize,pageNumber);
-            List<UserVM> resultVm=new ArrayList<>();
-            result.stream().forEach(x->resultVm.add(new UserVM(x)));
-            long totalCount=service.getAllCount();
-            return new ServiceResponse<UserVM>(ResponseStatus.SUCCESS, resultVm,totalCount);
+            List<User> result = service.getAll(pageSize, pageNumber);
+            List<UserVM> resultVm = new ArrayList<>();
+            result.stream().forEach(x -> resultVm.add(new UserVM(x)));
+            long totalCount = service.getAllCount();
+            return new ServiceResponse<UserVM>(ResponseStatus.SUCCESS, resultVm, totalCount);
         } catch (Exception e) {
             return new ServiceResponse<UserVM>(e);
         }
     }
 
-     @GetMapping("/{id}")
+    @GetMapping("/{id}")
     public ServiceResponse<UserVM> search(@PathVariable long id) {
         try {
             User result = service.getById(id);
@@ -68,21 +69,22 @@ public class UserController {
             return new ServiceResponse<UserVM>(e);
         }
     }
+
     @GetMapping("/getUserInfo")
     public ServiceResponse<UserVM> getUserInfo(HttpServletRequest request) {
         try {
-            String requestTokenHeader =request.getHeader("Authorization");
-            if(requestTokenHeader==null || !requestTokenHeader.startsWith("Bearer "))
+            String requestTokenHeader = request.getHeader("Authorization");
+            if (requestTokenHeader == null || !requestTokenHeader.startsWith("Bearer "))
                 throw new JwtTokenException("request token header dose not set");
 
-            String token=requestTokenHeader.substring(7);
-            String userName=jwtTokenUtil.getUserNameFromToken(token);
+            String token = requestTokenHeader.substring(7);
+            String userName = jwtTokenUtil.getUserNameFromToken(token);
 
-            if(userName==null)
+            if (userName == null)
                 throw new JwtTokenException("username can not resolve");
 
             UserVM user = new UserVM(service.getByUserName(userName));
-            if(user.getRole() != UserRole.ADMIN) {
+            if (user.getRole() != UserRole.ADMIN) {
                 Customer customer = customerService.getByUserId(user.getId());
                 user.setCustomerId(customer.getId());
                 user.setCustomer(new CustomerVM(customer));
@@ -92,16 +94,49 @@ public class UserController {
             return new ServiceResponse<UserVM>(e);
         }
     }
+
     @PostMapping("/add")
     public ServiceResponse<UserVM> add(@RequestBody User data) {
         try {
 
             User result = service.add(data);
-
-            return new ServiceResponse<UserVM>(ResponseStatus.SUCCESS, new UserVM(result));
+            return getNewCustomer(result);
         } catch (Exception e) {
             return new ServiceResponse<UserVM>(e);
         }
+    }
+
+
+
+    @PostMapping("/register")
+    public ServiceResponse<UserVM> register(@RequestBody User data) {
+        try {
+            User result = new User();
+            result.setFirstName(data.getFirstName());
+            result.setLastName(data.getLastName());
+            result.setUserName(data.getUserName());
+            result.setPassword(data.getPassword());
+            result.setEmail("");
+            result.setRole(UserRole.USER);
+            result.setEnable(true);
+            service.add(result);
+            return getNewCustomer(result);
+        } catch (Exception e) {
+            return new ServiceResponse<UserVM>(e);
+        }
+    }
+    @NotNull
+    private ServiceResponse<UserVM> getNewCustomer(User result) {
+        Customer customer = new Customer();
+        customer.setUser(result);
+        customer.setFirstName(result.getFirstName());
+        customer.setLastName(result.getLastName());
+        customer.setMobile("");
+        customer.setTel("");
+        customer.setAddress("");
+        customer.setPostalCode("");
+        customerService.add(customer);
+        return new ServiceResponse<UserVM>(ResponseStatus.SUCCESS, new UserVM(result));
     }
 
     @PutMapping("/")

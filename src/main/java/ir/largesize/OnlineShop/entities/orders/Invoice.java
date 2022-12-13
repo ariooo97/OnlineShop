@@ -24,6 +24,7 @@ public class Invoice {
     private List<OrderItem> orderItems;
 
     private boolean invoiceStatus;
+    private boolean payedStatus;
     private Date invoiceDate;
     private Date payedDate;
     private String invoiceDateStr;
@@ -71,13 +72,15 @@ public class Invoice {
         this.payedDate = payedDate;
     }
 
-    public boolean isPayed() {
-        return getPayedDate() != null;
+    public boolean isPayedStatus() {
+        return payedStatus;
     }
 
     public boolean isInvoiceStatus() {
         return invoiceStatus;
     }
+
+
 
     public void setInvoiceStatus(boolean invoiceStatus) {
         this.invoiceStatus = invoiceStatus;
@@ -89,10 +92,13 @@ public class Invoice {
     }
 
     public String getPayedDateStr() {
-        if(!isPayed())
+        if(!isPayedStatus())
             return "";
         SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return format.format(payedDate);
     }
 
+    public void setPayedStatus(boolean payed) {
+        this.payedStatus = payed;
+    }
 }
